@@ -1,606 +1,552 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Comanda Fácil</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0a0c15" />
+<title>Abismo — Idle Cave Explorer</title>
 <style>
-:root{
-  --bg:#f3f6fa;--card:#fff;--primary:#1769e0;--primary2:#0d4fae;
-  --text:#17202a;--muted:#6b7785;--border:#dce3eb;--danger:#d9363e;
-  --success:#16834b;--shadow:0 8px 25px rgba(20,45,80,.08);
-}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--text)}
-header{background:linear-gradient(135deg,#0d4fae,#1769e0);color:#fff;padding:20px}
-.header-inner{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
-header h1{margin:0;font-size:24px}
-header p{margin:5px 0 0;opacity:.85}
-#clock{font-size:13px;opacity:.9;text-align:right}
-.container{max-width:1200px;margin:25px auto;padding:0 15px}
-.grid{display:grid;grid-template-columns:1.5fr .8fr;gap:20px}
-.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:var(--shadow)}
-h2{font-size:18px;margin:0 0 18px}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-label{font-size:13px;font-weight:bold;color:#475465;display:block;margin-bottom:6px}
-input,textarea,select{width:100%;border:1px solid var(--border);border-radius:9px;padding:11px;font-size:15px;outline:none;background:#fff;font-family:inherit}
-input:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(23,105,224,.1)}
-textarea{resize:vertical;min-height:70px}
-.full{grid-column:1/-1}
-.add-row{display:grid;grid-template-columns:1fr 90px 130px auto;gap:10px;align-items:end;margin-top:15px}
-button{border:0;border-radius:9px;padding:11px 15px;font-size:14px;font-weight:bold;cursor:pointer;transition:.15s;font-family:inherit}
-button:hover{transform:translateY(-1px)}
-button:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary2)}
-.btn-secondary{background:#eaf1fb;color:#1454a0}
-.btn-danger{background:#fee8e8;color:var(--danger);padding:6px 10px}
-.btn-success{background:var(--success);color:#fff}
-.btn-dark{background:#202b36;color:#fff}
-.btn-wpp{background:#25d366;color:#fff}
-table{width:100%;border-collapse:collapse;margin-top:20px}
-th,td{padding:11px 8px;border-bottom:1px solid var(--border);text-align:left;font-size:14px}
-th{color:var(--muted);font-size:12px;text-transform:uppercase}
-tbody tr:hover{background:#f8fbff;cursor:pointer}
-.right{text-align:right}.empty{text-align:center;color:var(--muted);padding:25px}
-.total{display:flex;justify-content:space-between;align-items:center;font-size:20px;font-weight:bold;padding-top:18px}
-.total strong{color:var(--primary)}
-.actions{display:grid;gap:10px;margin-top:20px}
-.actions .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.status{margin-top:12px;padding:10px;border-radius:8px;font-size:13px;display:none}
-.status.show{display:block}.status.ok{background:#e7f7ef;color:#11663c}.status.error{background:#fee8e8;color:#a51d25}
-.history{margin-top:20px}
-.history-item{border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:9px;display:flex;justify-content:space-between;gap:10px;align-items:center}
-.history-item small{color:var(--muted)}
-.badge{background:#eaf1fb;color:#1454a0;padding:4px 8px;border-radius:20px;font-size:12px;font-weight:bold}
-.hint{font-size:12px;color:var(--muted);margin-top:6px}
-@media(max-width:800px){
-  .grid{grid-template-columns:1fr}
-  .form-grid{grid-template-columns:1fr}
-  .full{grid-column:auto}
-  .add-row{grid-template-columns:1fr 80px 110px}
-  .add-row button{grid-column:1/-1}
-}
-@media(max-width:520px){
-  .add-row{grid-template-columns:1fr 1fr}
-  .add-row input:first-child{grid-column:1/-1}
-  table{font-size:12px}
-  th,td{padding:8px 4px}
-  .actions .row{grid-template-columns:1fr}
-}
-@media print{
-  body{background:#fff}
-  .no-print,header,.history{display:none!important}
-  .container{margin:0;padding:0}
-  .grid{display:block}
-  .card{box-shadow:none;border:0;padding:0}
-  .print-area{display:block!important}
-  .print-area h1{font-size:18px;text-align:center}
-  .print-area p{margin:4px 0}
-}
+  :root {
+    color-scheme: dark;
+    --bg: #090b12;
+    --panel: #111522;
+    --panel-2: #171c2c;
+    --line: #293149;
+    --muted: #9ba7c4;
+    --text: #f3f5ff;
+    --red: #ff263f;
+    --cyan: #54e8ff;
+    --gold: #ffd166;
+    --green: #60f2a7;
+    --radius: 17px;
+  }
+  * { box-sizing: border-box; }
+  html { min-height: 100%; background: var(--bg); }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(ellipse at 50% -15%, #1a2240 0%, #0b0d17 47%, #080910 100%);
+    color: var(--text);
+    font: 15px/1.45 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  button { font: inherit; }
+  .app { width: min(1240px, 100%); margin: 0 auto; padding: 22px clamp(12px, 3vw, 28px) 30px; }
+  .topbar { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:20px; }
+  .brand { display:flex; align-items:center; gap:12px; min-width:0; }
+  .brand-mark { width:43px; height:43px; display:grid; place-items:center; border:1px solid #ff5063; border-radius:13px; color:#fff; background:linear-gradient(145deg,#ff384d,#b90828); box-shadow:0 0 25px #ff243b32, inset 0 1px 0 #ffffff55; font-weight:950; font-size:21px; transform:rotate(-3deg); }
+  .brand h1 { margin:0; font-size:clamp(19px, 3vw, 25px); letter-spacing:.12em; line-height:1.1; }
+  .brand p { margin:4px 0 0; color:var(--muted); font-size:11px; letter-spacing:.17em; text-transform:uppercase; }
+  .top-actions { display:flex; gap:8px; align-items:center; }
+  .tiny-btn, .mode-btn, .action-btn { cursor:pointer; border:1px solid var(--line); color:var(--text); background:#171b2b; border-radius:11px; transition:transform .14s ease,border-color .14s ease,background .14s ease,opacity .14s ease; -webkit-tap-highlight-color:transparent; }
+  button:active { transform:translateY(1px) scale(.99); }
+  button:focus-visible { outline:2px solid var(--cyan); outline-offset:3px; }
+  .tiny-btn { padding:9px 12px; color:#c6cee4; font-size:12px; }
+  .tiny-btn:hover, .mode-btn:hover, .action-btn:hover { border-color:#536080; }
+  .stats { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; margin-bottom:14px; }
+  .stat { padding:13px 14px; min-width:0; border:1px solid var(--line); border-radius:14px; background:linear-gradient(145deg,#151a2a,#0f121e); box-shadow:0 8px 20px #00000018; }
+  .stat-label { display:flex; justify-content:space-between; gap:6px; align-items:center; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.09em; }
+  .stat-value { margin-top:6px; font-size:clamp(19px,2.4vw,26px); font-weight:800; letter-spacing:-.035em; overflow-wrap:anywhere; }
+  .stat-value small { font-size:12px; font-weight:600; color:var(--muted); letter-spacing:0; }
+  .red { color:#ff5367; } .cyan { color:var(--cyan); } .gold { color:var(--gold); } .green { color:var(--green); }
+  .main-grid { display:grid; grid-template-columns:minmax(0,1.7fr) minmax(280px,.85fr); gap:14px; align-items:stretch; }
+  .panel { border:1px solid var(--line); border-radius:var(--radius); background:linear-gradient(155deg,rgba(20,25,41,.97),rgba(13,16,27,.97)); overflow:hidden; box-shadow:0 16px 45px #00000026; min-width:0; }
+  .panel-head { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:16px 18px; border-bottom:1px solid #252c40; }
+  .panel-title { margin:0; font-size:13px; text-transform:uppercase; letter-spacing:.12em; font-weight:800; }
+  .eyebrow { color:var(--muted); font-size:11px; letter-spacing:.12em; text-transform:uppercase; }
+  .floor-chip { font-size:12px; padding:6px 10px; border:1px solid #3b3c59; border-radius:999px; background:#20213b; color:#c8c9ff; white-space:nowrap; }
+  .scene-wrap { position:relative; padding:12px; background:linear-gradient(#0b0e18,#101321); }
+  #scene { display:block; width:100%; height:clamp(250px, 37vw, 410px); border:1px solid #2a3248; border-radius:13px; background:#0b0e19; }
+  .scene-overlay { position:absolute; left:25px; top:22px; right:25px; display:flex; justify-content:space-between; gap:10px; pointer-events:none; }
+  .scene-label { padding:7px 10px; border-radius:8px; border:1px solid #ffffff1b; background:#080b16b8; color:#f3f5ff; font-size:11px; letter-spacing:.09em; text-transform:uppercase; backdrop-filter:blur(5px); }
+  .scene-label span { color:var(--cyan); }
+  .fight-status { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:0 16px 15px; }
+  .combatant { padding:12px; background:#0e111d; border:1px solid #252c40; border-radius:12px; min-width:0; }
+  .combatant-top { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:8px; }
+  .combatant-name { font-size:12px; font-weight:750; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .hp-numbers { font-size:11px; color:#b7c0d9; white-space:nowrap; }
+  .bar { height:8px; background:#292d3c; border-radius:999px; overflow:hidden; box-shadow:inset 0 1px 2px #0008; }
+  .bar-fill { height:100%; width:100%; border-radius:999px; transition:width .22s ease; }
+  #player-hp-fill { background:linear-gradient(90deg,#ff203b,#ff6879); box-shadow:0 0 12px #ff203b88; }
+  #enemy-hp-fill { background:linear-gradient(90deg,#ea7cff,#a98cff); box-shadow:0 0 12px #ca83ff66; }
+  .combatant-foot { display:flex; justify-content:space-between; gap:8px; color:#8f9ab6; font-size:10px; margin-top:7px; }
+  .side-stack { display:flex; flex-direction:column; gap:14px; min-width:0; }
+  .mode-content { padding:15px 16px 17px; }
+  .mode-switch { display:grid; grid-template-columns:1fr 1fr; padding:4px; gap:4px; background:#0a0d17; border:1px solid #252c40; border-radius:13px; }
+  .mode-btn { padding:11px 10px; border-color:transparent; background:transparent; color:#9ba7c4; font-size:12px; font-weight:800; letter-spacing:.06em; }
+  .mode-btn.active[data-mode="auto"] { color:#09120f; background:linear-gradient(135deg,#7af5bc,#38d6a0); box-shadow:0 3px 14px #41e4a02b; }
+  .mode-btn.active[data-mode="manual"] { color:#071318; background:linear-gradient(135deg,#77f0ff,#44c6ef); box-shadow:0 3px 14px #44c6ef2b; }
+  .mode-description { color:var(--muted); font-size:12px; min-height:35px; margin:12px 2px 13px; }
+  .action-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .action-btn { position:relative; display:flex; align-items:center; justify-content:center; gap:8px; padding:12px 8px; min-height:46px; font-size:12px; font-weight:800; }
+  .action-btn .ico { font-size:16px; line-height:1; }
+  .action-btn.primary { color:#fff; border-color:#a72037; background:linear-gradient(135deg,#ff344e,#bd1536); box-shadow:0 6px 15px #f42d4726; }
+  .action-btn.defend { background:#1b2540; border-color:#354a78; color:#9ed4ff; }
+  .action-btn.heal { background:#172c2b; border-color:#27594c; color:#85f7bf; }
+  .action-btn.explore { grid-column:1/-1; color:#10110a; border:0; background:linear-gradient(135deg,#ffe28c,#ffb84e); }
+  .action-btn:disabled { opacity:.32; cursor:not-allowed; transform:none; filter:saturate(.5); }
+  .helper { color:#7f8ba8; font-size:10px; text-align:center; margin:11px 0 0; }
+  .upgrade-row { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:12px; padding:13px 16px; border-top:1px solid #252c40; }
+  .upgrade-row:first-of-type { border-top:0; }
+  .upgrade-name { font-size:12px; font-weight:800; }
+  .upgrade-desc { margin-top:3px; font-size:11px; color:var(--muted); }
+  .buy-btn { border:1px solid #3e4a6b; color:#e4e9ff; background:#202742; border-radius:9px; padding:8px 10px; font-size:11px; font-weight:800; white-space:nowrap; cursor:pointer; }
+  .buy-btn:disabled { opacity:.34; cursor:not-allowed; }
+  .log-panel { margin-top:14px; }
+  .log-list { display:flex; flex-direction:column; gap:0; padding:4px 17px 10px; max-height:180px; overflow:auto; scrollbar-color:#39425d transparent; }
+  .log-line { display:grid; grid-template-columns:56px 1fr; gap:10px; align-items:start; padding:9px 0; border-bottom:1px solid #202638; color:#b3bdd6; font-size:12px; }
+  .log-line:last-child { border-bottom:0; }
+  .log-time { color:#697795; font:10px ui-monospace, SFMono-Regular, Menlo, monospace; padding-top:2px; }
+  .log-line.good .log-message { color:#84edbb; } .log-line.bad .log-message { color:#ff8290; } .log-line.info .log-message { color:#a2dfff; }
+  .bottom-note { color:#65718e; font-size:10px; text-align:center; margin:15px 0 0; }
+  .toast { position:fixed; z-index:20; left:50%; bottom:calc(20px + env(safe-area-inset-bottom)); max-width:calc(100% - 32px); transform:translate(-50%,18px); opacity:0; pointer-events:none; background:#202943; border:1px solid #445375; color:#f5f7ff; border-radius:12px; padding:11px 15px; box-shadow:0 12px 35px #0009; font-size:12px; transition:opacity .18s ease,transform .18s ease; text-align:center; }
+  .toast.show { opacity:1; transform:translate(-50%,0); }
+  .mode-mini { display:none; }
+  @media (max-width:820px) {
+    .app { padding-top:14px; }
+    .stats { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    .main-grid { grid-template-columns:1fr; }
+    .side-stack { display:grid; grid-template-columns:1fr 1fr; align-items:start; }
+    .side-stack .panel:first-child { grid-row:span 2; }
+    #scene { height:clamp(240px, 56vw, 370px); }
+  }
+  @media (max-width:560px) {
+    .topbar { align-items:flex-start; }
+    .brand-mark { width:38px; height:38px; }
+    .brand p { font-size:9px; letter-spacing:.12em; }
+    .tiny-btn { padding:8px 9px; font-size:11px; }
+    .stats { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+    .stat { padding:11px 12px; }
+    .stat:last-child { grid-column:1/-1; }
+    .side-stack { display:flex; }
+    .scene-wrap { padding:8px; }
+    #scene { height:250px; }
+    .scene-overlay { left:17px; top:16px; right:17px; }
+    .scene-label { font-size:9px; padding:6px 7px; }
+    .fight-status { padding:0 10px 12px; gap:8px; }
+    .combatant { padding:10px 9px; }
+    .combatant-name { font-size:11px; }
+    .hp-numbers { font-size:10px; }
+    .panel-head { padding:14px 14px; }
+    .mode-content { padding:13px; }
+    .action-btn { min-height:47px; }
+  }
+  @media (prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none !important; animation:none !important; } }
 </style>
 </head>
 <body>
-
-<header class="no-print">
-  <div class="header-inner">
-    <div>
-      <h1>🍽️ Comanda Fácil</h1>
-      <p>Sistema simples de pedidos para mesas e comandas</p>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">A</div>
+      <div><h1>ABISMO</h1><p>Idle cave explorer · protótipo jogável</p></div>
     </div>
-    <span id="clock"></span>
-  </div>
-</header>
+    <div class="top-actions">
+      <button class="tiny-btn" id="sound-btn" type="button" aria-pressed="false" title="Ativar ou desativar efeitos sonoros">♫ Som: off</button>
+      <button class="tiny-btn" id="reset-btn" type="button" title="Apagar progresso salvo">↻ Reiniciar</button>
+    </div>
+  </header>
 
-<div class="container">
-  <div class="grid">
+  <section class="stats" aria-label="Estatísticas do explorador">
+    <div class="stat"><div class="stat-label">Andar atual <span>⬇</span></div><div class="stat-value cyan" id="floor-stat">01</div></div>
+    <div class="stat"><div class="stat-label">Vida <span>♥</span></div><div class="stat-value red" id="hp-stat">100 <small>/ 100</small></div></div>
+    <div class="stat"><div class="stat-label">Força <span>✦</span></div><div class="stat-value" id="power-stat">12</div></div>
+    <div class="stat"><div class="stat-label">Minério <span>◆</span></div><div class="stat-value gold" id="ore-stat">0</div></div>
+    <div class="stat"><div class="stat-label">Recorde <span>↗</span></div><div class="stat-value green" id="best-stat">01 <small>andar</small></div></div>
+  </section>
 
-    <section class="card">
-      <h2>📋 Novo pedido</h2>
-
-      <div class="form-grid">
-        <div>
-          <label for="mesa">Mesa / Comanda *</label>
-          <input id="mesa" placeholder="Ex.: Mesa 12" autocomplete="off">
-        </div>
-        <div>
-          <label for="cliente">Cliente</label>
-          <input id="cliente" placeholder="Nome do cliente (opcional)" autocomplete="off">
-        </div>
-        <div class="full">
-          <label for="observacao">Observação geral</label>
-          <textarea id="observacao" placeholder="Ex.: sem cebola, pouco gelo, entregar na mesa..."></textarea>
+  <div class="main-grid">
+    <section class="panel game-panel" aria-label="Caverna">
+      <div class="panel-head">
+        <div><div class="eyebrow" id="floor-subtitle">SETOR 01 · CAMADA ROCHOSA</div><h2 class="panel-title" id="scene-title" style="margin-top:4px">Entrada esquecida</h2></div>
+        <div class="floor-chip" id="room-chip">SALA 1 / 3</div>
+      </div>
+      <div class="scene-wrap">
+        <canvas id="scene" role="img" aria-label="Cena de uma caverna com o personagem quadrado vermelho e inimigos geométricos"></canvas>
+        <div class="scene-overlay">
+          <div class="scene-label" id="phase-label">EXPLORAÇÃO <span>●</span></div>
+          <div class="scene-label" id="enemy-label">SINAL: <span>INDEFINIDO</span></div>
         </div>
       </div>
-
-      <h2 style="margin-top:25px">➕ Adicionar item</h2>
-
-      <div class="add-row">
-        <div>
-          <label for="item">Produto / Descrição</label>
-          <input id="item" placeholder="Ex.: X-Burger" autocomplete="off">
+      <div class="fight-status">
+        <div class="combatant">
+          <div class="combatant-top"><span class="combatant-name">■ Explorador vermelho</span><span class="hp-numbers" id="player-hp-text">100 / 100</span></div>
+          <div class="bar"><div class="bar-fill" id="player-hp-fill"></div></div>
+          <div class="combatant-foot"><span id="potion-count">Poções: 2</span><span id="guard-status">Guarda: pronta</span></div>
         </div>
-        <div>
-          <label for="quantidade">Qtd.</label>
-          <input id="quantidade" type="number" min="1" step="1" value="1" inputmode="numeric">
+        <div class="combatant">
+          <div class="combatant-top"><span class="combatant-name" id="enemy-name">Nenhum inimigo</span><span class="hp-numbers" id="enemy-hp-text">—</span></div>
+          <div class="bar"><div class="bar-fill" id="enemy-hp-fill" style="width:0%"></div></div>
+          <div class="combatant-foot"><span id="enemy-type">Aguardando sinal</span><span id="enemy-power">ATQ —</span></div>
         </div>
-        <div>
-          <label for="preco">Preço unit.</label>
-          <input id="preco" type="text" inputmode="decimal" placeholder="0,00" autocomplete="off">
-        </div>
-        <button class="btn-primary" onclick="adicionarItem()">Adicionar</button>
       </div>
-      <p class="hint">💡 Dica: pressione <b>Enter</b> em qualquer campo para adicionar o item. Clique numa linha da tabela para <b>editar</b>.</p>
-
-      <table>
-        <thead>
-          <tr><th>Item</th><th>Qtd.</th><th>Unit.</th><th class="right">Total</th><th></th></tr>
-        </thead>
-        <tbody id="listaItens">
-          <tr><td colspan="5" class="empty">Nenhum item adicionado.</td></tr>
-        </tbody>
-      </table>
-
-      <div class="total">
-        <span>Total <small id="totalItens" style="font-weight:normal;color:var(--muted);font-size:13px"></small></span>
-        <strong id="total">R$ 0,00</strong>
-      </div>
-
-      <div class="actions no-print">
-        <button class="btn-success" onclick="concluirPedido()">✅ Concluir e gerar PDF</button>
-        <div class="row">
-          <button class="btn-wpp" onclick="enviarWhatsApp()">💬 WhatsApp</button>
-          <button class="btn-dark" onclick="imprimirPedido()">🖨️ Imprimir</button>
-        </div>
-        <button class="btn-secondary" onclick="novoPedido()">＋ Limpar / Novo pedido</button>
-      </div>
-
-      <div id="status" class="status"></div>
     </section>
 
-    <aside class="card no-print">
-      <h2>🧾 Resumo</h2>
-      <p><b>Mesa:</b> <span id="resumoMesa">—</span></p>
-      <p><b>Cliente:</b> <span id="resumoCliente">—</span></p>
-      <p><b>Itens:</b> <span id="resumoItens">0</span></p>
-      <p><b>Total:</b> <strong id="resumoTotal">R$ 0,00</strong></p>
+    <aside class="side-stack">
+      <section class="panel">
+        <div class="panel-head"><h2 class="panel-title">Controle de exploração</h2><span class="eyebrow" id="mode-tag">AUTO</span></div>
+        <div class="mode-content">
+          <div class="mode-switch" role="group" aria-label="Modo de jogo">
+            <button type="button" class="mode-btn active" id="auto-mode" data-mode="auto" aria-pressed="true">▶ AUTO</button>
+            <button type="button" class="mode-btn" id="manual-mode" data-mode="manual" aria-pressed="false">✋ MANUAL</button>
+          </div>
+          <p class="mode-description" id="mode-description">O explorador avança, luta e desce os andares sem precisar de comandos.</p>
+          <div class="action-grid">
+            <button class="action-btn primary" id="attack-btn" type="button"><span class="ico">⚔</span> Atacar</button>
+            <button class="action-btn defend" id="defend-btn" type="button"><span class="ico">⬡</span> Defender</button>
+            <button class="action-btn heal" id="heal-btn" type="button"><span class="ico">✚</span> Usar poção</button>
+            <button class="action-btn explore" id="main-action-btn" type="button"><span class="ico">⌕</span> Explorar sala</button>
+          </div>
+          <p class="helper" id="controls-hint">AUTO ativo · troque para MANUAL para comandar cada ação.</p>
+        </div>
+      </section>
 
-      <div class="history">
-        <h2>🕘 Últimos pedidos</h2>
-        <div id="historico"><div class="empty">Nenhum pedido concluído.</div></div>
-      </div>
+      <section class="panel">
+        <div class="panel-head"><h2 class="panel-title">Melhorias</h2><span class="eyebrow">PERMANENTES</span></div>
+        <div class="upgrade-row">
+          <div><div class="upgrade-name">Golpe reforçado</div><div class="upgrade-desc" id="attack-up-desc">+3 de força por nível</div></div>
+          <button class="buy-btn" id="upgrade-attack" type="button">◆ 20</button>
+        </div>
+        <div class="upgrade-row">
+          <div><div class="upgrade-name">Armadura de pedra</div><div class="upgrade-desc" id="hp-up-desc">+20 de vida máxima</div></div>
+          <button class="buy-btn" id="upgrade-hp" type="button">◆ 25</button>
+        </div>
+        <div class="upgrade-row">
+          <div><div class="upgrade-name">Poção de reserva</div><div class="upgrade-desc">Recupera 35% da vida máxima</div></div>
+          <button class="buy-btn" id="buy-potion" type="button">◆ 12</button>
+        </div>
+      </section>
     </aside>
-
-    <section class="card print-area" style="display:none">
-      <div id="comprovante"></div>
-    </section>
-
   </div>
+
+  <section class="panel log-panel">
+    <div class="panel-head"><h2 class="panel-title">Registro da expedição</h2><span class="eyebrow" id="log-count">ÚLTIMOS EVENTOS</span></div>
+    <div class="log-list" id="log-list" aria-live="polite"><div class="log-line info"><span class="log-time">00:00</span><span class="log-message">O sinalizador está pronto. A caverna aguarda.</span></div></div>
+  </section>
+  <p class="bottom-note">SEU PROGRESSO FICA SALVO NESTE NAVEGADOR · Em caso de derrota, você retorna um andar e tenta novamente.</p>
 </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
-
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
-/* ========== Estado ========== */
-let itens = [];
-let pedidos = lerJSON("comanda_pedidos", []);
-let editandoIdx = -1;
+(() => {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const SAVE_KEY = 'abismo_idle_save_v1';
+  const ROOM_COUNT = 3;
+  const palettes = [
+    {name:'CAMADA ROCHOSA', title:'Entrada esquecida', sky:'#111a2a', deep:'#080c18', glow:'#4bd9da', rocks:'#26394b', crystal:'#50e2da', enemies:['#41dfbd','#6eb8ff','#e9c568']},
+    {name:'VEIOS VIOLETAS', title:'Galeria dos ecos', sky:'#20142f', deep:'#0b0918', glow:'#bf75ff', rocks:'#39244b', crystal:'#c58aff', enemies:['#cd74ff','#ff72bd','#8c91ff']},
+    {name:'FALHA ÍGNEA', title:'Fenda incandescente', sky:'#2b171e', deep:'#110a12', glow:'#ff804f', rocks:'#48242d', crystal:'#ff734e', enemies:['#ff5c55','#ffad48','#ff78a8']},
+    {name:'ABISMO AZUL', title:'Mar de obsidiana', sky:'#0e2438', deep:'#070d1a', glow:'#5dc8ff', rocks:'#1b4058', crystal:'#4bc9f1', enemies:['#4edcff','#6d9aff','#4dffd2']},
+    {name:'NÚCLEO ANTIGO', title:'Coração da montanha', sky:'#2d2514', deep:'#100c09', glow:'#ffe16b', rocks:'#4c3e21', crystal:'#ffdc5c', enemies:['#ffe16a','#ff8d45','#f47dff']},
+    {name:'VAZIO FINAL', title:'Onde a luz termina', sky:'#241727', deep:'#05050b', glow:'#ff477e', rocks:'#35223c', crystal:'#ff478e', enemies:['#ff477e','#a16bff','#f6f1ff']}
+  ];
+  const enemyShapes = ['circle','triangle','diamond','hexagon','square','star'];
+  const enemyNames = ['Fragmento','Vigia','Predador','Sentinela','Espectro','Guardião'];
+  let state = defaultState();
+  let timer = null;
+  let lastTick = 0;
+  let canvasFrame = 0;
+  let toastTimer = null;
+  let soundOn = false;
+  let audioContext = null;
+  const particles = Array.from({length:42}, (_,i) => ({x:(i*73%997)/997, y:(i*137%991)/991, r:0.6+(i%4)*.45, speed:.12+(i%5)*.07, phase:i*1.7}));
 
-const STORAGE_PEDIDOS = "comanda_pedidos";
-const STORAGE_RASCUNHO = "comanda_rascunho";
-
-/* ========== Utilidades ========== */
-const fmtBRL = v => new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"}).format(v || 0);
-
-// Para o PDF: substitui o espaço não-quebrável que o Intl insere
-const moneyPDF = v => fmtBRL(v).replace(/\u00A0/g, " ");
-
-// Converte "10,50" ou "10.50" em 10.5
-function parseNumero(str){
-  if (typeof str === "number") return str;
-  if (!str) return NaN;
-  const limpo = String(str).trim().replace(/\s/g, "").replace(",", ".");
-  return parseFloat(limpo);
-}
-
-function lerJSON(chave, fallback){
-  try { return JSON.parse(localStorage.getItem(chave)) ?? fallback; }
-  catch { return fallback; }
-}
-
-function salvarJSON(chave, valor){
-  try { localStorage.setItem(chave, JSON.stringify(valor)); }
-  catch(e){ console.warn("Falha ao salvar em localStorage:", e); }
-}
-
-function esc(s){
-  return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
-}
-
-function aviso(msg, tipo){
-  const el = document.getElementById("status");
-  el.textContent = msg;
-  el.className = "status show " + tipo;
-  clearTimeout(aviso._t);
-  aviso._t = setTimeout(()=>el.className = "status", 3800);
-}
-
-/* ========== Rascunho (não perder dados no F5) ========== */
-function salvarRascunho(){
-  salvarJSON(STORAGE_RASCUNHO, {
-    mesa: document.getElementById("mesa").value,
-    cliente: document.getElementById("cliente").value,
-    observacao: document.getElementById("observacao").value,
-    itens
-  });
-}
-function restaurarRascunho(){
-  const r = lerJSON(STORAGE_RASCUNHO, null);
-  if (!r) return;
-  document.getElementById("mesa").value = r.mesa || "";
-  document.getElementById("cliente").value = r.cliente || "";
-  document.getElementById("observacao").value = r.observacao || "";
-  itens = Array.isArray(r.itens) ? r.itens : [];
-}
-function limparRascunho(){
-  try { localStorage.removeItem(STORAGE_RASCUNHO); } catch {}
-}
-
-/* ========== Render ========== */
-function atualizar(){
-  const tbody = document.getElementById("listaItens");
-  if (!itens.length){
-    tbody.innerHTML = '<tr><td colspan="5" class="empty">Nenhum item adicionado.</td></tr>';
-  } else {
-    tbody.innerHTML = itens.map((x,i)=>`
-      <tr onclick="editarItem(${i})" title="Clique para editar">
-        <td>${esc(x.nome)}</td>
-        <td>${x.qtd}</td>
-        <td>${fmtBRL(x.preco)}</td>
-        <td class="right">${fmtBRL(x.qtd*x.preco)}</td>
-        <td onclick="event.stopPropagation()">
-          <button class="btn-danger" onclick="removerItem(${i})" title="Remover">✕</button>
-        </td>
-      </tr>`).join("");
+  function defaultState(){
+    return {floor:1, bestFloor:1, room:1, phase:'explore', mode:'auto', hp:100, maxHp:100, power:12, ore:0, potions:2, attackLevel:0, hpLevel:0, enemy:null, guard:false, steps:0, totalKills:0, totalDeaths:0, log:[], floorCleared:0};
   }
-
-  const total = itens.reduce((s,x)=>s + x.qtd*x.preco, 0);
-  const totalQtd = itens.reduce((s,x)=>s + x.qtd, 0);
-
-  document.getElementById("total").textContent = fmtBRL(total);
-  document.getElementById("totalItens").textContent = totalQtd ? `(${totalQtd} ${totalQtd===1?"item":"itens"})` : "";
-  document.getElementById("resumoTotal").textContent = fmtBRL(total);
-  document.getElementById("resumoMesa").textContent = document.getElementById("mesa").value || "—";
-  document.getElementById("resumoCliente").textContent = document.getElementById("cliente").value || "—";
-  document.getElementById("resumoItens").textContent = totalQtd;
-
-  renderHistorico();
-  salvarRascunho();
-}
-
-/* ========== Ações de item ========== */
-function adicionarItem(){
-  const nomeEl = document.getElementById("item");
-  const qtdEl  = document.getElementById("quantidade");
-  const precoEl = document.getElementById("preco");
-
-  const nome  = nomeEl.value.trim();
-  const qtd   = parseInt(qtdEl.value, 10);
-  const preco = parseNumero(precoEl.value);
-
-  if (!nome){
-    aviso("Informe o nome do produto.","error"); nomeEl.focus(); return;
+  function save(){
+    try { const data={...state, enemy:state.enemy ? {...state.enemy} : null, log:state.log.slice(0,40)}; localStorage.setItem(SAVE_KEY, JSON.stringify(data)); }
+    catch(e) { /* armazenamento indisponível: o jogo continua jogável */ }
   }
-  if (!Number.isFinite(qtd) || qtd < 1){
-    aviso("Quantidade precisa ser um número inteiro maior que zero.","error"); qtdEl.focus(); return;
+  function load(){
+    try {
+      const raw=localStorage.getItem(SAVE_KEY); if(!raw) return;
+      const data=JSON.parse(raw); if(!data || typeof data!=='object') return;
+      const fresh=defaultState();
+      for(const k of Object.keys(fresh)) if(data[k] !== undefined) fresh[k]=data[k];
+      state={...fresh,
+        floor:clampInt(fresh.floor,1,999), bestFloor:clampInt(fresh.bestFloor,1,999), room:clampInt(fresh.room,1,ROOM_COUNT),
+        maxHp:clampInt(fresh.maxHp,1,999999), hp:clampInt(fresh.hp,0,clampInt(fresh.maxHp,1,999999)), power:clampInt(fresh.power,1,999999),
+        ore:clampInt(fresh.ore,0,999999999), potions:clampInt(fresh.potions,0,9999), attackLevel:clampInt(fresh.attackLevel,0,999), hpLevel:clampInt(fresh.hpLevel,0,999),
+        mode:fresh.mode==='manual'?'manual':'auto', log:Array.isArray(fresh.log)?fresh.log.slice(0,40):[], enemy:fresh.enemy && typeof fresh.enemy==='object'?fresh.enemy:null};
+      // On reload, resume safely without leaving an almost-defeated enemy frozen on screen.
+      if(state.phase==='combat' && (!state.enemy || !Number.isFinite(state.enemy.hp) || state.enemy.hp<=0)) { state.enemy=null; state.phase='explore'; }
+    } catch(e) { state=defaultState(); }
   }
-  if (!Number.isFinite(preco) || preco < 0){
-    aviso("Preço inválido. Use, por exemplo, 10,50.","error"); precoEl.focus(); return;
+  function clampInt(v,min,max){ const n=Number(v); return Number.isFinite(n)?Math.max(min,Math.min(max,Math.floor(n))):min; }
+  function palette(){ return palettes[(state.floor-1)%palettes.length]; }
+  function scaleCycle(){ return Math.floor((state.floor-1)/palettes.length); }
+  function enemyStats(){
+    const cycle=scaleCycle(), base=state.floor;
+    const shape=enemyShapes[(base+state.room-2)%enemyShapes.length];
+    const color=palette().enemies[(state.room+base-2)%palette().enemies.length];
+    const hp=Math.round((24+base*12+cycle*8)*(1+(state.room-1)*.24));
+    const attack=Math.max(3,Math.round((4+base*2+cycle)*(1+(state.room-1)*.12)));
+    return {name:enemyNames[(base+state.room-2)%enemyNames.length], shape,color,hp,maxHp:hp,attack,level:base,oreReward:5+base*3+state.room*2,xp:base*6+state.room*2};
   }
-
-  if (editandoIdx >= 0){
-    itens[editandoIdx] = { nome, qtd, preco };
-    editandoIdx = -1;
-    aviso("Item atualizado.","ok");
-  } else {
-    itens.push({ nome, qtd, preco });
+  function log(message,type='info'){
+    const now=new Date(); const time=now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    state.log.unshift({time,message,type}); state.log=state.log.slice(0,24);
+    renderLog(); save();
   }
-
-  nomeEl.value = "";
-  qtdEl.value = 1;
-  precoEl.value = "";
-  nomeEl.focus();
-  atualizar();
-}
-
-function removerItem(i){
-  itens.splice(i,1);
-  if (editandoIdx === i) editandoIdx = -1;
-  atualizar();
-}
-
-function editarItem(i){
-  const it = itens[i];
-  if (!it) return;
-  document.getElementById("item").value = it.nome;
-  document.getElementById("quantidade").value = it.qtd;
-  document.getElementById("preco").value = String(it.preco).replace(".", ",");
-  editandoIdx = i;
-  document.getElementById("item").focus();
-  aviso("Editando item. Pressione Enter para salvar ou clique em ✕ para cancelar edição.","ok");
-  // Permite cancelar edição com Esc
-  const cancelar = e => {
-    if (e.key === "Escape"){
-      editandoIdx = -1;
-      document.getElementById("item").value = "";
-      document.getElementById("quantidade").value = 1;
-      document.getElementById("preco").value = "";
-      document.removeEventListener("keydown", cancelar);
-      aviso("Edição cancelada.","ok");
+  function showToast(message){
+    const el=$('toast'); el.textContent=message; el.classList.add('show');
+    clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),2100);
+  }
+  function beep(freq=220,duration=.08,type='sine'){
+    if(!soundOn) return;
+    try { audioContext=audioContext||new (window.AudioContext||window.webkitAudioContext)(); const osc=audioContext.createOscillator(), gain=audioContext.createGain(); osc.type=type; osc.frequency.value=freq; gain.gain.setValueAtTime(.04,audioContext.currentTime); gain.gain.exponentialRampToValueAtTime(.001,audioContext.currentTime+duration); osc.connect(gain);gain.connect(audioContext.destination);osc.start();osc.stop(audioContext.currentTime+duration); } catch(e){}
+  }
+  function startFight(){
+    if(state.phase!=='explore') return;
+    state.enemy=enemyStats(); state.phase='combat'; state.guard=false; state.steps++;
+    log(`Uma forma hostil surgiu: ${state.enemy.name.toLowerCase()} no andar ${state.floor}.`,'bad');
+    beep(300,.11,'triangle'); render(); save();
+  }
+  function playerAttack(){
+    if(state.phase!=='combat'||!state.enemy) return;
+    const crit=Math.random()<.1; const damage=state.power*(crit?2:1)+Math.floor(Math.random()*4);
+    state.enemy.hp=Math.max(0,state.enemy.hp-damage);
+    log(`Você acertou ${state.enemy.name} e causou ${damage} de dano${crit?' crítico':''}.`, 'good');
+    beep(crit?520:380,.07,'square');
+    if(state.enemy.hp<=0){ defeatEnemy(); return; }
+    enemyTurn(); render(); save();
+  }
+  function playerDefend(){
+    if(state.phase!=='combat'||!state.enemy) return;
+    state.guard=true;
+    log('Você firmou a guarda. O próximo golpe será reduzido.','info');
+    enemyTurn(); render(); save();
+  }
+  function usePotion(){
+    if(state.potions<=0){ showToast('Você não tem poções.'); return; }
+    if(state.hp>=state.maxHp){ showToast('Sua vida já está cheia.'); return; }
+    if(state.phase!=='combat' && state.phase!=='explore'){ showToast('Não é possível usar agora.'); return; }
+    state.potions--;
+    const amount=Math.min(state.maxHp-state.hp,Math.ceil(state.maxHp*.35)); state.hp+=amount;
+    log(`Poção usada: +${amount} de vida.`,'good'); beep(620,.12,'sine');
+    if(state.phase==='combat') enemyTurn();
+    render(); save();
+  }
+  function enemyTurn(){
+    if(state.phase!=='combat'||!state.enemy) return;
+    let damage=state.enemy.attack+Math.floor(Math.random()*4);
+    if(state.guard){ damage=Math.max(1,Math.ceil(damage*.3)); state.guard=false; }
+    state.hp=Math.max(0,state.hp-damage);
+    log(`${state.enemy.name} atacou e causou ${damage} de dano.`, state.hp<state.maxHp*.3?'bad':'info');
+    beep(130,.08,'sawtooth');
+    if(state.hp<=0) playerDefeated();
+  }
+  function defeatEnemy(){
+    const e=state.enemy; if(!e) return;
+    const reward=e.oreReward; state.ore+=reward; state.totalKills++; state.enemy=null; state.guard=false;
+    log(`${e.name} foi derrotado. Você encontrou ${reward} minérios.`,'good');
+    const recovery=Math.max(3,Math.round(state.maxHp*.08)); state.hp=Math.min(state.maxHp,state.hp+recovery);
+    if(state.room<ROOM_COUNT){ state.room++; state.phase='explore'; log(`Caminho livre. Próxima sala: ${state.room}/${ROOM_COUNT}.`,'info'); }
+    else { state.phase='clear'; state.floorCleared++; log(`Andar ${state.floor} concluído! A passagem para baixo está aberta.`,'good'); }
+    render(); save();
+  }
+  function playerDefeated(){
+    const failedFloor=state.floor; state.totalDeaths++; state.enemy=null; state.guard=false;
+    const lost=Math.min(state.ore,Math.floor(state.ore*.12)); state.ore-=lost;
+    state.floor=Math.max(1,state.floor-1); state.room=1; state.phase='explore';
+    state.hp=Math.max(1,Math.ceil(state.maxHp*.7));
+    log(`Você foi vencido no andar ${failedFloor}. Recuou para o andar ${state.floor} e recuperou parte da vida.`, 'bad');
+    if(lost>0) log(`Na retirada, perdeu ${lost} minérios.`,'bad');
+    showToast(`Derrota no andar ${failedFloor}: voltou para o andar ${state.floor}.`); beep(95,.24,'triangle'); render(); save();
+  }
+  function descendFloor(){
+    if(state.phase!=='clear') return;
+    state.floor++; state.bestFloor=Math.max(state.bestFloor,state.floor); state.room=1; state.phase='explore'; state.enemy=null; state.guard=false;
+    const heal=Math.ceil(state.maxHp*.22); state.hp=Math.min(state.maxHp,state.hp+heal);
+    log(`Você desceu ao andar ${state.floor}. A caverna ficou mais perigosa.`,'good');
+    showToast(`Andar ${state.floor}: nova camada descoberta.`); beep(480,.12,'sine'); render(); save();
+  }
+  function tick(){
+    if(state.mode!=='auto') return;
+    const now=Date.now();
+    if(state.phase==='clear') { if(now-lastTick>720){lastTick=now;descendFloor();} return; }
+    if(state.phase==='explore') { startFight(); return; }
+    if(state.phase==='combat') {
+      // Auto heals before the next hit if a potion is available and health is critical.
+      if(state.potions>0 && state.hp<=state.maxHp*.38 && state.hp<state.maxHp) { usePotion(); return; }
+      playerAttack();
     }
-  };
-  document.addEventListener("keydown", cancelar);
-}
-
-/* ========== Pedido ========== */
-function criarPedido(){
-  return {
-    id: Date.now(),
-    mesa: document.getElementById("mesa").value.trim(),
-    cliente: document.getElementById("cliente").value.trim(),
-    observacao: document.getElementById("observacao").value.trim(),
-    itens: itens.map(x => ({...x})),
-    data: new Date().toLocaleString("pt-BR"),
-    total: itens.reduce((s,x)=>s + x.qtd*x.preco, 0)
-  };
-}
-
-function validarPedido(){
-  if (!document.getElementById("mesa").value.trim()){
-    aviso("Informe a mesa ou número da comanda.","error");
-    document.getElementById("mesa").focus();
-    return false;
   }
-  if (!itens.length){
-    aviso("Adicione pelo menos um item ao pedido.","error");
-    return false;
+  function setMode(mode){
+    state.mode=mode==='manual'?'manual':'auto';
+    $('auto-mode').classList.toggle('active',state.mode==='auto'); $('manual-mode').classList.toggle('active',state.mode==='manual');
+    $('auto-mode').setAttribute('aria-pressed',String(state.mode==='auto')); $('manual-mode').setAttribute('aria-pressed',String(state.mode==='manual'));
+    $('mode-tag').textContent=state.mode==='auto'?'AUTO ATIVO':'MANUAL';
+    $('mode-description').textContent=state.mode==='auto'?'O explorador avança, luta e desce os andares sem precisar de comandos.':'Você decide quando explorar, atacar, defender ou usar uma poção.';
+    $('controls-hint').textContent=state.mode==='auto'?'AUTO ativo · troque para MANUAL para comandar cada ação.':'MANUAL ativo · use os botões abaixo ou atalhos do teclado.';
+    log(state.mode==='auto'?'Modo automático ativado. A expedição continua sozinha.':'Modo manual ativado. Aguardando seus comandos.','info');
+    if(timer) clearInterval(timer); timer=setInterval(tick,850); render(); save();
   }
-  return true;
-}
-
-function concluirPedido(){
-  if (!validarPedido()) return;
-
-  const pedido = criarPedido();
-  pedidos.unshift(pedido);
-  pedidos = pedidos.slice(0, 30);
-  salvarJSON(STORAGE_PEDIDOS, pedidos);
-
-  const okPDF = gerarPDF(pedido);
-  limparPedidoAtual();
-  atualizar();
-
-  aviso(okPDF
-    ? "Pedido concluído. O PDF foi baixado."
-    : "Pedido salvo no histórico, mas o PDF não pôde ser gerado (biblioteca não carregada).",
-    okPDF ? "ok" : "error");
-}
-
-function novoPedido(){
-  if ((itens.length || document.getElementById("mesa").value || document.getElementById("cliente").value)
-      && !confirm("Limpar o pedido atual? Os itens não salvos serão perdidos.")) return;
-  limparPedidoAtual();
-  atualizar();
-  aviso("Novo pedido iniciado.","ok");
-}
-
-function limparPedidoAtual(){
-  itens = [];
-  editandoIdx = -1;
-  ["mesa","cliente","observacao","item","preco"].forEach(id => document.getElementById(id).value = "");
-  document.getElementById("quantidade").value = 1;
-  limparRascunho();
-}
-
-/* ========== PDF ========== */
-function gerarPDF(pedido){
-  if (!window.jspdf || !window.jspdf.jsPDF){
-    console.error("jsPDF não disponível.");
-    return false;
-  }
-
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ unit: "mm", format: "a4" });
-  const ML = 15, MR = 195, LARG = MR - ML;
-  let y = 18;
-  let pagina = 1;
-
-  const cabecalho = () => {
-    doc.setFontSize(18).setFont(undefined, "bold");
-    doc.text("COMANDA / PEDIDO", 105, y, { align: "center" });
-    y += 10;
-    doc.setFontSize(10).setFont(undefined, "normal");
-    doc.text("Data: " + pedido.data, ML, y);
-    doc.text("Mesa/Comanda: " + pedido.mesa, MR, y, { align: "right" });
-    y += 6;
-    if (pedido.cliente){
-      doc.text("Cliente: " + pedido.cliente, ML, y);
-      y += 6;
+  function buyUpgrade(kind){
+    const cost=kind==='attack'?20+state.attackLevel*18:kind==='hp'?25+state.hpLevel*20:12;
+    if(state.ore<cost){showToast(`Você precisa de ${cost} minérios.`);return;}
+    if(kind==='attack'){
+      state.ore-=cost; state.attackLevel++; state.power+=3;
+      log(`Golpe reforçado comprado. Força aumentou para ${state.power}.`,'good'); showToast('Força aumentada!');
+    } else if(kind==='hp'){
+      state.ore-=cost; state.hpLevel++; state.maxHp+=20; state.hp=Math.min(state.maxHp,state.hp+20);
+      log(`Armadura de pedra reforçada. Vida máxima: ${state.maxHp}.`,'good'); showToast('Vida máxima aumentada!');
+    } else {
+      state.ore-=cost; state.potions++;
+      log('Uma poção foi adicionada à reserva.','good'); showToast('Poção comprada.');
     }
-    doc.setDrawColor(180);
-    doc.line(ML, y, MR, y);
-    y += 7;
-    doc.setFont(undefined, "bold");
-    doc.text("Item", ML, y);
-    doc.text("Qtd.", 130, y, { align: "right" });
-    doc.text("Unit.", 160, y, { align: "right" });
-    doc.text("Total", MR, y, { align: "right" });
-    y += 6;
-    doc.setFont(undefined, "normal");
-    doc.line(ML, y, MR, y);
-    y += 5;
-  };
-
-  const rodape = () => {
-    doc.setFontSize(8).setFont(undefined, "normal");
-    doc.text(`Página ${pagina}`, MR, 290, { align: "right" });
-  };
-
-  const novaPagina = () => {
-    rodape();
-    doc.addPage();
-    pagina++;
-    y = 18;
-    cabecalho();
-  };
-
-  cabecalho();
-
-  pedido.itens.forEach(item => {
-    const linhas = doc.splitTextToSize(item.nome, 100);
-    const alturaLinha = Math.max(7, linhas.length * 5);
-    if (y + alturaLinha > 275) novaPagina();
-
-    doc.text(linhas, ML, y);
-    doc.text(String(item.qtd), 130, y, { align: "right" });
-    doc.text(moneyPDF(item.preco), 160, y, { align: "right" });
-    doc.text(moneyPDF(item.qtd * item.preco), MR, y, { align: "right" });
-    y += alturaLinha;
-  });
-
-  if (y + 20 > 275) novaPagina();
-
-  doc.line(ML, y, MR, y);
-  y += 8;
-  doc.setFontSize(14).setFont(undefined, "bold");
-  doc.text("TOTAL: " + moneyPDF(pedido.total), MR, y, { align: "right" });
-  y += 12;
-
-  if (pedido.observacao){
-    doc.setFontSize(10).setFont(undefined, "normal");
-    doc.text("Observação:", ML, y);
-    y += 5;
-    const obs = doc.splitTextToSize(pedido.observacao, LARG);
-    if (y + obs.length * 5 > 285) novaPagina();
-    doc.text(obs, ML, y);
+    render();save();
   }
-
-  rodape();
-
-  const nomeArquivo = "pedido_mesa_" +
-    pedido.mesa.replace(/[^a-z0-9]/gi, "_") + "_" + pedido.id + ".pdf";
-  doc.save(nomeArquivo);
-  return true;
-}
-
-/* ========== Impressão ========== */
-function imprimirPedido(){
-  if (!validarPedido()) return;
-  const p = criarPedido();
-  montarComprovante(p);
-  const area = document.querySelector(".print-area");
-  area.style.display = "block";
-  window.print();
-  setTimeout(() => { area.style.display = "none"; }, 600);
-}
-
-function montarComprovante(p){
-  document.getElementById("comprovante").innerHTML = `
-    <h1>COMANDA / PEDIDO</h1>
-    <p><b>Data:</b> ${esc(p.data)} &nbsp;&nbsp; <b>Mesa:</b> ${esc(p.mesa)}</p>
-    ${p.cliente ? `<p><b>Cliente:</b> ${esc(p.cliente)}</p>` : ""}
-    <hr>
-    <table style="width:100%;border-collapse:collapse">
-      <thead>
-        <tr>
-          <th style="text-align:left">Item</th>
-          <th style="text-align:right">Qtd.</th>
-          <th style="text-align:right">Unit.</th>
-          <th style="text-align:right">Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${p.itens.map(x => `
-          <tr>
-            <td>${esc(x.nome)}</td>
-            <td style="text-align:right">${x.qtd}</td>
-            <td style="text-align:right">${fmtBRL(x.preco)}</td>
-            <td style="text-align:right">${fmtBRL(x.qtd*x.preco)}</td>
-          </tr>`).join("")}
-      </tbody>
-    </table>
-    <hr>
-    <h2 style="text-align:right">TOTAL: ${fmtBRL(p.total)}</h2>
-    ${p.observacao ? `<p><b>Observação:</b> ${esc(p.observacao)}</p>` : ""}
-  `;
-}
-
-/* ========== WhatsApp ========== */
-function enviarWhatsApp(){
-  if (!validarPedido()) return;
-  const p = criarPedido();
-  const linhas = [
-    `*Comanda - ${p.mesa}*`,
-    p.cliente ? `Cliente: ${p.cliente}` : "",
-    "",
-    ...p.itens.map(x => `• ${x.qtd}x ${x.nome} — ${fmtBRL(x.qtd*x.preco)}`),
-    "",
-    `*Total: ${fmtBRL(p.total)}*`,
-    p.observacao ? `\nObs.: ${p.observacao}` : ""
-  ].filter(Boolean).join("\n");
-
-  const url = "https://wa.me/?text=" + encodeURIComponent(linhas);
-  window.open(url, "_blank");
-}
-
-/* ========== Histórico ========== */
-function renderHistorico(){
-  const el = document.getElementById("historico");
-  if (!pedidos.length){
-    el.innerHTML = '<div class="empty">Nenhum pedido concluído.</div>';
-    return;
+  function render(){
+    const p=palette();
+    const modeAuto=state.mode==='auto';
+    $('auto-mode').classList.toggle('active',modeAuto); $('manual-mode').classList.toggle('active',!modeAuto);
+    $('auto-mode').setAttribute('aria-pressed',String(modeAuto)); $('manual-mode').setAttribute('aria-pressed',String(!modeAuto));
+    $('mode-tag').textContent=modeAuto?'AUTO ATIVO':'MANUAL';
+    $('mode-description').textContent=modeAuto?'O explorador avança, luta e desce os andares sem precisar de comandos.':'Você decide quando explorar, atacar, defender ou usar uma poção.';
+    $('controls-hint').textContent=modeAuto?'AUTO ativo · troque para MANUAL para comandar cada ação.':'MANUAL ativo · use os botões abaixo ou atalhos do teclado.';
+    $('floor-stat').textContent=String(state.floor).padStart(2,'0');
+    $('hp-stat').innerHTML=`${state.hp} <small>/ ${state.maxHp}</small>`;
+    $('power-stat').textContent=state.power; $('ore-stat').textContent=state.ore; $('best-stat').innerHTML=`${String(state.bestFloor).padStart(2,'0')} <small>andar${state.bestFloor===1?'':'es'}</small>`;
+    $('floor-subtitle').textContent=`SETOR ${String(state.floor).padStart(2,'0')} · ${p.name}`;
+    $('scene-title').textContent=state.phase==='clear'?'Passagem descoberta':p.title;
+    $('room-chip').textContent=state.phase==='clear'?'ANDAR CONCLUÍDO':`SALA ${state.room} / ${ROOM_COUNT}`;
+    const phaseText=state.phase==='combat'?'COMBATE':state.phase==='clear'?'SAÍDA ABERTA':'EXPLORAÇÃO';
+    $('phase-label').innerHTML=`${phaseText} <span>●</span>`;
+    $('enemy-label').innerHTML=state.phase==='combat'&&state.enemy?`AMEAÇA: <span>${state.enemy.name.toUpperCase()}</span>`:state.phase==='clear'?`STATUS: <span>VITÓRIA</span>`:`SINAL: <span>INDEFINIDO</span>`;
+    $('player-hp-text').textContent=`${state.hp} / ${state.maxHp}`; $('player-hp-fill').style.width=`${Math.max(0,state.hp/state.maxHp*100)}%`;
+    $('potion-count').textContent=`Poções: ${state.potions}`; $('guard-status').textContent=state.guard?'Guarda: ativa':'Guarda: pronta';
+    if(state.enemy){
+      $('enemy-name').textContent=`${state.enemy.name} · Nv.${state.enemy.level}`; $('enemy-hp-text').textContent=`${state.enemy.hp} / ${state.enemy.maxHp}`;
+      $('enemy-hp-fill').style.width=`${Math.max(0,state.enemy.hp/state.enemy.maxHp*100)}%`; $('enemy-type').textContent=state.enemy.shape.toUpperCase(); $('enemy-power').textContent=`ATQ ${state.enemy.attack}`;
+    } else { $('enemy-name').textContent=state.phase==='clear'?'Passagem aberta':'Nenhum inimigo'; $('enemy-hp-text').textContent='—'; $('enemy-hp-fill').style.width='0%'; $('enemy-type').textContent=state.phase==='clear'?'Desça para continuar':'Aguardando sinal'; $('enemy-power').textContent='ATQ —'; }
+    const combat=state.phase==='combat'; const manual=state.mode==='manual';
+    $('attack-btn').disabled=!(combat&&manual); $('defend-btn').disabled=!(combat&&manual); $('heal-btn').disabled=!(manual&&(combat||state.phase==='explore')&&state.potions>0&&state.hp<state.maxHp);
+    const main=$('main-action-btn');
+    if(state.phase==='clear') { main.innerHTML='<span class="ico">⬇</span> Descer de andar'; main.disabled=!manual; }
+    else if(state.phase==='combat') { main.innerHTML='<span class="ico">⌁</span> Em combate'; main.disabled=true; }
+    else { main.innerHTML='<span class="ico">⌕</span> Explorar sala'; main.disabled=!manual; }
+    $('upgrade-attack').textContent=`◆ ${20+state.attackLevel*18}`; $('upgrade-hp').textContent=`◆ ${25+state.hpLevel*20}`; $('buy-potion').textContent='◆ 12';
+    $('upgrade-attack').disabled=state.ore<20+state.attackLevel*18; $('upgrade-hp').disabled=state.ore<25+state.hpLevel*20; $('buy-potion').disabled=state.ore<12;
+    $('attack-up-desc').textContent=`Força atual: ${state.power} · +3 por nível`;
+    $('hp-up-desc').textContent=`Vida máxima: ${state.maxHp} · +20 por nível`;
+    renderLog();
   }
-  el.innerHTML = pedidos.slice(0, 8).map(p => `
-    <div class="history-item">
-      <div>
-        <span class="badge">${esc(p.mesa)}</span><br>
-        <small>${esc(p.data)} · ${p.itens.length} item(ns)</small>
-      </div>
-      <div style="text-align:right">
-        <b>${fmtBRL(p.total)}</b><br>
-        <button class="btn-secondary" onclick="baixarHistorico(${p.id})">PDF</button>
-      </div>
-    </div>`).join("");
-}
+  function renderLog(){
+    const root=$('log-list');
+    if(!state.log.length){root.innerHTML='<div class="log-line info"><span class="log-time">--:--</span><span class="log-message">Nenhum evento registrado.</span></div>';return;}
+    root.innerHTML=state.log.slice(0,12).map(item=>`<div class="log-line ${escapeHtml(item.type||'info')}"><span class="log-time">${escapeHtml(item.time||'--:--')}</span><span class="log-message">${escapeHtml(item.message||'')}</span></div>`).join('');
+  }
+  function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 
-function baixarHistorico(id){
-  const p = pedidos.find(x => x.id === id);
-  if (p) gerarPDF(p);
-}
+  function draw(){
+    const canvas=$('scene'); if(!canvas) return;
+    const rect=canvas.getBoundingClientRect(); if(rect.width<1||rect.height<1){canvasFrame=requestAnimationFrame(draw);return;}
+    const dpr=Math.min(window.devicePixelRatio||1,2);
+    const iw=Math.round(rect.width*dpr), ih=Math.round(rect.height*dpr);
+    if(canvas.width!==iw||canvas.height!==ih){canvas.width=iw;canvas.height=ih;}
+    const ctx=canvas.getContext('2d'); ctx.setTransform(dpr,0,0,dpr,0,0);
+    const w=rect.width,h=rect.height,t=performance.now()/1000,p=palette();
+    const bg=ctx.createLinearGradient(0,0,0,h); bg.addColorStop(0,p.sky);bg.addColorStop(.62,p.deep);bg.addColorStop(1,'#080912');ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
+    // Distant cavern arches.
+    ctx.fillStyle='#05071155';ctx.beginPath();ctx.ellipse(w*.52,h*.44,w*.45,h*.51,0,Math.PI,Math.PI*2);ctx.fill();
+    ctx.strokeStyle=p.glow+'22';ctx.lineWidth=2;
+    for(let i=0;i<5;i++){ctx.beginPath();ctx.ellipse(w*.51,h*.46,w*(.23+i*.105),h*(.22+i*.09),0,Math.PI,Math.PI*2);ctx.stroke();}
+    // Floating dust and cave sparks.
+    particles.forEach((a,i)=>{const x=((a.x*w + t*a.speed*12)%w); const y=(a.y*h+Math.sin(t+a.phase)*5)%h;ctx.globalAlpha=.23+.3*Math.sin(t*1.4+a.phase);ctx.fillStyle=i%4===0?p.glow:'#bac8e9';ctx.beginPath();ctx.arc(x,y,a.r,0,Math.PI*2);ctx.fill();});ctx.globalAlpha=1;
+    // Uneven ceiling silhouettes.
+    ctx.fillStyle=p.rocks;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(w,0);ctx.lineTo(w,h*.18);
+    for(let x=w;x>=0;x-=w/10){ctx.lineTo(x-w/20,h*(.1+((Math.sin(x*.08+state.floor)*.07+.08))));ctx.lineTo(x,h*(.13+Math.abs(Math.sin(x*.041+1))*.1));}
+    ctx.closePath();ctx.fill();
+    // Floor and platform.
+    ctx.fillStyle='#060812';ctx.beginPath();ctx.moveTo(0,h*.78);ctx.lineTo(w*.12,h*.72);ctx.lineTo(w*.25,h*.77);ctx.lineTo(w*.4,h*.73);ctx.lineTo(w*.6,h*.76);ctx.lineTo(w*.79,h*.71);ctx.lineTo(w,h*.77);ctx.lineTo(w,h);ctx.lineTo(0,h);ctx.closePath();ctx.fill();
+    ctx.strokeStyle=p.glow+'55';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,h*.78);ctx.lineTo(w*.12,h*.72);ctx.lineTo(w*.25,h*.77);ctx.lineTo(w*.4,h*.73);ctx.lineTo(w*.6,h*.76);ctx.lineTo(w*.79,h*.71);ctx.lineTo(w,h*.77);ctx.stroke();
+    // Crystals on the walls.
+    const crystal=(x,y,scale,flip=false)=>{ctx.save();ctx.translate(x,y);if(flip)ctx.scale(-1,1);ctx.fillStyle=p.crystal+'55';ctx.strokeStyle=p.crystal+'aa';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,-scale*1.7);ctx.lineTo(scale*.55,-scale*.45);ctx.lineTo(scale*.3,scale);ctx.lineTo(-scale*.28,scale*.65);ctx.lineTo(-scale*.58,-scale*.45);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();};
+    crystal(w*.12,h*.59,11);crystal(w*.89,h*.56,15,true);crystal(w*.75,h*.27,7);crystal(w*.25,h*.34,8,true);
+    // Stalagmites.
+    for(let i=0;i<8;i++){const x=(i/7)*w + (i%2?8:-3);const base=h*(.84+(i%3)*.015);const size=8+(i%4)*4;ctx.fillStyle=i%2?p.rocks:'#1a2338';ctx.beginPath();ctx.moveTo(x-size,base);ctx.lineTo(x,base-size*1.6);ctx.lineTo(x+size*.8,base);ctx.closePath();ctx.fill();}
+    // Characters position and gentle idle bob.
+    const floorY=h*.755; const playerX=w*.29; const playerSize=Math.max(20,Math.min(34,h*.095));
+    // glow under player
+    ctx.fillStyle='#ff233c22';ctx.beginPath();ctx.ellipse(playerX,floorY+5,playerSize*1.1,playerSize*.29,0,0,Math.PI*2);ctx.fill();
+    ctx.save();ctx.translate(playerX,floorY-playerSize/2+Math.sin(t*3)*2);
+    ctx.shadowColor='#ff263f';ctx.shadowBlur=18;ctx.fillStyle='#ff1836';ctx.fillRect(-playerSize/2,-playerSize/2,playerSize,playerSize);ctx.shadowBlur=0;ctx.strokeStyle='#ff99a7';ctx.lineWidth=1.5;ctx.strokeRect(-playerSize/2,-playerSize/2,playerSize,playerSize);
+    // tiny pixel visor
+    ctx.fillStyle='#ffe7eb';ctx.fillRect(playerSize*.07,-playerSize*.18,playerSize*.28,playerSize*.12);
+    ctx.restore();
+    // enemy geometry
+    if(state.enemy){
+      const e=state.enemy; const ex=w*.72, size=playerSize*(1.05+Math.min(.4,state.floor*.012)); const bob=Math.sin(t*2.7+1)*4;
+      ctx.fillStyle=e.color+'22';ctx.beginPath();ctx.ellipse(ex,floorY+4,size*1.2,size*.34,0,0,Math.PI*2);ctx.fill();
+      ctx.save();ctx.translate(ex,floorY-size*.52+bob);ctx.rotate(Math.sin(t*1.3)*.035);ctx.shadowColor=e.color;ctx.shadowBlur=23;ctx.fillStyle=e.color;ctx.strokeStyle='#ffffffaa';ctx.lineWidth=1.5;
+      drawShape(ctx,e.shape,size);ctx.fill();ctx.shadowBlur=0;ctx.stroke();
+      // glowing geometric core
+      ctx.fillStyle='#ffffffbb';ctx.beginPath();ctx.arc(0,0,Math.max(2,size*.11),0,Math.PI*2);ctx.fill();ctx.restore();
+      if(state.phase==='combat'){
+        const bw=Math.min(94,w*.22), bh=5, bx=ex-bw/2, by=floorY-size*1.5-10;
+        ctx.fillStyle='#060711bb';roundRect(ctx,bx,by,bw,bh,3);ctx.fill();ctx.fillStyle=e.color;roundRect(ctx,bx,by,bw*Math.max(0,e.hp/e.maxHp),bh,3);ctx.fill();
+      }
+    } else if(state.phase==='clear'){
+      // Portal/exit
+      const x=w*.72,y=h*.51,r=Math.min(44,h*.15);ctx.save();ctx.translate(x,y);ctx.rotate(t*.2);ctx.strokeStyle=p.glow;ctx.lineWidth=3;ctx.shadowColor=p.glow;ctx.shadowBlur=19;ctx.beginPath();ctx.ellipse(0,0,r*.72,r*1.2,0,0,Math.PI*2);ctx.stroke();ctx.rotate(-t*.4);ctx.beginPath();ctx.ellipse(0,0,r*.45,r*.87,0,0,Math.PI*2);ctx.stroke();ctx.restore();
+      ctx.fillStyle='#ffffffcc';ctx.font='bold 11px ui-sans-serif,system-ui';ctx.textAlign='center';ctx.fillText('PASSAGEM',x,w?y+r*1.6:0);
+    } else {
+      ctx.fillStyle='#b7c9ee88';ctx.font='12px ui-sans-serif,system-ui';ctx.textAlign='center';ctx.fillText(state.mode==='auto'?'Rastreando presença...':'Pressione “Explorar sala”',w*.71,h*.58);
+    }
+    // bottom scanner ticks
+    ctx.fillStyle='#d8e5ff36';for(let i=0;i<25;i++){const x=12+i*(w-24)/24;ctx.fillRect(x,h-11,1,i%5===0?5:2);}
+    ctx.fillStyle='#a7b5d455';ctx.font='9px ui-monospace,monospace';ctx.textAlign='left';ctx.fillText(`DEPTH ${String(state.floor).padStart(3,'0')} · Z-${(state.floor*13+state.room*7).toString(16).toUpperCase()}`,12,h-17);
+    canvasFrame=requestAnimationFrame(draw);
+  }
+  function drawShape(ctx,shape,s){
+    ctx.beginPath();
+    switch(shape){
+      case 'circle':ctx.arc(0,0,s*.52,0,Math.PI*2);break;
+      case 'triangle':ctx.moveTo(0,-s*.66);ctx.lineTo(s*.59,s*.48);ctx.lineTo(-s*.59,s*.48);ctx.closePath();break;
+      case 'diamond':ctx.moveTo(0,-s*.68);ctx.lineTo(s*.53,0);ctx.lineTo(0,s*.68);ctx.lineTo(-s*.53,0);ctx.closePath();break;
+      case 'hexagon':for(let i=0;i<6;i++){const a=i*Math.PI/3-Math.PI/6;const x=Math.cos(a)*s*.56,y=Math.sin(a)*s*.56;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.closePath();break;
+      case 'square':ctx.rect(-s*.48,-s*.48,s*.96,s*.96);break;
+      case 'star':for(let i=0;i<10;i++){const r=i%2?s*.27:s*.62;const a=i*Math.PI/5-Math.PI/2;const x=Math.cos(a)*r,y=Math.sin(a)*r;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.closePath();break;
+      default:ctx.arc(0,0,s*.5,0,Math.PI*2);
+    }
+  }
+  function roundRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
 
-/* ========== Relógio ========== */
-function atualizarRelogio(){
-  const agora = new Date();
-  const data = agora.toLocaleDateString("pt-BR", { weekday:"short", day:"2-digit", month:"2-digit" });
-  const hora = agora.toLocaleTimeString("pt-BR", { hour:"2-digit", minute:"2-digit" });
-  document.getElementById("clock").innerHTML = `${data}<br>${hora}`;
-}
-
-/* ========== Eventos ========== */
-["mesa","cliente","observacao"].forEach(id => {
-  document.getElementById(id).addEventListener("input", atualizar);
-});
-
-["item","quantidade","preco"].forEach(id => {
-  document.getElementById(id).addEventListener("keydown", e => {
-    if (e.key === "Enter"){ e.preventDefault(); adicionarItem(); }
+  $('auto-mode').addEventListener('click',()=>setMode('auto'));
+  $('manual-mode').addEventListener('click',()=>setMode('manual'));
+  $('attack-btn').addEventListener('click',()=>{ if(state.mode==='manual')playerAttack(); });
+  $('defend-btn').addEventListener('click',()=>{ if(state.mode==='manual')playerDefend(); });
+  $('heal-btn').addEventListener('click',()=>{ if(state.mode==='manual')usePotion(); });
+  $('main-action-btn').addEventListener('click',()=>{
+    if(state.mode!=='manual')return;
+    if(state.phase==='explore')startFight(); else if(state.phase==='clear')descendFloor();
   });
-});
-
-/* ========== Inicialização ========== */
-restaurarRascunho();
-atualizar();
-atualizarRelogio();
-setInterval(atualizarRelogio, 30000);
+  $('upgrade-attack').addEventListener('click',()=>buyUpgrade('attack'));
+  $('upgrade-hp').addEventListener('click',()=>buyUpgrade('hp'));
+  $('buy-potion').addEventListener('click',()=>buyUpgrade('potion'));
+  $('sound-btn').addEventListener('click',()=>{soundOn=!soundOn;$('sound-btn').textContent=`♫ Som: ${soundOn?'on':'off'}`;$('sound-btn').setAttribute('aria-pressed',String(soundOn));if(soundOn)beep(440,.08);});
+  $('reset-btn').addEventListener('click',()=>{
+    const ok=window.confirm('Reiniciar a expedição e apagar todo o progresso salvo neste navegador?'); if(!ok)return;
+    if(timer)clearInterval(timer); state=defaultState(); localStorage.removeItem(SAVE_KEY); log('Nova expedição iniciada. Boa sorte, explorador.','info'); setMode('auto'); render(); showToast('Expedição reiniciada.');
+  });
+  document.addEventListener('keydown',(e)=>{
+    if(state.mode!=='manual'||e.repeat) return;
+    const tag=document.activeElement?.tagName; if(tag==='INPUT'||tag==='TEXTAREA') return;
+    if(e.key===' '||e.key.toLowerCase()==='a'){e.preventDefault();playerAttack();}
+    else if(e.key.toLowerCase()==='d')playerDefend();
+    else if(e.key.toLowerCase()==='h')usePotion();
+    else if(e.key.toLowerCase()==='e') {if(state.phase==='explore')startFight();else if(state.phase==='clear')descendFloor();}
+  });
+  load();
+  // If an older save exists while dead, recover rather than leaving the player stuck.
+  if(state.hp<=0){state.hp=Math.max(1,Math.ceil(state.maxHp*.7));state.floor=Math.max(1,state.floor-1);state.room=1;state.phase='explore';state.enemy=null;}
+  if(!state.log.length) log('Expedição iniciada. O quadrado vermelho está pronto para descer.','info');
+  render();
+  timer=setInterval(tick,850);
+  canvasFrame=requestAnimationFrame(draw);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden){render();save();}});
+})();
 </script>
 </body>
 </html>

@@ -1,1 +1,1 @@
-# Pedido simples para mesa
+simulador de mineraçao BETA fase v1.8

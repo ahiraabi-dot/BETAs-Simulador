@@ -115,6 +115,12 @@
   #enemy-hp-fill.boss { background:linear-gradient(90deg,#ff2a43,#ff8a9b); box-shadow:0 0 18px rgba(255,42,67,0.7); }
   .combatant-foot { display:flex; justify-content:space-between; gap:8px; color:#8390b3; font-size:10.5px; margin-top:8px; font-weight:600; flex-wrap: wrap; }
   .combo-tag { color: var(--gold); font-weight: 900; }
+  .enemy-chips { display: flex; gap: 4px; margin-top: 6px; }
+  .enemy-chip { flex: 1; padding: 4px 6px; border-radius: 6px; font-size: 9.5px; font-weight: 900; text-align: center; background: #0b0f1b; border: 1px solid var(--line); color: #cfd8ed; }
+  .enemy-chip.strong { border-color: #ffcb47; color: #ffcb47; background: #2a2008; }
+  .enemy-chip.weak { border-color: #8b97b8; color: #b8c3df; }
+  .enemy-chip.focused { box-shadow: 0 0 0 2px rgba(255,203,71,0.5); }
+  .enemy-chip.dead { opacity: 0.35; text-decoration: line-through; }
   .side-stack { display:flex; flex-direction:column; gap:16px; min-width:0; }
   .mode-content { padding:16px 18px 18px; }
   .mode-switch { display:grid; grid-template-columns:1fr 1fr; padding:4px; gap:4px; background:#070a14; border:1px solid #1f273d; border-radius:14px; }
@@ -170,7 +176,7 @@
 
   .sidebar {
     position: fixed; left: 0; top: 0; bottom: 0; width: 84px; z-index: 30;
-    display: flex; flex-direction: column; gap: 5px; padding: 12px 8px;
+    display: flex; flex-direction: column; gap: 4px; padding: 12px 8px;
     background: linear-gradient(180deg, #0d111d, #060812);
     border-right: 1px solid var(--line); overflow-y: auto;
     box-shadow: 5px 0 25px rgba(0,0,0,0.4);
@@ -191,23 +197,25 @@
   .nav-btn.pets.active { color:#1a1000; background:linear-gradient(135deg,#ffd88a,#ffb347); box-shadow:0 5px 16px rgba(255,179,71,0.35); }
   .nav-btn.pets.locked { opacity: 0.55; }
   .nav-btn.pets.locked:hover { background: #171e33; }
+  .nav-btn.expedition.active { color:#041318; background:linear-gradient(135deg,#6ef3ff,#2ab3df); box-shadow:0 5px 16px rgba(42,179,223,0.35); }
   .nav-badge {
-    position: absolute; top: 4px; right: 5px; min-width: 16px; height: 16px; padding: 0 4px;
+    position: absolute; top: 3px; right: 4px; min-width: 16px; height: 16px; padding: 0 4px;
     border-radius: 999px; background: var(--gold); color: #241700;
     font-size: 8px; font-weight: 900; display: grid; place-items: center; line-height: 1;
     font-variant-numeric: tabular-nums; box-shadow: 0 2px 6px rgba(0,0,0,0.4);
   }
+  .nav-btn.expedition .nav-badge { background: var(--green); color: #041a0e; }
   @media (min-width: 900px) { body { padding-left: 84px; } }
   @media (max-width: 899px) {
     body { padding-bottom: calc(66px + env(safe-area-inset-bottom)); }
     .sidebar {
       top: auto; bottom: 0; left: 0; right: 0; width: auto; height: auto;
-      flex-direction: row; justify-content: space-around; gap: 1px;
+      flex-direction: row; justify-content: space-around; gap: 0;
       padding: 5px 3px calc(5px + env(safe-area-inset-bottom));
       border-right: 0; border-top: 1px solid var(--line);
       box-shadow: 0 -5px 25px rgba(0,0,0,0.4);
     }
-    .nav-btn { flex: 1 1 0; padding: 6px 1px; font-size: 7px; letter-spacing: 0; min-width: 0; }
+    .nav-btn { flex: 1 1 0; padding: 6px 1px; font-size: 6.5px; letter-spacing: 0; min-width: 0; }
     .nav-btn .nav-ico { font-size: 15px; }
     .nav-badge { top: 2px; right: 2px; min-width: 13px; height: 13px; font-size: 7.5px; padding: 0 3px; }
   }
@@ -229,7 +237,6 @@
   .shop-card .shop-info { flex: 1; min-width: 0; }
   .shop-icon { width: 44px; height: 44px; flex: none; display: grid; place-items: center; border-radius: 12px; background: #192138; border: 1px solid #283352; color: var(--green); font-size: 20px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.1); }
   .shop-icon.gold { color: var(--gold); background: #2b230d; border-color: #635016; }
-  .shop-icon.pix { color: #7af5bc; background: #0c2b1d; border-color: #175238; }
   .shop-name { font-size: 12.5px; font-weight: 900; }
   .shop-desc { font-size: 11.5px; color: var(--muted); margin-top: 3px; font-weight: 500; }
 
@@ -273,7 +280,7 @@
   .pet-card.current { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold), 0 0 25px rgba(255,203,71,0.3); }
   .pet-card.not-owned { opacity: 0.85; }
   .pet-card.cant-afford { opacity: 0.6; cursor: not-allowed; }
-  .pet-card.cant-afford:hover { transform: none; border-color: var(--line); }
+  .pet-card.busy .pet-preview { filter: grayscale(0.5); }
   .pet-preview { width: 54px; height: 54px; display: grid; place-items: center; font-size: 40px; line-height: 1; filter: drop-shadow(0 0 14px currentColor); }
   .pet-name { font-size: 12px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
   .pet-dodge { font-size: 11.5px; font-weight: 900; color: var(--gold); }
@@ -282,6 +289,9 @@
   .pet-price { font-size: 11.5px; font-weight: 900; color: var(--gold); }
   .pet-status { font-size: 11px; font-weight: 800; color: #8cb4ff; }
   .pet-card.current .pet-status { color: var(--gold); }
+  .pet-card.busy .pet-status { color: #ff8a9b; }
+  .pet-xpbar { width: 100%; height: 4px; background: #181e2e; border-radius: 999px; overflow: hidden; margin-top: 3px; }
+  .pet-xpfill { height: 100%; background: linear-gradient(90deg,#38f0ff,#6ef3ff); transition: width .3s ease; }
   .pet-locked-screen { padding: 48px 24px 40px; text-align: center; }
   .pet-locked-screen .big-lock { font-size: 68px; margin-bottom: 16px; filter: drop-shadow(0 0 24px rgba(255,203,71,0.35)); }
   .pet-locked-screen h3 { font-size: 18px; margin: 0 0 10px; letter-spacing: .1em; text-transform: uppercase; }
@@ -290,6 +300,90 @@
   .pet-locked-screen .progress strong { color: var(--cyan); }
   .pet-locked-screen .progress-bar { width: 100%; max-width: 320px; height: 10px; margin: 16px auto 0; background: #181e2e; border-radius: 999px; overflow: hidden; }
   .pet-locked-screen .progress-bar-fill { height: 100%; background: linear-gradient(90deg,#ffcb47,#ffb347); border-radius: 999px; transition: width .3s ease; }
+
+  .expedition-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; padding: 18px;
+  }
+  .exp-card {
+    display: flex; flex-direction: column; gap: 8px;
+    padding: 16px; border: 1px solid var(--line); border-radius: 16px;
+    background: linear-gradient(145deg, #151b2d, #0b0f1c);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  }
+  .exp-card.locked { opacity: 0.7; }
+  .exp-icon-lg { font-size: 34px; text-align: center; line-height: 1; filter: drop-shadow(0 0 14px rgba(110,243,255,0.4)); }
+  .exp-card-name { font-size: 14px; font-weight: 900; text-align: center; letter-spacing: .05em; text-transform: uppercase; }
+  .exp-card-duration, .exp-card-req { font-size: 11.5px; color: var(--muted); text-align: center; font-weight: 700; }
+  .exp-card-rewards {
+    padding: 10px; background: #070a14; border: 1px solid #1a2236; border-radius: 10px;
+    display: flex; flex-direction: column; gap: 4px; font-size: 11.5px; color: #cfd8ed; font-weight: 600;
+  }
+  .exp-card-progress {
+    font-size: 11px; color: var(--cyan); text-align: center; font-weight: 800;
+    padding: 6px; background: #0f1929; border-radius: 8px;
+  }
+  .exp-card-progress.complete { color: var(--green); background: #0a2a19; }
+  .exp-locked-info {
+    font-size: 11px; color: #ff6b7b; text-align: center; font-weight: 700;
+    padding: 8px; background: #2a0d15; border: 1px solid #4a1a25; border-radius: 8px;
+  }
+  .expedition-active {
+    padding: 14px 18px; border-top: 1px solid #1e263d;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .expedition-active:first-child { border-top: 0; }
+  .exp-head { display: flex; align-items: center; gap: 12px; }
+  .exp-icon { font-size: 26px; }
+  .exp-info { flex: 1; min-width: 0; }
+  .exp-name { font-size: 13px; font-weight: 900; }
+  .exp-pets { font-size: 11px; color: var(--muted); font-weight: 600; margin-top: 2px; }
+  .exp-time { font-size: 13px; font-weight: 900; color: var(--cyan); font-variant-numeric: tabular-nums; }
+  .exp-time.done { color: var(--green); }
+  .exp-progress-bar { height: 8px; background: #181e2e; border-radius: 999px; overflow: hidden; }
+  .exp-progress-fill { height: 100%; border-radius: 999px; transition: width 1s linear; }
+  .exp-progress-fill.active { background: linear-gradient(90deg, #38f0ff, #6ef3ff); }
+  .exp-progress-fill.done { background: linear-gradient(90deg, #3fe094, #7af5bc); }
+
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.78);
+    display: none; align-items: center; justify-content: center;
+    z-index: 100; padding: 20px; backdrop-filter: blur(8px);
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: linear-gradient(155deg, #151b2d, #0b0f1c);
+    border: 1px solid var(--line); border-radius: 18px;
+    width: min(560px, 100%); max-height: 88vh; overflow: hidden;
+    display: flex; flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+  }
+  .modal-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 16px 20px; border-bottom: 1px solid #1e263d;
+  }
+  .modal-head h2 { margin: 0; font-size: 14px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
+  .modal-body { padding: 16px 20px; overflow-y: auto; flex: 1; }
+  .modal-actions {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    padding: 14px 20px; border-top: 1px solid #1e263d;
+  }
+  .picker-pet {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px; border: 1px solid var(--line); border-radius: 12px;
+    background: #0b0f1b; cursor: pointer; margin-bottom: 8px;
+    transition: all .15s ease;
+  }
+  .picker-pet:hover { border-color: #536494; }
+  .picker-pet.selected { border-color: var(--gold); background: #1e1708; box-shadow: 0 0 0 1px var(--gold); }
+  .picker-pet.disabled { opacity: 0.45; cursor: not-allowed; }
+  .picker-pet-preview { font-size: 30px; line-height: 1; flex-shrink: 0; }
+  .picker-pet-info { flex: 1; min-width: 0; }
+  .picker-pet-name { font-size: 13px; font-weight: 900; }
+  .picker-pet-stats { font-size: 11px; color: var(--muted); font-weight: 600; }
+  .picker-pet-xpbar { height: 4px; background: #181e2e; border-radius: 999px; overflow: hidden; margin-top: 4px; }
+  .picker-pet-xpfill { height: 100%; background: linear-gradient(90deg,#38f0ff,#6ef3ff); }
+  .picker-pet-badge { font-size: 20px; flex-shrink: 0; }
+  .picker-pet .disabled-reason { font-size: 10px; color: #ff6b7b; font-weight: 800; margin-top: 4px; }
 
   .wallet-content { padding: 20px; display: grid; gap: 16px; }
   .balance-card { padding: 22px; border: 1px solid var(--line); border-radius: 16px; background: linear-gradient(145deg, #151b2d, #0b0f1c); text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.25); }
@@ -334,6 +428,7 @@
     .side-stack .panel:first-child { grid-row:span 2; }
     #scene { height:clamp(250px, 56vw, 380px); }
     .pet-grid { grid-template-columns: repeat(auto-fill, minmax(125px, 1fr)); }
+    .expedition-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
   }
   @media (max-width:560px) {
     .topbar { align-items:flex-start; flex-wrap: wrap; }
@@ -353,6 +448,7 @@
     .combatant { padding:11px 10px; }
     .combatant-name { font-size:11.5px; }
     .hp-numbers { font-size:10px; }
+    .enemy-chip { font-size: 8.5px; padding: 3px 4px; }
     .panel-head { padding:14px 16px; }
     .mode-content { padding:14px; }
     .action-btn { min-height:48px; }
@@ -364,6 +460,8 @@
     .skin-grid { grid-template-columns: repeat(auto-fill, minmax(115px, 1fr)); }
     .pet-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
     .pet-preview { font-size: 34px; width: 44px; height: 44px; }
+    .expedition-grid { grid-template-columns: 1fr; }
+    .modal-actions { grid-template-columns: 1fr; }
   }
   @media (prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none !important; animation:none !important; } }
 </style>
@@ -377,6 +475,7 @@
   <button type="button" class="nav-btn" data-view="inventory"><span class="nav-ico">▤</span>Inv.<span class="nav-badge" id="inv-badge" hidden>0</span></button>
   <button type="button" class="nav-btn" data-view="craft"><span class="nav-ico">⚒</span>Forja</button>
   <button type="button" class="nav-btn pets locked" data-view="pets" id="nav-pets"><span class="nav-ico" id="pet-icon">🔒</span><span id="pet-label">Pet</span></button>
+  <button type="button" class="nav-btn expedition" data-view="expeditions"><span class="nav-ico">🗺</span>Exped.<span class="nav-badge" id="exp-badge" hidden>0</span></button>
   <button type="button" class="nav-btn premium" data-view="premium"><span class="nav-ico">♛</span>Premium</button>
   <button type="button" class="nav-btn wallet" data-view="wallet"><span class="nav-ico">◉</span>Carteira</button>
 </aside>
@@ -445,6 +544,7 @@
           <div class="combatant" id="enemy-combatant">
             <div class="combatant-top"><span class="combatant-name" id="enemy-name">Nenhum inimigo</span><span class="hp-numbers" id="enemy-hp-text">—</span></div>
             <div class="bar"><div class="bar-fill" id="enemy-hp-fill" style="width:0%"></div></div>
+            <div class="enemy-chips" id="enemy-chips" hidden></div>
             <div class="combatant-foot"><span id="enemy-type">Aguardando sinal</span><span id="enemy-power">ATQ —</span></div>
           </div>
         </div>
@@ -512,7 +612,7 @@
       <div class="panel-head"><h2 class="panel-title">Registro da expedição</h2><span class="eyebrow" id="log-count">ÚLTIMOS EVENTOS</span></div>
       <div class="log-list" id="log-list" aria-live="polite"><div class="log-line info"><span class="log-time">00:00</span><span class="log-message">O sinalizador está pronto. A caverna aguarda.</span></div></div>
     </section>
-    <p class="bottom-note">SEU PROGRESSO FICA SALVO NESTE NAVEGADOR · BOSS A CADA 10 ANDARES · TESOURO A CADA 5</p>
+    <p class="bottom-note">SEU PROGRESSO FICA SALVO NESTE NAVEGADOR · BOSS 10/10 · TESOURO 5/5 · 3 INIMIGOS 70+</p>
   </div>
 
   <div class="view" id="view-store">
@@ -589,7 +689,7 @@
     <header class="topbar">
       <div class="brand">
         <div class="brand-mark" aria-hidden="true">⚒</div>
-        <div><h1>FORJA</h1><p>Transmute fragmentos e fortaleça seu pet</p></div>
+        <div><h1>FORJA</h1><p>Transmute fragmentos e fortaleça seus pets</p></div>
       </div>
       <div class="top-actions">
         <span class="eyebrow">POÇÕES: <span id="craft-potions" style="color:var(--green);font-weight:900">0</span></span>
@@ -600,7 +700,7 @@
       <div class="list-rows" id="craft-grid"></div>
     </section>
     <section class="panel" id="pet-forge-panel">
-      <div class="panel-head"><h2 class="panel-title">🐾 Fortalecer Pet</h2><span class="eyebrow">USA FRAGMENTOS</span></div>
+      <div class="panel-head"><h2 class="panel-title">🐾 Fortalecer Pets</h2><span class="eyebrow">TODOS OS PETS POSSUÍDOS</span></div>
       <div class="list-rows" id="pet-forge-grid"></div>
     </section>
   </div>
@@ -615,22 +715,32 @@
         <div class="wallet"><span class="wallet-ico" aria-hidden="true">◉</span><span class="wallet-label">Moedas</span><strong class="wallet-value" id="pets-coins">0</strong></div>
       </div>
     </header>
-
     <section class="panel" id="pet-locked-panel" style="display:none">
       <div class="pet-locked-screen">
         <div class="big-lock">🔒</div>
         <h3>Pets bloqueados</h3>
         <p>Alcance o andar <strong style="color:var(--cyan)">30</strong> para desbloquear os companheiros do Abismo.</p>
-        <p>Seus pets dão <strong>esquiva + passiva especial</strong> ao explorador.</p>
         <div class="progress">Andar atual: <strong id="pet-lock-floor">01</strong> / 30</div>
         <div class="progress-bar"><div class="progress-bar-fill" id="pet-lock-progress" style="width:0%"></div></div>
       </div>
     </section>
-
     <section class="panel" id="pet-unlocked-panel" style="display:none">
       <div class="panel-head"><h2 class="panel-title">Escolha seu Pet</h2><span class="eyebrow">ESQUIVA + PASSIVA</span></div>
       <div class="pet-grid" id="pet-grid"></div>
     </section>
+  </div>
+
+  <div class="view" id="view-expeditions">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" style="background:linear-gradient(145deg,#6ef3ff,#2ab3df);border-color:#6ef3ff;color:#041318" aria-hidden="true">🗺</div>
+        <div><h1>EXPEDIÇÃO</h1><p>Envie seus pets para coletar recompensas</p></div>
+      </div>
+      <div class="top-actions">
+        <div class="wallet"><span class="wallet-ico" aria-hidden="true">◉</span><span class="wallet-label">Moedas</span><strong class="wallet-value" id="expeditions-coins">0</strong></div>
+      </div>
+    </header>
+    <div id="expeditions-content"></div>
   </div>
 
   <div class="view" id="view-premium">
@@ -719,6 +829,20 @@
 
 </div>
 
+<div class="modal-overlay" id="pet-picker-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="picker-title">Escolha os pets</h2>
+      <button class="tiny-btn" id="picker-close" type="button">✕</button>
+    </div>
+    <div class="modal-body" id="picker-body"></div>
+    <div class="modal-actions">
+      <button class="buy-btn" id="picker-cancel" type="button">Cancelar</button>
+      <button class="buy-btn green" id="picker-confirm" type="button" disabled>Confirmar</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -767,7 +891,6 @@
     {id:'pack3', icon:'◉◉◉', name:'Baú de Moedas',     desc:'+500 moedas ◉', coins:500, ore:3000, pix:750}
   ];
 
-  /* ---------- PETS COM PASSIVAS ---------- */
   const PETS = {
     sphere:   {name:'Esfera',   shape:'circle',   color:'#4edcff', glow:'#4edcff', baseDodge:5,  cost:0,     passive:{type:'crit',       value:2,  label:'+2% crítico'}},
     flame:    {name:'Chama',    shape:'triangle', color:'#ff8a4c', glow:'#ff8a4c', baseDodge:6,  cost:500,   passive:{type:'damage',     value:5,  label:'+5% dano'}},
@@ -783,18 +906,33 @@
   const petShapeGlyph = {circle:'●', triangle:'▲', diamond:'◆', hexagon:'⬢', square:'■', star:'★'};
   const PET_MAX_LEVEL = 10;
 
-  /* ---------- SKILLS ---------- */
+  const EXPEDITIONS = [
+    {id:1, name:'Patrulha Curta',   icon:'🗺', duration:60*1000,       petsRequired:1, minLevel:1, unlockPrev:null, rewards:{fragMin:3,  fragMax:8,   ore:20,   coins:0,   potions:0,  xp:5}},
+    {id:2, name:'Caverna Sombria',  icon:'🕯', duration:5*60*1000,     petsRequired:1, minLevel:2, unlockPrev:1,    rewards:{fragMin:10, fragMax:20,  ore:80,   coins:0,   potions:0,  xp:15}},
+    {id:3, name:'Vale dos Ecos',    icon:'🌫', duration:15*60*1000,    petsRequired:2, minLevel:3, unlockPrev:2,    rewards:{fragMin:25, fragMax:50,  ore:250,  coins:5,   potions:1,  xp:40}},
+    {id:4, name:'Mergulho no Abismo',icon:'🌊',duration:60*60*1000,    petsRequired:2, minLevel:5, unlockPrev:3,    rewards:{fragMin:60, fragMax:120, ore:800,  coins:15,  potions:2,  xp:100}},
+    {id:5, name:'Incursão Lendária', icon:'⚔', duration:4*60*60*1000,  petsRequired:3, minLevel:7, unlockPrev:4,    rewards:{fragMin:200,fragMax:400, ore:2500, coins:50,  potions:5,  xp:250}},
+    {id:6, name:'Expedição Épica',  icon:'👑', duration:8*60*60*1000,  petsRequired:3, minLevel:9, unlockPrev:5,    rewards:{fragMin:500,fragMax:1000,ore:6000, coins:150, potions:10, xp:500}}
+  ];
+
   const SKILLS = {
-    heavy: {name:'Golpe Pesado', icon:'⚡', cooldown: 3, hpCost: 0.10, damageMult: 2.5},
-    cry:   {name:'Grito de Guerra', icon:'📢', cooldown: 5, buffTurns: 3, buffMult: 1.30}
+    heavy: {name:'Golpe Pesado',   icon:'⚡', cooldown:3, hpCost:0.10, damageMult:2.5},
+    cry:   {name:'Grito de Guerra', icon:'📢', cooldown:5, buffTurns:3, buffMult:1.30}
   };
 
-  const VIEWS = ['home','store','market','inventory','craft','pets','premium','wallet'];
+  const VIEWS = ['home','store','market','inventory','craft','pets','expeditions','premium','wallet'];
   const CRAFT_COST = 4;
   const POTION_PRICE = 3;
   const POTION5_PRICE = 12;
   const COIN_PACK_ORE = 40;
   const TURBO_INTERVALS = {1: 850, 2: 425, 3: 283};
+
+  // Multi-enemy positions (strong in center, weak on sides)
+  const MULTI_POSITIONS = [
+    { offsetX: 0,     scale: 1.35, role: 'strong' },  // index 0: strong
+    { offsetX: -0.17, scale: 0.7,  role: 'weak' },    // index 1: weak1
+    { offsetX: 0.17,  scale: 0.7,  role: 'weak' }     // index 2: weak2
+  ];
 
   let state = defaultState();
   let timer = null;
@@ -803,9 +941,9 @@
   let toastTimer = null;
   let soundOn = false;
   let audioContext = null;
+  let pickerState = { expId: null, selectedPets: [] };
   const particles = Array.from({length:42}, (_,i) => ({x:(i*73%997)/997, y:(i*137%991)/991, r:0.6+(i%4)*.45, speed:.12+(i%5)*.07, phase:i*1.7}));
 
-  /* ---------- EFEITOS ---------- */
   let effects = [];
   let lastDrawTime = 0;
   const anim = { playerLunge: 0, playerFlash: 0, playerShield: 0, playerHealGlow: 0, enemyLunge: 0, enemyFlash: 0, enemyHit: 0 };
@@ -847,11 +985,26 @@
     const floorY = h * 0.755;
     const ps = Math.max(20, Math.min(34, h * 0.095));
     const es = ps * (1.05 + Math.min(0.4, (state.floor || 1) * 0.012));
-    return {
-      w, h, floorY,
+    return { w, h, floorY,
       playerX: w * 0.29, playerY: floorY - ps * 0.5, playerSize: ps,
-      enemyX: w * 0.72, enemyY: floorY - es * 0.52, enemySize: es
-    };
+      enemyX: w * 0.72, enemyY: floorY - es * 0.52, enemySize: es };
+  }
+  function getEnemyScreenPositions(){
+    const c = getSceneCoords();
+    const w = c.w, floorY = c.floorY;
+    const baseX = w * 0.72;
+    const enemyCount = state.enemies ? state.enemies.length : 0;
+    if (enemyCount <= 1){
+      return [{ x: baseX, y: floorY - c.enemySize * 0.52, size: c.enemySize }];
+    }
+    return state.enemies.map((_, i) => {
+      const pos = MULTI_POSITIONS[i] || MULTI_POSITIONS[0];
+      return {
+        x: baseX + pos.offsetX * w,
+        y: floorY - c.enemySize * pos.scale * 0.52,
+        size: c.enemySize * pos.scale
+      };
+    });
   }
   function updateAnimations(dt){
     for (const k of Object.keys(anim)) anim[k] = Math.max(0, anim[k] - dt * 4.5);
@@ -872,55 +1025,34 @@
     effects.forEach(e => {
       const a = Math.max(0, e.life / e.maxLife);
       if (e.type === 'text'){
-        ctx.save();
-        ctx.globalAlpha = a;
+        ctx.save(); ctx.globalAlpha = a;
         ctx.font = `900 ${e.size}px ui-sans-serif, system-ui, sans-serif`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
         ctx.lineWidth = Math.max(3, e.size / 6);
         ctx.strokeStyle = 'rgba(0,0,0,0.75)';
         ctx.strokeText(e.text, e.x, e.y);
-        ctx.fillStyle = e.color;
-        ctx.shadowColor = e.color;
-        ctx.shadowBlur = 12;
+        ctx.fillStyle = e.color; ctx.shadowColor = e.color; ctx.shadowBlur = 12;
         ctx.fillText(e.text, e.x, e.y);
         ctx.restore();
       } else if (e.type === 'particle'){
-        ctx.save();
-        ctx.globalAlpha = a;
-        ctx.fillStyle = e.color;
-        ctx.shadowColor = e.color;
-        ctx.shadowBlur = 10;
-        ctx.beginPath();
-        ctx.arc(e.x, e.y, e.size * (0.3 + a * 0.7), 0, Math.PI * 2);
-        ctx.fill();
+        ctx.save(); ctx.globalAlpha = a;
+        ctx.fillStyle = e.color; ctx.shadowColor = e.color; ctx.shadowBlur = 10;
+        ctx.beginPath(); ctx.arc(e.x, e.y, e.size * (0.3 + a * 0.7), 0, Math.PI * 2); ctx.fill();
         ctx.restore();
       } else if (e.type === 'slash'){
-        ctx.save();
-        ctx.translate(e.x, e.y);
-        ctx.rotate(e.angle);
-        ctx.globalAlpha = a;
-        ctx.strokeStyle = e.color;
-        ctx.lineWidth = 7 * a;
-        ctx.shadowColor = e.color;
-        ctx.shadowBlur = 22;
+        ctx.save(); ctx.translate(e.x, e.y); ctx.rotate(e.angle);
+        ctx.globalAlpha = a; ctx.strokeStyle = e.color;
+        ctx.lineWidth = 7 * a; ctx.shadowColor = e.color; ctx.shadowBlur = 22;
         ctx.lineCap = 'round';
         const sweep = (1 - a);
-        ctx.beginPath();
-        ctx.arc(0, 0, 45, -1.2 + sweep * 0.6, 1.2 + sweep * 0.6);
-        ctx.stroke();
+        ctx.beginPath(); ctx.arc(0, 0, 45, -1.2 + sweep * 0.6, 1.2 + sweep * 0.6); ctx.stroke();
         ctx.restore();
       } else if (e.type === 'ring'){
-        ctx.save();
-        ctx.globalAlpha = a * 0.95;
-        ctx.strokeStyle = e.color;
-        ctx.lineWidth = 4 * a;
-        ctx.shadowColor = e.color;
-        ctx.shadowBlur = 18;
+        ctx.save(); ctx.globalAlpha = a * 0.95;
+        ctx.strokeStyle = e.color; ctx.lineWidth = 4 * a;
+        ctx.shadowColor = e.color; ctx.shadowBlur = 18;
         const r = e.startR + (e.endR - e.startR) * (1 - a);
-        ctx.beginPath();
-        ctx.arc(e.x, e.y, r, 0, Math.PI * 2);
-        ctx.stroke();
+        ctx.beginPath(); ctx.arc(e.x, e.y, r, 0, Math.PI * 2); ctx.stroke();
         ctx.restore();
       }
     });
@@ -930,7 +1062,7 @@
     return {
       floor:1, bestFloor:1, room:1, phase:'explore', mode:'auto',
       hp:100, maxHp:100, power:12, ore:0, potions:2,
-      attackLevel:0, hpLevel:0, enemy:null, guard:false, steps:0,
+      attackLevel:0, hpLevel:0, enemy:null, enemies:[], guard:false, steps:0,
       totalKills:0, totalDeaths:0, log:[], floorCleared:0,
       coins:5000, coinMilestone:0, inventory:{}, view:'home',
       pix:0, skin:'default', ownedSkins:['default'], lootLevel:0,
@@ -938,11 +1070,15 @@
       combo:0, bestCombo:0, turbo:1,
       cooldowns:{heavy:0, cry:0}, warCry:0,
       bossesKilled:0, coinsEarned:0, oreEarned:0,
-      reviveUsed:false
+      reviveUsed:false,
+      expeditionXP:{}, activeExpeditions:[], expeditionCounts:{}
     };
   }
   function save(){
-    try { const data={...state, enemy:state.enemy ? {...state.enemy} : null, log:state.log.slice(0,40)}; localStorage.setItem(SAVE_KEY, JSON.stringify(data)); }
+    try {
+      const data = {...state, log: state.log.slice(0, 40)};
+      localStorage.setItem(SAVE_KEY, JSON.stringify(data));
+    }
     catch(e) {}
   }
   function load(){
@@ -951,12 +1087,18 @@
       const data=JSON.parse(raw); if(!data || typeof data!=='object') return;
       const fresh=defaultState();
       for(const k of Object.keys(fresh)) if(data[k] !== undefined) fresh[k]=data[k];
+
+      // Migrate old single-enemy to enemies array
+      const sanitizedEnemies = sanitizeEnemies(fresh.enemies, fresh.enemy);
+
       state={...fresh,
         floor:clampInt(fresh.floor,1,999), bestFloor:Math.max(clampInt(fresh.bestFloor,1,999),clampInt(fresh.floor,1,999)), room:clampInt(fresh.room,1,ROOM_COUNT),
         phase:['explore','combat','clear'].includes(fresh.phase)?fresh.phase:'explore',
         maxHp:clampInt(fresh.maxHp,1,999999), hp:clampInt(fresh.hp,0,clampInt(fresh.maxHp,1,999999)), power:clampInt(fresh.power,1,999999),
         ore:clampInt(fresh.ore,0,999999999), potions:clampInt(fresh.potions,0,9999), attackLevel:clampInt(fresh.attackLevel,0,999), hpLevel:clampInt(fresh.hpLevel,0,999),
-        mode:fresh.mode==='manual'?'manual':'auto', log:Array.isArray(fresh.log)?fresh.log.slice(0,40):[], enemy:sanitizeEnemy(fresh.enemy),
+        mode:fresh.mode==='manual'?'manual':'auto', log:Array.isArray(fresh.log)?fresh.log.slice(0,40):[],
+        enemies:sanitizedEnemies,
+        enemy:null, // set below
         coins:clampInt(fresh.coins,0,999999999), coinMilestone:clampInt(fresh.coinMilestone,0,999999),
         inventory:sanitizeInventory(fresh.inventory),
         view:VIEWS.includes(fresh.view)?fresh.view:'home',
@@ -974,46 +1116,108 @@
         bossesKilled: clampInt(fresh.bossesKilled, 0, 99999),
         coinsEarned: clampInt(fresh.coinsEarned, 0, 999999999),
         oreEarned: clampInt(fresh.oreEarned, 0, 999999999),
-        reviveUsed: !!fresh.reviveUsed};
+        reviveUsed: !!fresh.reviveUsed,
+        expeditionXP: sanitizeExpeditionXP(fresh.expeditionXP, fresh.ownedPets),
+        activeExpeditions: sanitizeActiveExpeditions(fresh.activeExpeditions),
+        expeditionCounts: sanitizeExpeditionCounts(fresh.expeditionCounts)};
+
+      // Fix enemy reference
+      const living = state.enemies.filter(e => e.hp > 0);
+      if (state.phase === 'combat' && living.length > 0){
+        state.enemy = living[0];
+      } else if (state.phase === 'combat' && living.length === 0){
+        state.phase = 'explore';
+        state.enemies = [];
+        state.enemy = null;
+      } else {
+        state.enemies = [];
+        state.enemy = null;
+      }
+
       if(!state.ownedSkins.includes('default')) state.ownedSkins.unshift('default');
       if(!state.ownedSkins.includes(state.skin)) state.ownedSkins.push(state.skin);
       if(state.equippedPet && !state.ownedPets.includes(state.equippedPet)) state.equippedPet = null;
-      if(state.phase!=='combat') state.enemy=null;
-      if(state.phase==='combat' && (!state.enemy || !Number.isFinite(state.enemy.hp) || state.enemy.hp<=0)) { state.enemy=null; state.phase='explore'; }
     } catch(e) { state=defaultState(); }
   }
   function clampInt(v,min,max){ const n=Number(v); return Number.isFinite(n)?Math.max(min,Math.min(max,Math.floor(n))):min; }
   function sanitizeInventory(raw){
     const out = {};
     if(!raw || typeof raw !== 'object') return out;
-    for(const k of Object.keys(itemDefs)){
-      const v = clampInt(raw[k], 0, 999999);
-      if(v > 0) out[k] = v;
-    }
+    for(const k of Object.keys(itemDefs)){ const v = clampInt(raw[k], 0, 999999); if(v > 0) out[k] = v; }
     return out;
   }
   function sanitizeEnemy(raw){
     if(!raw || typeof raw!=='object') return null;
     const shape=enemyShapes.includes(raw.shape)?raw.shape:null;
-    const hp=clampInt(raw.hp,1,99999999), maxHp=clampInt(raw.maxHp,1,99999999);
-    if(!shape || !Number.isFinite(Number(raw.hp)) || !Number.isFinite(Number(raw.maxHp)) || Number(raw.hp)<=0 || Number(raw.maxHp)<=0 || hp>maxHp) return null;
+    if(!shape) return null;
+    const hp = clampInt(raw.hp, 0, 99999999);
+    const maxHp = clampInt(raw.maxHp, 1, 99999999);
+    if(!Number.isFinite(Number(raw.maxHp)) || maxHp <= 0) return null;
+    if(hp > maxHp) return null;
     const color=typeof raw.color==='string' && /^#[0-9a-f]{6}$/i.test(raw.color) ? raw.color : palette().enemies[0];
     return {
-      name:enemyNames.includes(raw.name)?raw.name:enemyNames[0], shape, color, hp, maxHp,
-      attack:clampInt(raw.attack,1,999999), level:clampInt(raw.level,1,999999),
-      oreReward:clampInt(raw.oreReward,0,99999999), xp:clampInt(raw.xp,0,99999999),
-      isBoss: !!raw.isBoss
+      name: typeof raw.name === 'string' ? raw.name : enemyNames[0],
+      shape, color, hp, maxHp,
+      attack: clampInt(raw.attack, 1, 999999),
+      level: clampInt(raw.level, 1, 999999),
+      oreReward: clampInt(raw.oreReward, 0, 99999999),
+      xp: clampInt(raw.xp, 0, 99999999),
+      isBoss: !!raw.isBoss,
+      isStrong: !!raw.isStrong,
+      isWeak: !!raw.isWeak,
+      role: typeof raw.role === 'string' ? raw.role : 'normal',
+      usedPotion: !!raw.usedPotion
     };
+  }
+  function sanitizeEnemies(rawArray, legacyEnemy){
+    const out = [];
+    if (Array.isArray(rawArray)){
+      for (const raw of rawArray){
+        const s = sanitizeEnemy(raw);
+        if (s) out.push(s);
+      }
+    }
+    if (out.length === 0 && legacyEnemy){
+      const s = sanitizeEnemy(legacyEnemy);
+      if (s) out.push(s);
+    }
+    return out;
   }
   function sanitizePetLevels(raw, ownedPets){
     const out = {};
     if(Array.isArray(ownedPets)){
-      for(const id of ownedPets){
-        if(!PETS[id]) continue;
-        const lv = raw && typeof raw === 'object' ? clampInt(raw[id], 1, PET_MAX_LEVEL) : 1;
-        out[id] = Math.max(1, lv);
-      }
+      for(const id of ownedPets){ if(!PETS[id]) continue; const lv = raw && typeof raw === 'object' ? clampInt(raw[id], 1, PET_MAX_LEVEL) : 1; out[id] = Math.max(1, lv); }
     }
+    return out;
+  }
+  function sanitizeExpeditionXP(raw, ownedPets){
+    const out = {};
+    if(!Array.isArray(ownedPets)) return out;
+    for(const id of ownedPets){ out[id] = clampInt(raw?.[id], 0, 9999999); }
+    return out;
+  }
+  function sanitizeActiveExpeditions(raw){
+    if (!Array.isArray(raw)) return [];
+    return raw.filter(e => {
+      if (!e || typeof e !== 'object') return false;
+      if (!EXPEDITIONS.find(x => x.id === e.id)) return false;
+      if (!Array.isArray(e.petIds) || e.petIds.length === 0) return false;
+      if (typeof e.startedAt !== 'number' || typeof e.endsAt !== 'number') return false;
+      return true;
+    }).map(e => ({
+      id: e.id,
+      name: String(e.name || (EXPEDITIONS.find(x => x.id === e.id)?.name || '')),
+      icon: String(e.icon || (EXPEDITIONS.find(x => x.id === e.id)?.icon || '🗺')),
+      petIds: e.petIds.filter(id => PETS[id]),
+      startedAt: e.startedAt,
+      endsAt: e.endsAt,
+      notified: !!e.notified
+    }));
+  }
+  function sanitizeExpeditionCounts(raw){
+    const out = {};
+    if (!raw || typeof raw !== 'object') return out;
+    for (const exp of EXPEDITIONS){ out[exp.id] = clampInt(raw[exp.id], 0, 999999); }
     return out;
   }
   function fmtBRL(cents){ return (Number(cents||0)/100).toFixed(2).replace('.', ','); }
@@ -1021,30 +1225,45 @@
   function scaleCycle(){ return Math.floor((state.floor-1)/palettes.length); }
   function isBossFloor(){ return state.floor % 10 === 0; }
   function isTreasureFloor(){ return state.floor % 5 === 0 && !isBossFloor(); }
-  function effectiveRoomCount(){ return isBossFloor() ? 1 : ROOM_COUNT; }
+  function isMultiEnemyFloor(){ return state.floor >= 70 && !isBossFloor() && !isTreasureFloor(); }
   function comboMultiplier(){ return 1 + Math.min(state.combo, 20) * 0.05; }
+  function floorSizeBoost(){ return state.floor >= 50 ? Math.min(1.5, 1 + (state.floor - 50) * 0.015) : 1; }
 
-  function enemyStats(){
+  function enemyStats(opts = {}){
     const cycle=scaleCycle(), base=state.floor;
-    const isBoss = isBossFloor();
-    const isTreasure = isTreasureFloor();
     const shape=enemyShapes[(base+state.room-2)%enemyShapes.length];
     const color=palette().enemies[(state.room+base-2)%palette().enemies.length];
     let hp=Math.round((24+base*12+cycle*8)*(1+(state.room-1)*.24));
     let attack=Math.max(3,Math.round((4+base*2+cycle)*(1+(state.room-1)*.12)));
     let name = enemyNames[(base+state.room-2)%enemyNames.length];
     let oreReward = 5+base*3+state.room*2;
-    if (isBoss){
-      hp *= 3;
-      attack = Math.round(attack * 1.5);
-      name = 'BOSS: Guardião do Andar ' + base;
-      oreReward *= 5;
-    } else if (isTreasure){
+
+    // Multi-enemy modifiers
+    if (opts.strong){
       hp = Math.round(hp * 0.7);
-      attack = Math.round(attack * 0.7);
-      oreReward *= 2;
+      attack = Math.round(attack * 0.6);
+      name = 'Chefe · ' + name;
+    } else if (opts.weak){
+      hp = Math.round(hp * 0.35);
+      attack = Math.round(attack * 0.35);
+      name = 'Lacaio · ' + name;
     }
-    return {name, shape, color, hp, maxHp: hp, attack, level: base, oreReward, xp: base*6+state.room*2, isBoss};
+
+    // Boss (single-enemy only)
+    const isBoss = isBossFloor() && !opts.multi;
+    if (isBoss){ hp *= 3; attack = Math.round(attack * 1.5); name = 'BOSS: Guardião do Andar ' + base; oreReward *= 5; }
+
+    // Treasure (single-enemy only)
+    const isTreasure = isTreasureFloor() && !opts.multi;
+    if (isTreasure){ hp = Math.round(hp * 0.7); attack = Math.round(attack * 0.7); oreReward *= 2; }
+
+    return {
+      name, shape, color, hp, maxHp: hp, attack, level: base, oreReward,
+      xp: base*6+state.room*2, isBoss,
+      isStrong: !!opts.strong, isWeak: !!opts.weak,
+      role: opts.strong ? 'strong' : opts.weak ? 'weak' : 'normal',
+      usedPotion: false
+    };
   }
 
   function log(message,type='info'){
@@ -1061,7 +1280,33 @@
     try { audioContext=audioContext||new (window.AudioContext||window.webkitAudioContext)(); const osc=audioContext.createOscillator(), gain=audioContext.createGain(); osc.type=type; osc.frequency.value=freq; gain.gain.setValueAtTime(.04,audioContext.currentTime); gain.gain.exponentialRampToValueAtTime(.001,audioContext.currentTime+duration); osc.connect(gain);gain.connect(audioContext.destination);osc.start();osc.stop(audioContext.currentTime+duration); } catch(e){}
   }
 
-  /* ---------- PET ---------- */
+  /* ---------- PET XP ---------- */
+  function petXPForNextLevel(level){ return 30 * level; }
+  function applyPetXP(petId){
+    if (!state.petLevels[petId]) return;
+    let leveled = false;
+    while (state.petLevels[petId] < PET_MAX_LEVEL){
+      const needed = petXPForNextLevel(state.petLevels[petId]);
+      const current = state.expeditionXP[petId] || 0;
+      if (current >= needed){
+        state.expeditionXP[petId] = current - needed;
+        state.petLevels[petId]++;
+        leveled = true;
+        log(`🐾 ${PETS[petId].name} subiu para nível ${state.petLevels[petId]}!`, 'good');
+        showToast(`🐾 ${PETS[petId].name} nível ${state.petLevels[petId]}!`);
+        beep(850, .15, 'sine');
+      } else break;
+    }
+    return leveled;
+  }
+  function addPetXP(petId, amount){
+    if (!state.petLevels[petId]) return;
+    state.expeditionXP[petId] = (state.expeditionXP[petId] || 0) + amount;
+    if (state.petLevels[petId] >= PET_MAX_LEVEL) return;
+    applyPetXP(petId);
+  }
+
+  /* ---------- PET SISTEMA BASE ---------- */
   function petUnlocked(){ return state.bestFloor >= PET_UNLOCK_FLOOR; }
   function petDodgeChance(){
     if(!state.equippedPet) return 0;
@@ -1078,14 +1323,22 @@
   function petUpgradeCost(level){ return 1 + level * 2; }
   function totalFragments(){ return Object.values(state.inventory).reduce((s,v)=>s+v,0); }
 
+  function busyPetIds(){
+    const busy = new Set();
+    for (const exp of state.activeExpeditions){ for (const petId of exp.petIds) busy.add(petId); }
+    return busy;
+  }
+
   function equipPet(id){
     const pet = PETS[id]; if(!pet) return;
     if(!petUnlocked()){ showToast('Pets desbloqueiam no andar 30.'); return; }
+    if (busyPetIds().has(id)){ showToast('Este pet está em uma expedição.'); return; }
     if(!state.ownedPets.includes(id)){
       if(state.coins < pet.cost){ showToast(`Precisa de ${pet.cost} ◉ para desbloquear.`); return; }
       state.coins -= pet.cost;
       state.ownedPets.push(id);
       state.petLevels[id] = 1;
+      state.expeditionXP[id] = 0;
       state.equippedPet = id;
       log(`Pet ${pet.name} desbloqueado e equipado (${pet.baseDodge}% esquiva).`, 'good');
       showToast(`🐾 ${pet.name} equipado!`);
@@ -1101,36 +1354,38 @@
     render();
     if(state.view==='pets') renderPets();
     if(state.view==='craft') renderPetForge();
+    if(state.view==='expeditions') renderExpeditions();
     save();
   }
 
-  function strengthenPet(){
-    if(!state.equippedPet){ showToast('Equipe um pet primeiro.'); return; }
-    const pet = PETS[state.equippedPet]; if(!pet) return;
-    const lv = state.petLevels[state.equippedPet] || 1;
-    if(lv >= PET_MAX_LEVEL){ showToast('Pet já está no nível máximo.'); return; }
+  function strengthenSpecificPet(petId){
+    if (!PETS[petId]) return;
+    if (!state.ownedPets.includes(petId)) return;
+    const pet = PETS[petId];
+    const lv = state.petLevels[petId] || 1;
+    if (lv >= PET_MAX_LEVEL){ showToast('Pet já está no nível máximo.'); return; }
     const cost = petUpgradeCost(lv);
     const total = totalFragments();
-    if(total < cost){ showToast(`Precisa de ${cost} fragmentos (tem ${total}).`); return; }
+    if (total < cost){ showToast(`Precisa de ${cost} fragmentos (tem ${total}).`); return; }
     let remaining = cost;
     const order = Object.keys(itemDefs).sort((a,b) => itemDefs[a].sell - itemDefs[b].sell);
-    for(const shape of order){
-      if(remaining <= 0) break;
+    for (const shape of order){
+      if (remaining <= 0) break;
       const have = state.inventory[shape] || 0;
       const use = Math.min(have, remaining);
-      if(use > 0){
+      if (use > 0){
         state.inventory[shape] = have - use;
-        if(state.inventory[shape] <= 0) delete state.inventory[shape];
+        if (state.inventory[shape] <= 0) delete state.inventory[shape];
         remaining -= use;
       }
     }
-    state.petLevels[state.equippedPet] = lv + 1;
+    state.petLevels[petId] = lv + 1;
     log(`Forja: ${pet.name} fortalecido para nível ${lv+1}.`, 'good');
     showToast(`🐾 ${pet.name} nível ${lv+1}!`);
     beep(780, .15, 'sine');
     render();
-    if(state.view==='craft') renderCraft();
-    if(state.view==='pets') renderPets();
+    if (state.view === 'craft') { renderCraft(); renderPetForge(); }
+    if (state.view === 'pets') renderPets();
     save();
   }
 
@@ -1144,18 +1399,40 @@
   /* ---------- COMBATE ---------- */
   function startFight(){
     if(state.phase!=='explore') return;
-    if(isBossFloor() && state.room > 1) return; // não deveria acontecer
-    state.enemy=enemyStats(); state.phase='combat'; state.guard=false; state.steps++;
+
+    let newEnemies = [];
+    let introMsg = '';
+
     if (isBossFloor()){
-      log(`⚔️ ${state.enemy.name} bloqueia o caminho!`, 'boss');
+      newEnemies = [enemyStats()];
+      introMsg = `⚔️ ${newEnemies[0].name} bloqueia o caminho!`;
+      log(introMsg, 'boss');
       beep(180,.3,'sawtooth');
       triggerShake(10, 0.4);
     } else if (isTreasureFloor()){
+      newEnemies = [enemyStats()];
       log(`✨ Andar do Tesouro! Inimigos fracos, loot em dobro.`, 'good');
+    } else if (isMultiEnemyFloor()){
+      const strong = enemyStats({ strong: true, multi: true });
+      const weak1 = enemyStats({ weak: true, multi: true });
+      const weak2 = enemyStats({ weak: true, multi: true });
+      weak1.name = 'Lacaio A · ' + enemyNames[(state.floor+state.room-2)%enemyNames.length];
+      weak2.name = 'Lacaio B · ' + enemyNames[(state.floor+state.room-2)%enemyNames.length];
+      newEnemies = [strong, weak1, weak2];
+      log(`⚔ Três formas surgiram! Chefe + 2 lacaios bloqueiam a passagem.`, 'boss');
+      beep(220,.25,'sawtooth');
+      triggerShake(8, 0.35);
     } else {
-      log(`Uma forma hostil surgiu: ${state.enemy.name.toLowerCase()} no andar ${state.floor}.`,'bad');
+      newEnemies = [enemyStats()];
+      log(`Uma forma hostil surgiu: ${newEnemies[0].name.toLowerCase()} no andar ${state.floor}.`, 'bad');
       beep(300,.11,'triangle');
     }
+
+    state.enemies = newEnemies;
+    state.enemy = newEnemies[0]; // focus first living
+    state.phase = 'combat';
+    state.guard = false;
+    state.steps++;
     render(); save();
   }
 
@@ -1163,13 +1440,9 @@
     let base = state.power;
     let crit = forceCrit || (Math.random() * 100 < (10 + (petPassive()?.type === 'crit' ? petPassive().value : 0)));
     if (crit) base *= 2;
-    // passiva crítico
     if (crit && petPassive()?.type === 'critDamage') base *= (1 + petPassive().value / 100);
-    // passiva dano
     if (petPassive()?.type === 'damage') base *= (1 + petPassive().value / 100);
-    // combo
     base *= comboMultiplier();
-    // war cry
     if (state.warCry > 0) base *= SKILLS.cry.buffMult;
     base *= mult;
     return { damage: Math.round(base + Math.random() * 4), crit };
@@ -1178,20 +1451,20 @@
   function playerAttack(){
     if(state.phase!=='combat'||!state.enemy) return;
     const { damage, crit } = computePlayerDamage();
-    state.enemy.hp=Math.max(0,state.enemy.hp-damage);
+    state.enemy.hp = Math.max(0, state.enemy.hp - damage);
     log(`Você acertou ${state.enemy.name} e causou ${damage} de dano${crit?' crítico':''}${state.combo>0?` (combo x${comboMultiplier().toFixed(2)})`:''}.`, 'good');
     beep(crit?520:380,.07,'square');
 
-    const c = getSceneCoords();
-    anim.playerLunge = 1;
-    anim.enemyHit = 1;
-    addSlash(c.enemyX - 8, c.enemyY, crit ? '#ffe066' : '#ffffff', -0.4);
-    addSpawnParticles(c.enemyX, c.enemyY, crit ? 22 : 14, crit ? '#ffcb47' : state.enemy.color, { speed:200, life:0.65, size:3 });
-    addFloatText(`-${damage}`, c.enemyX, c.enemyY - 30, crit ? '#ffcb47' : '#ff6b7b', crit ? 30 : 22);
-    if (crit) addFloatText('CRÍTICO!', c.enemyX, c.enemyY - 68, '#ffcb47', 16, { life:1.4, vy:-35 });
+    const positions = getEnemyScreenPositions();
+    const idx = state.enemies.indexOf(state.enemy);
+    const pos = positions[idx] || positions[0];
+    anim.playerLunge = 1; anim.enemyHit = 1;
+    addSlash(pos.x - 8, pos.y, crit ? '#ffe066' : '#ffffff', -0.4);
+    addSpawnParticles(pos.x, pos.y, crit ? 22 : 14, crit ? '#ffcb47' : state.enemy.color, { speed:200, life:0.65, size:3 });
+    addFloatText(`-${damage}`, pos.x, pos.y - 30, crit ? '#ffcb47' : '#ff6b7b', crit ? 30 : 22);
+    if (crit) addFloatText('CRÍTICO!', pos.x, pos.y - 68, '#ffcb47', 16, { life:1.4, vy:-35 });
     triggerShake(crit ? 14 : 7, 0.28);
 
-    // Incrementa combo (acerto bem-sucedido)
     state.combo++;
     if (state.combo > state.bestCombo) state.bestCombo = state.combo;
 
@@ -1205,23 +1478,23 @@
     const hpCost = Math.ceil(state.maxHp * SKILLS.heavy.hpCost);
     if (state.hp <= hpCost){ showToast('Vida insuficiente para usar Golpe Pesado.'); return; }
     state.hp -= hpCost;
-    const { damage, crit } = computePlayerDamage(SKILLS.heavy.damageMult, true);
+    const { damage } = computePlayerDamage(SKILLS.heavy.damageMult, true);
     state.enemy.hp = Math.max(0, state.enemy.hp - damage);
-    state.cooldowns.heavy = SKILLS.heavy.cooldown + 1; // +1 para compensar decremento no inimigo
+    state.cooldowns.heavy = SKILLS.heavy.cooldown + 1;
 
     log(`⚡ GOLPE PESADO! ${damage} de dano (${hpCost} de vida gasta).`, 'good');
     beep(600, .14, 'square');
 
-    const c = getSceneCoords();
-    anim.playerLunge = 1.4;
-    anim.enemyHit = 1.5;
-    addSlash(c.enemyX - 8, c.enemyY, '#ff8a4c', -0.4);
-    addSlash(c.enemyX - 4, c.enemyY - 8, '#ffb347', -0.5);
-    addSpawnParticles(c.enemyX, c.enemyY, 32, '#ff8a4c', { speed:280, life:0.8, size:4 });
-    addRing(c.enemyX, c.enemyY, '#ff8a4c', 15, 100, 0.6);
-    addFloatText(`-${damage}`, c.enemyX, c.enemyY - 30, '#ff8a4c', 34);
-    addFloatText('GOLPE PESADO', c.enemyX, c.enemyY - 75, '#ff8a4c', 16, { life:1.4, vy:-35 });
-    addFloatText(`-${hpCost} HP`, c.playerX, c.playerY - 40, '#ff4258', 14, { life:1 });
+    const positions = getEnemyScreenPositions();
+    const idx = state.enemies.indexOf(state.enemy);
+    const pos = positions[idx] || positions[0];
+    anim.playerLunge = 1.4; anim.enemyHit = 1.5;
+    addSlash(pos.x - 8, pos.y, '#ff8a4c', -0.4);
+    addSlash(pos.x - 4, pos.y - 8, '#ffb347', -0.5);
+    addSpawnParticles(pos.x, pos.y, 32, '#ff8a4c', { speed:280, life:0.8, size:4 });
+    addRing(pos.x, pos.y, '#ff8a4c', 15, 100, 0.6);
+    addFloatText(`-${damage}`, pos.x, pos.y - 30, '#ff8a4c', 34);
+    addFloatText('GOLPE PESADO', pos.x, pos.y - 75, '#ff8a4c', 16, { life:1.4, vy:-35 });
     triggerShake(18, 0.4);
 
     if(state.enemy.hp<=0){ defeatEnemy(); return; }
@@ -1233,16 +1506,13 @@
     if(state.cooldowns.cry > 0){ showToast(`Grito de Guerra em cooldown (${state.cooldowns.cry}).`); return; }
     state.warCry = SKILLS.cry.buffTurns;
     state.cooldowns.cry = SKILLS.cry.cooldown + 1;
-
     log(`📢 GRITO DE GUERRA! +30% de dano pelos próximos ${SKILLS.cry.buffTurns} ataques.`, 'good');
     beep(400, .2, 'triangle');
-
     const c = getSceneCoords();
     addRing(c.playerX, c.playerY, '#b57bff', 20, 120, 0.7);
     addSpawnParticles(c.playerX, c.playerY, 24, '#b57bff', { speed:180, life:0.9, up:40, size:3 });
     addFloatText('GRITO DE GUERRA!', c.playerX, c.playerY - 55, '#b57bff', 18, { life:1.5 });
     triggerShake(8, 0.3);
-
     enemyTurn(); render(); save();
   }
 
@@ -1265,13 +1535,11 @@
     state.potions--;
     const amount=Math.min(state.maxHp-state.hp,Math.ceil(state.maxHp*.35)); state.hp+=amount;
     log(`Poção usada: +${amount} de vida.`,'good'); beep(620,.12,'sine');
-
     anim.playerHealGlow = 1;
     const c = getSceneCoords();
     addSpawnParticles(c.playerX, c.playerY + 10, 24, '#3fe094', { speed:80, life:1.1, up:80, gravity:-80, size:4 });
     addRing(c.playerX, c.playerY, '#3fe094', 15, 85, 0.7);
     addFloatText(`+${amount}`, c.playerX, c.playerY - 40, '#3fe094', 26, { life:1.3 });
-
     if(state.phase==='combat') enemyTurn();
     render(); save();
   }
@@ -1283,14 +1551,13 @@
   }
 
   function enemyTurn(){
-    if(state.phase!=='combat'||!state.enemy) return;
+    if(state.phase!=='combat') return;
+    const living = state.enemies.filter(e => e.hp > 0);
+    if (!living.length) return;
     const c = getSceneCoords();
     anim.enemyLunge = 1;
 
-    // Decrementa cooldowns e war cry no fim do turno
-    // (feito aqui para afetar o próximo turno do jogador)
-
-    /* Defesa bloqueia 100% do dano */
+    // Player guard blocks all enemies
     if(state.guard){
       state.guard = false;
       anim.playerShield = 1;
@@ -1299,12 +1566,11 @@
       addFloatText('BLOQUEADO!', c.playerX, c.playerY - 40, '#38f0ff', 22, { life:1.2 });
       triggerShake(5, 0.22);
       beep(500, .1, 'triangle');
-      log(`${state.enemy.name} atacou, mas o escudo bloqueou todo o dano!`, 'good');
-      tickCooldowns();
-      return;
+      log(`Você bloqueou todos os ataques!`, 'good');
+      tickCooldowns(); return;
     }
 
-    /* Passiva de bloqueio do pet (golem) */
+    // Pet block passive
     const passive = petPassive();
     if (passive && passive.type === 'block' && Math.random() * 100 < passive.value){
       const pet = PETS[state.equippedPet];
@@ -1312,11 +1578,10 @@
       addFloatText(`BLOQUEIO!`, c.playerX, c.playerY - 40, pet.color, 20, { life:1.2 });
       log(`${pet.name} bloqueou o ataque!`, 'good');
       beep(600, .1, 'sine');
-      tickCooldowns();
-      return;
+      tickCooldowns(); return;
     }
 
-    /* Esquiva do pet */
+    // Pet dodge (one roll for entire enemy turn)
     const dodge = petDodgeChance();
     if(dodge > 0 && Math.random() * 100 < dodge){
       const pet = PETS[state.equippedPet];
@@ -1326,28 +1591,55 @@
       addFloatText('ESQUIVOU!', c.playerX, c.playerY - 40, '#ffd166', 22, { life:1.2 });
       triggerShake(4, 0.18);
       beep(680, .1, 'sine');
-      log(`${pet.name} te ajudou a esquivar do ataque de ${state.enemy.name}!`, 'good');
-      tickCooldowns();
-      return;
+      log(`${pet.name} te ajudou a esquivar de todos os ataques!`, 'good');
+      tickCooldowns(); return;
     }
 
-    let damage=state.enemy.attack+Math.floor(Math.random()*4);
-    state.hp=Math.max(0,state.hp-damage);
+    // Each living enemy attacks (or uses potion)
+    let totalDamage = 0;
+    const attackers = [];
+    const positions = getEnemyScreenPositions();
+
+    living.forEach((enemy) => {
+      const idx = state.enemies.indexOf(enemy);
+      const pos = positions[idx] || positions[0];
+
+      // Enemy potion (floor 30+, HP < 40%, once per fight, 8% chance)
+      if (state.floor >= 30 && enemy.hp < enemy.maxHp * 0.4 && !enemy.usedPotion && Math.random() < 0.08){
+        enemy.usedPotion = true;
+        const heal = Math.round(enemy.maxHp * 0.25);
+        enemy.hp = Math.min(enemy.maxHp, enemy.hp + heal);
+        log(`🧪 ${enemy.name} bebeu uma poção e recuperou ${heal} HP!`, 'bad');
+        addSpawnParticles(pos.x, pos.y, 16, '#ff477e', { speed:120, life:0.9, up:60, gravity:-60, size:3 });
+        addRing(pos.x, pos.y, '#ff477e', 12, 70, 0.6);
+        addFloatText(`+${heal}`, pos.x, pos.y - 30, '#ff477e', 20);
+        beep(300, .12, 'sine');
+        return; // This enemy skips its attack this turn
+      }
+
+      const dmg = enemy.attack + Math.floor(Math.random() * 4);
+      totalDamage += dmg;
+      attackers.push(enemy.name);
+    });
+
+    if (totalDamage <= 0) { tickCooldowns(); return; }
+
+    state.hp = Math.max(0, state.hp - totalDamage);
     anim.playerFlash = 1;
     addSlash(c.playerX + 10, c.playerY, '#ff4258', 0.4);
-    addSpawnParticles(c.playerX, c.playerY, 14, '#ff4258', { speed:200, life:0.6, size:3 });
-    addFloatText(`-${damage}`, c.playerX, c.playerY - 30, '#ff4258', 22);
-    triggerShake(9, 0.28);
-    log(`${state.enemy.name} atacou e causou ${damage} de dano.`, state.hp<state.maxHp*.3?'bad':'info');
+    addSpawnParticles(c.playerX, c.playerY, 14 + (attackers.length * 4), '#ff4258', { speed:200, life:0.6, size:3 });
+    addFloatText(`-${totalDamage}`, c.playerX, c.playerY - 30, '#ff4258', 22);
+    triggerShake(9 + attackers.length * 2, 0.28);
+    const namesJoined = attackers.length === 1 ? attackers[0] : `${attackers[0]} e mais ${attackers.length-1}`;
+    log(`${namesJoined} atacaram causando ${totalDamage} de dano total.`, state.hp < state.maxHp * 0.3 ? 'bad' : 'info');
     beep(130,.08,'sawtooth');
 
-    // Perde o combo
     if (state.combo > 0){
       addFloatText('COMBO PERDIDO', c.playerX, c.playerY - 65, '#ff6b7b', 14, { life:1.4 });
       state.combo = 0;
     }
 
-    // Passiva de revive (cosmos)
+    // Revive check
     if (state.hp <= 0 && passive && passive.type === 'revive' && !state.reviveUsed){
       state.hp = Math.ceil(state.maxHp * 0.5);
       state.reviveUsed = true;
@@ -1357,87 +1649,102 @@
       triggerShake(15, 0.4);
       beep(900, .25, 'sine');
       log(`✨ ${PETS[state.equippedPet].name} reviveu você com ${state.hp} HP!`, 'good');
-      tickCooldowns();
-      return;
+      tickCooldowns(); return;
     }
 
-    if(state.hp<=0) playerDefeated();
+    if (state.hp <= 0) playerDefeated();
     else tickCooldowns();
   }
 
   function defeatEnemy(){
-    const e=state.enemy; if(!e) return;
+    const killed = state.enemy;
+    if (!killed || killed.hp > 0) return;
+
+    const e = killed;
     let reward = e.oreReward;
-    // passiva de minério (crystal)
     if (petPassive()?.type === 'ore') reward = Math.round(reward * (1 + petPassive().value / 100));
-    // tesouro
     if (isTreasureFloor()) reward *= 2;
-
     state.ore += reward; state.oreEarned += reward;
-    state.totalKills++; state.enemy=null; state.guard=false;
-
+    state.totalKills++;
     if (e.isBoss) state.bossesKilled++;
+    log(`${e.name} foi derrotado. Você encontrou ${reward} minérios.`, 'good');
 
-    log(`${e.name} foi derrotado. Você encontrou ${reward} minérios.`,'good');
-
-    // Loot
     let maxDrop = 5 + (state.lootLevel || 0);
     if (isTreasureFloor()) maxDrop *= 3;
     if (e.isBoss) maxDrop *= 4;
-    // passiva de loot (prism)
     if (petPassive()?.type === 'loot') maxDrop = Math.round(maxDrop * (1 + petPassive().value / 100));
-
     const drop = Math.floor(Math.random() * (maxDrop + 1));
-    if(drop > 0){
-      const def = itemDefs[e.shape];
-      if(def){
-        state.inventory[e.shape] = (state.inventory[e.shape] || 0) + drop;
-        log(`Loot: ${drop}× ${def.name} ${def.glyph} coletado.`,'good');
-        beep(660 + drop*30, .07, 'sine');
-      }
+    if(drop > 0 && itemDefs[e.shape]){
+      state.inventory[e.shape] = (state.inventory[e.shape] || 0) + drop;
+      log(`Loot: ${drop}× ${itemDefs[e.shape].name} ${itemDefs[e.shape].glyph} coletado.`, 'good');
+      beep(660 + drop*30, .07, 'sine');
     }
 
-    const c = getSceneCoords();
-    addSpawnParticles(c.enemyX, c.enemyY, 26, e.color, { speed:260, life:0.9, size:3 });
-    addRing(c.enemyX, c.enemyY, e.color, 10, 110, 0.7);
-    addFloatText('✕ DERROTADO', c.enemyX, c.enemyY - 40, e.color, 16, { life:1.4 });
+    const positions = getEnemyScreenPositions();
+    const idx = state.enemies.indexOf(killed);
+    const pos = positions[idx] || positions[0];
+    addSpawnParticles(pos.x, pos.y, 26, e.color, { speed:260, life:0.9, size:3 });
+    addRing(pos.x, pos.y, e.color, 10, 110, 0.7);
+    addFloatText('✕ DERROTADO', pos.x, pos.y - 40, e.color, 16, { life:1.4 });
     triggerShake(6, 0.3);
 
-    // Bônus de boss
     if (e.isBoss){
       const bossCoins = 30 + Math.floor(Math.random() * 20);
-      state.coins += bossCoins;
-      state.coinsEarned += bossCoins;
+      state.coins += bossCoins; state.coinsEarned += bossCoins;
       log(`🏆 BOSS DERROTADO! +${bossCoins} moedas bônus.`, 'boss');
-      addFloatText(`+${bossCoins} ◉`, c.enemyX, c.enemyY - 70, '#ffcb47', 20, { life:1.6 });
+      addFloatText(`+${bossCoins} ◉`, pos.x, pos.y - 70, '#ffcb47', 20, { life:1.6 });
       showToast(`🏆 Boss derrotado! +${bossCoins} moedas`);
       beep(900, .3, 'sine');
-      state.reviveUsed = false; // reset revive por andar
-      state.phase = 'clear';
-      state.floorCleared++;
-      render();
-      if(state.view==='inventory') renderInventory();
-      else if(state.view==='market') renderMarket();
-      else if(state.view==='craft') { renderCraft(); renderPetForge(); }
-      else if(state.view==='pets') renderPets();
-      save();
+    }
+
+    // Check if more enemies remain
+    const remaining = state.enemies.filter(x => x.hp > 0);
+    if (remaining.length > 0){
+      state.enemy = remaining[0];
+      log(`Próximo alvo: ${state.enemy.name}.`, 'info');
+      // Remaining enemies attack
+      enemyTurn();
+      render(); save();
       return;
     }
 
-    const recovery=Math.max(3,Math.round(state.maxHp*.08)); state.hp=Math.min(state.maxHp,state.hp+recovery);
-    if(state.room<ROOM_COUNT){ state.room++; state.phase='explore'; log(`Caminho livre. Próxima sala: ${state.room}/${ROOM_COUNT}.`,'info'); }
-    else { state.phase='clear'; state.floorCleared++; state.reviveUsed = false; log(`Andar ${state.floor} concluído! A passagem para baixo está aberta.`,'good'); }
+    // All enemies dead!
+    state.enemies = [];
+    state.enemy = null;
+    state.guard = false;
+    state.reviveUsed = false;
+
+    const recovery = Math.max(3, Math.round(state.maxHp * 0.08));
+    state.hp = Math.min(state.maxHp, state.hp + recovery);
+
+    if (e.isBoss){
+      state.phase = 'clear';
+      state.floorCleared++;
+      log(`Andar ${state.floor} concluído! A passagem para baixo está aberta.`, 'good');
+    } else if (state.room < ROOM_COUNT){
+      state.room++;
+      state.phase = 'explore';
+      log(`Caminho livre. Próxima sala: ${state.room}/${ROOM_COUNT}.`, 'info');
+    } else {
+      state.phase = 'clear';
+      state.floorCleared++;
+      log(`Andar ${state.floor} concluído! A passagem para baixo está aberta.`, 'good');
+    }
+
     render();
     if(state.view==='inventory') renderInventory();
     else if(state.view==='market') renderMarket();
     else if(state.view==='craft') { renderCraft(); renderPetForge(); }
     else if(state.view==='pets') renderPets();
+    else if(state.view==='expeditions') renderExpeditions();
     save();
   }
 
   function playerDefeated(){
-    const failedFloor=state.floor; state.totalDeaths++; state.enemy=null; state.guard=false;
+    const failedFloor=state.floor; state.totalDeaths++; state.guard=false;
     state.combo = 0;
+    state.enemies = [];
+    state.enemy = null;
     const lost=Math.min(state.ore,Math.floor(state.ore*.12)); state.ore-=lost;
     state.floor=Math.max(1,state.floor-1); state.room=1; state.phase='explore';
     state.hp=Math.max(1,Math.ceil(state.maxHp*.7));
@@ -1450,9 +1757,10 @@
   function descendFloor(){
     if(state.phase!=='clear') return;
     const wasLocked = state.bestFloor < PET_UNLOCK_FLOOR;
-    state.floor++; state.bestFloor=Math.max(state.bestFloor,state.floor); state.room=1; state.phase='explore'; state.enemy=null; state.guard=false;
-    state.combo = 0;
-    state.reviveUsed = false;
+    state.floor++; state.bestFloor=Math.max(state.bestFloor,state.floor); state.room=1; state.phase='explore';
+    state.enemies = [];
+    state.enemy=null; state.guard=false;
+    state.combo = 0; state.reviveUsed = false;
     const heal=Math.ceil(state.maxHp*.22); state.hp=Math.min(state.maxHp,state.hp+heal);
     log(`Você desceu ao andar ${state.floor}. A caverna ficou mais perigosa.`,'good');
     const bonus=grantFloorBonus();
@@ -1460,20 +1768,15 @@
       log('🐾 Pets desbloqueados! Visite o menu Pet no menu lateral.','good');
       showToast('🐾 Pets desbloqueados! Veja no menu lateral.');
       beep(900, .2, 'sine');
-    } else if(bonus>0){
-      showToast(`Andar ${state.floor} · +${bonus} moedas ◉`);
-    } else {
-      showToast(`Andar ${state.floor}: nova camada descoberta.`);
-    }
+    } else if(bonus>0){ showToast(`Andar ${state.floor} · +${bonus} moedas ◉`); }
+    else { showToast(`Andar ${state.floor}: nova camada descoberta.`); }
     beep(480,.12,'sine'); render(); save();
   }
-
   function grantFloorBonus(){
     if(state.floor%10!==0 || state.floor<=state.coinMilestone) return 0;
     state.coinMilestone=state.floor;
     const earned=3+Math.floor(Math.random()*3);
-    state.coins+=earned;
-    state.coinsEarned += earned;
+    state.coins+=earned; state.coinsEarned += earned;
     log(`Marco do andar ${state.floor}! O Abismo pagou ${earned} moedas.`,'good');
     pulseWallet();
     setTimeout(()=>beep(780,.16,'sine'),140);
@@ -1489,14 +1792,8 @@
     if(state.phase==='clear') { if(now-lastTick>720){lastTick=now;descendFloor();} return; }
     if(state.phase==='explore') { startFight(); return; }
     if(state.phase==='combat') {
-      // Usa grito de guerra se disponível e ainda não ativo
-      if (state.cooldowns.cry === 0 && state.warCry === 0 && state.enemy.hp > state.power * 2){
-        playerWarCry(); return;
-      }
-      // Usa golpe pesado se disponível
-      if (state.cooldowns.heavy === 0 && state.hp > state.maxHp * 0.5){
-        playerHeavyAttack(); return;
-      }
+      if (state.cooldowns.cry === 0 && state.warCry === 0 && state.enemy && state.enemy.hp > state.power * 2){ playerWarCry(); return; }
+      if (state.cooldowns.heavy === 0 && state.hp > state.maxHp * 0.5){ playerHeavyAttack(); return; }
       if(state.potions>0 && state.hp<=state.maxHp*.38 && state.hp<state.maxHp) { usePotion(); return; }
       playerAttack();
     }
@@ -1515,10 +1812,7 @@
   }
   function setTurbo(n){
     state.turbo = [1,2,3].includes(n) ? n : 1;
-    [1,2,3].forEach(i => {
-      const btn = $('turbo-' + i);
-      if (btn) btn.classList.toggle('active', i === state.turbo);
-    });
+    [1,2,3].forEach(i => { const btn = $('turbo-' + i); if (btn) btn.classList.toggle('active', i === state.turbo); });
     if(timer) clearInterval(timer);
     timer=setInterval(tick, TURBO_INTERVALS[state.turbo] || 850);
     showToast(`Velocidade ×${state.turbo}`);
@@ -1550,6 +1844,7 @@
     else if(name==='market') { renderCoinPacks(true); renderMarket(); }
     else if(name==='craft') { renderCraft(); renderPetForge(); }
     else if(name==='pets') renderPets();
+    else if(name==='expeditions') renderExpeditions();
     else if(name==='premium') renderPremium();
     else if(name==='wallet') renderWallet();
     else if(name==='store') updateCoinDisplays();
@@ -1557,7 +1852,7 @@
     save();
   }
   function updateCoinDisplays(){
-    const ids = ['coin-stat','store-coins','premium-coins','wallet-coins','wallet-coins-big','market-coins','pets-coins'];
+    const ids = ['coin-stat','store-coins','premium-coins','wallet-coins','wallet-coins-big','market-coins','pets-coins','expeditions-coins'];
     ids.forEach(id => { const el=$(id); if(el) el.textContent = state.coins; });
     const c=$('market-ore'); if(c) c.textContent = state.ore;
     const d=$('craft-potions'); if(d) d.textContent = state.potions;
@@ -1568,7 +1863,7 @@
     const badge=$('inv-badge');
     if(badge){ badge.hidden = inv<=0; badge.textContent = inv>99?'99+':inv; }
     updatePetNav();
-    // Stats do home
+    updateExpeditionBadge();
     const bc=$('best-combo-stat'); if(bc) bc.textContent = (1 + Math.min(state.bestCombo, 20) * 0.05).toFixed(2) + '×';
     const k=$('kills-stat'); if(k) k.textContent = state.totalKills;
     const dd=$('deaths-stat'); if(dd) dd.textContent = state.totalDeaths;
@@ -1600,7 +1895,6 @@
     const lockedPanel = $('pet-locked-panel');
     const unlockedPanel = $('pet-unlocked-panel');
     const grid = $('pet-grid');
-
     if(!petUnlocked()){
       if(lockedPanel) lockedPanel.style.display = '';
       if(unlockedPanel) unlockedPanel.style.display = 'none';
@@ -1610,77 +1904,95 @@
       if(progress) progress.style.width = `${Math.min(100, (state.bestFloor / PET_UNLOCK_FLOOR) * 100)}%`;
       return;
     }
-
     if(lockedPanel) lockedPanel.style.display = 'none';
     if(unlockedPanel) unlockedPanel.style.display = '';
     if(!grid) return;
-
+    const busy = busyPetIds();
     grid.innerHTML = Object.entries(PETS).map(([id, pet]) => {
       const owned = state.ownedPets.includes(id);
       const current = state.equippedPet === id;
+      const isBusy = busy.has(id);
       const level = state.petLevels[id] || 1;
       const totalDodge = Math.min(35, pet.baseDodge + (level - 1) + (pet.passive.type === 'dodge' ? pet.passive.value : 0));
       const canAfford = state.coins >= pet.cost;
+      const xpCurrent = state.expeditionXP[id] || 0;
+      const xpNeeded = petXPForNextLevel(level);
+      const xpPct = level >= PET_MAX_LEVEL ? 100 : Math.min(100, (xpCurrent / xpNeeded) * 100);
+      const xpText = level >= PET_MAX_LEVEL ? 'MAX' : `${xpCurrent}/${xpNeeded} XP`;
       const cls = ['pet-card'];
       if(!owned) cls.push('not-owned');
       if(current) cls.push('current');
+      if(isBusy) cls.push('busy');
       if(!owned && !canAfford) cls.push('cant-afford');
-
       let statusHTML;
-      if(current) statusHTML = '<div class="pet-status">✓ Equipado</div>';
+      if(isBusy) statusHTML = '<div class="pet-status">🎒 Em expedição</div>';
+      else if(current) statusHTML = '<div class="pet-status">✓ Equipado</div>';
       else if(owned) statusHTML = `<div class="pet-status">Nv. ${level} · toque para equipar</div>`;
       else statusHTML = `<div class="pet-price">◉ ${pet.cost} desbloquear</div>`;
-
       return `<div class="${cls.join(' ')}" data-pet="${id}">
         <div class="pet-preview" style="color:${pet.color}">${petShapeGlyph[pet.shape]}</div>
         <div class="pet-name">${pet.name}</div>
         <div class="pet-dodge">${totalDodge}% esquiva</div>
         <div class="pet-passive">${pet.passive.label}</div>
-        ${owned ? `<div class="pet-level">Nível ${level}/${PET_MAX_LEVEL}</div>` : ''}
+        ${owned ? `<div class="pet-level">Nível ${level}/${PET_MAX_LEVEL} · ${xpText}</div><div class="pet-xpbar"><div class="pet-xpfill" style="width:${xpPct}%"></div></div>` : ''}
         ${statusHTML}
       </div>`;
     }).join('');
   }
 
+  /* ---------- FORJA: TODOS OS PETS ---------- */
   function renderPetForge(){
     const panel = $('pet-forge-panel');
     const grid = $('pet-forge-grid');
     if(!panel || !grid) return;
     if(!petUnlocked()){ panel.style.display = 'none'; return; }
     panel.style.display = '';
-    if(!state.equippedPet){
-      grid.innerHTML = '<div class="empty-note">🐾 Equipe um pet no menu Pet para fortalecê-lo aqui.</div>';
+    if(state.ownedPets.length === 0){
+      grid.innerHTML = '<div class="empty-note">🐾 Você ainda não tem pets. Desbloqueie no menu Pet.</div>';
       return;
     }
-    const pet = PETS[state.equippedPet]; if(!pet){ grid.innerHTML = ''; return; }
-    const level = state.petLevels[state.equippedPet] || 1;
-    const isMax = level >= PET_MAX_LEVEL;
-    const cost = petUpgradeCost(level);
-    const total = totalFragments();
-    const canAfford = total >= cost;
-    const dodgeNow = Math.min(35, pet.baseDodge + (level - 1) + (pet.passive.type === 'dodge' ? pet.passive.value : 0));
-    const dodgeNext = isMax ? dodgeNow : Math.min(35, pet.baseDodge + level + (pet.passive.type === 'dodge' ? pet.passive.value : 0));
 
-    if(isMax){
-      grid.innerHTML = `<div class="list-row">
+    const total = totalFragments();
+
+    // Sort: equipped first, then by level desc
+    const sorted = [...state.ownedPets].sort((a, b) => {
+      if (a === state.equippedPet) return -1;
+      if (b === state.equippedPet) return 1;
+      return (state.petLevels[b] || 1) - (state.petLevels[a] || 1);
+    });
+
+    grid.innerHTML = sorted.map(petId => {
+      const pet = PETS[petId];
+      if (!pet) return '';
+      const level = state.petLevels[petId] || 1;
+      const isMax = level >= PET_MAX_LEVEL;
+      const cost = petUpgradeCost(level);
+      const canAfford = total >= cost && !isMax;
+      const isEquipped = state.equippedPet === petId;
+      const dodgeNow = Math.min(35, pet.baseDodge + (level - 1) + (pet.passive.type === 'dodge' ? pet.passive.value : 0));
+      const dodgeNext = isMax ? dodgeNow : Math.min(35, pet.baseDodge + level + (pet.passive.type === 'dodge' ? pet.passive.value : 0));
+      const xpCurrent = state.expeditionXP[petId] || 0;
+      const xpNeeded = petXPForNextLevel(level);
+      const xpText = isMax ? 'MAX' : `${xpCurrent}/${xpNeeded} XP`;
+
+      let actionHTML;
+      if (isMax){
+        actionHTML = '<button class="buy-btn" disabled type="button">MAX</button>';
+      } else {
+        actionHTML = `<button class="buy-btn pet" data-strengthen-pet="${petId}" ${canAfford?'':'disabled'} type="button">⚒ ${cost} frag</button>`;
+      }
+
+      const equippedTag = isEquipped ? ' <span style="color:var(--gold);font-size:10px">★ equipado</span>' : '';
+
+      return `<div class="list-row" style="${isEquipped ? 'background:rgba(255,203,71,0.05)' : ''}">
         <div class="row-info">
           <span class="item-glyph" style="color:${pet.color}">${petShapeGlyph[pet.shape]}</span>
-          <span>${pet.name}</span> <small>Nível ${PET_MAX_LEVEL} · ${dodgeNow}% esquiva · ${pet.passive.label} · NÍVEL MÁXIMO</small>
+          <span>${pet.name}${equippedTag}</span>
+          <small>Nv. ${level}/${PET_MAX_LEVEL} · ${dodgeNow}%${isMax?'':' → '+dodgeNext+'%'} · ${pet.passive.label} · ${xpText}</small>
         </div>
-        <div class="row-actions"><button class="buy-btn" disabled type="button">MAX</button></div>
+        <div class="row-actions">${actionHTML}</div>
       </div>`;
-      return;
-    }
-
-    grid.innerHTML = `<div class="list-row">
-      <div class="row-info">
-        <span class="item-glyph" style="color:${pet.color}">${petShapeGlyph[pet.shape]}</span>
-        <span>${pet.name}</span> <small>Nv. ${level}/${PET_MAX_LEVEL} · ${dodgeNow}% → ${dodgeNext}% esquiva · ${pet.passive.label}</small>
-      </div>
-      <div class="row-actions">
-        <button class="buy-btn pet" data-strengthen="1" ${canAfford?'':'disabled'} type="button">⚒ Fortalecer · ${cost} frag (${total}/${cost})</button>
-      </div>
-    </div>`;
+    }).join('');
   }
 
   function buyPotionWithCoins(qty, price){
@@ -1697,7 +2009,6 @@
     showToast('+3 moedas ◉'); beep(720,.12,'sine');
     render(); save();
   }
-
   function renderCoinPacks(forceBuild){
     const root=$('coin-packs-grid'); if(!root) return;
     if(forceBuild || !root.dataset.built){
@@ -1705,10 +2016,7 @@
         <div class="coin-pack-card">
           <div class="coin-pack-head">
             <div class="shop-icon gold">${p.icon}</div>
-            <div class="shop-info">
-              <div class="shop-name">${p.name}</div>
-              <div class="shop-desc">${p.desc}</div>
-            </div>
+            <div class="shop-info"><div class="shop-name">${p.name}</div><div class="shop-desc">${p.desc}</div></div>
           </div>
           <div class="coin-pack-actions">
             <button class="buy-btn gold"  data-pack="${p.id}" data-currency="ore" type="button">◆ ${p.ore}</button>
@@ -1769,13 +2077,11 @@
     const gain = def.sell * qty;
     state.inventory[shape] = have - qty;
     if(state.inventory[shape] <= 0) delete state.inventory[shape];
-    state.ore += gain;
-    state.oreEarned += gain;
+    state.ore += gain; state.oreEarned += gain;
     log(`Mercado: vendeu ${qty}× ${def.name} por ${gain} minérios.`,'good');
     showToast(`+${gain} ◆`); beep(560,.08,'sine');
     render(); renderMarket(); save();
   }
-
   function renderCraft(){
     const root=$('craft-grid'); if(!root) return;
     const entries = Object.entries(state.inventory).filter(([k,v]) => v>0 && itemDefs[k]);
@@ -1809,7 +2115,6 @@
     showToast('Poção forjada! ⚒'); beep(700,.14,'sine');
     render(); renderCraft(); renderPetForge(); save();
   }
-
   function renderPremium(){
     const skinRoot=$('skin-grid');
     if(skinRoot){
@@ -1859,8 +2164,7 @@
     }
     if(state.coins < skin.price){ showToast(`Precisa de ${skin.price} ◉`); return; }
     state.coins -= skin.price;
-    state.ownedSkins.push(id);
-    state.skin = id;
+    state.ownedSkins.push(id); state.skin = id;
     log(`Skin ${skin.name} comprada e equipada por ${skin.price} moedas.`, 'good');
     showToast(`Skin ${skin.name} adquirida!`);
     beep(720, .12, 'sine');
@@ -1878,15 +2182,13 @@
     beep(660, .12, 'sine');
     render(); if(state.view==='premium') renderPremium(); save();
   }
-
   function renderWallet(){ updateCoinDisplays(); }
   function convertCoinsToPix(amount){
     amount = clampInt(amount, 0, 999999999);
     if(amount < 100){ showToast('Mínimo de 100 moedas para converter.'); return; }
     if(amount % 100 !== 0) amount = Math.floor(amount/100)*100;
     if(state.coins < amount){ showToast(`Você tem apenas ${state.coins} ◉.`); return; }
-    state.coins -= amount;
-    state.pix += amount;
+    state.coins -= amount; state.pix += amount;
     const reais = fmtBRL(amount);
     log(`Carteira: ${amount} ◉ convertidos em R$ ${reais}.`, 'good');
     showToast(`+R$ ${reais} no saldo Pix`);
@@ -1929,29 +2231,27 @@
     $('auto-mode').setAttribute('aria-pressed',String(modeAuto));$('manual-mode').setAttribute('aria-pressed',String(!modeAuto));
     $('mode-tag').textContent=modeAuto?'AUTO ATIVO':'MANUAL';
     $('mode-description').textContent=modeAuto?'O explorador avança, luta e desce os andares sem precisar de comandos.':'Você decide quando explorar, atacar, defender ou usar uma poção.';
-    $('controls-hint').textContent=modeAuto?'AUTO ativo · troque para MANUAL para comandar cada ação.':'MANUAL ativo · use os botões ou atalhos (A/D/H/E).';
+    $('controls-hint').textContent=modeAuto?'AUTO ativo · troque para MANUAL para comandar cada ação.':'MANUAL ativo · use os botões ou atalhos (A/D/H/E/Q/W).';
     $('floor-stat').textContent=String(state.floor).padStart(2,'0');$('hp-stat').innerHTML=`${state.hp} <small>/ ${state.maxHp}</small>`;
     $('power-stat').textContent=state.power; $('ore-stat').textContent=state.ore;
     $('best-stat').innerHTML=`${String(state.bestFloor).padStart(2,'0')} <small>andar${state.bestFloor===1?'':'es'}</small>`;
-    $('floor-subtitle').textContent=`SETOR ${String(state.floor).padStart(2,'0')} · ${p.name}${isBossFloor() ? ' · ⚔ BOSS' : isTreasureFloor() ? ' · ✨ TESOURO' : ''}`;
+    $('floor-subtitle').textContent=`SETOR ${String(state.floor).padStart(2,'0')} · ${p.name}${isBossFloor() ? ' · ⚔ BOSS' : isTreasureFloor() ? ' · ✨ TESOURO' : isMultiEnemyFloor() ? ' · ⚔ TURMA' : ''}`;
     $('scene-title').textContent=state.phase==='clear'?'Passagem descoberta':p.title;
     const chip = $('room-chip');
     if (isBossFloor()) { chip.textContent = 'ANDAR DO BOSS'; chip.className = 'floor-chip boss'; }
     else if (isTreasureFloor()) { chip.textContent = 'ANDAR DO TESOURO'; chip.className = 'floor-chip treasure'; }
+    else if (isMultiEnemyFloor()) { chip.textContent = `SALA ${state.room} · 3 INIMIGOS`; chip.className = 'floor-chip'; }
     else { chip.textContent = state.phase==='clear'?'ANDAR CONCLUÍDO':`SALA ${state.room} / ${ROOM_COUNT}`; chip.className = 'floor-chip'; }
     const phaseText=state.phase==='combat'?'COMBATE':state.phase==='clear'?'SAÍDA ABERTA':'EXPLORAÇÃO';
     $('phase-label').innerHTML=`${phaseText} <span>●</span>`;
     const enemyLabel = $('enemy-label');
-    if(state.phase==='combat'&&state.enemy){
-      enemyLabel.innerHTML=`AMEAÇA: <span>${state.enemy.name.toUpperCase()}</span>`;
-      enemyLabel.classList.toggle('boss-label', state.enemy.isBoss);
-    } else if(state.phase==='clear'){
-      enemyLabel.innerHTML=`STATUS: <span>VITÓRIA</span>`;
-      enemyLabel.classList.remove('boss-label');
-    } else {
-      enemyLabel.innerHTML=`SINAL: <span>INDEFINIDO</span>`;
-      enemyLabel.classList.remove('boss-label');
-    }
+    if(state.phase==='combat' && state.enemy){
+      const count = state.enemies.filter(e => e.hp > 0).length;
+      const suffix = state.enemies.length > 1 ? ` [${count}/${state.enemies.length}]` : '';
+      enemyLabel.innerHTML=`AMEAÇA${suffix}: <span>${state.enemy.name.toUpperCase()}</span>`;
+      enemyLabel.classList.toggle('boss-label', state.enemy.isBoss || state.enemy.isStrong);
+    } else if(state.phase==='clear'){ enemyLabel.innerHTML=`STATUS: <span>VITÓRIA</span>`; enemyLabel.classList.remove('boss-label'); }
+    else { enemyLabel.innerHTML=`SINAL: <span>INDEFINIDO</span>`; enemyLabel.classList.remove('boss-label'); }
     $('player-hp-text').textContent=`${state.hp} / ${state.maxHp}`; $('player-hp-fill').style.width=`${Math.max(0,state.hp/state.maxHp*100)}%`;
     $('potion-count').textContent=`Poções: ${state.potions}`;
     const guardText = state.guard ? 'Guarda: ativa' : 'Guarda: pronta';
@@ -1963,22 +2263,41 @@
     const pname = $('player-name'); if(pname) pname.textContent = `■ Explorador ${skin.name.toLowerCase()}`;
     const enemyBox = $('enemy-combatant');
     if(state.enemy){
-      $('enemy-name').textContent=`${state.enemy.name} · Nv.${state.enemy.level}`; $('enemy-hp-text').textContent=`${state.enemy.hp} / ${state.enemy.maxHp}`;
+      $('enemy-name').textContent=`${state.enemy.name} · Nv.${state.enemy.level}`;
+      $('enemy-hp-text').textContent=`${state.enemy.hp} / ${state.enemy.maxHp}`;
       const efill = $('enemy-hp-fill');
       efill.style.width=`${Math.max(0,state.enemy.hp/state.enemy.maxHp*100)}%`;
-      efill.classList.toggle('boss', state.enemy.isBoss);
-      $('enemy-type').textContent=state.enemy.isBoss ? 'BOSS' : state.enemy.shape.toUpperCase();
+      efill.classList.toggle('boss', state.enemy.isBoss || state.enemy.isStrong);
+      $('enemy-type').textContent = state.enemy.isBoss ? 'BOSS' : state.enemy.isStrong ? 'CHEFE' : state.enemy.isWeak ? 'LACAIO' : state.enemy.shape.toUpperCase();
       $('enemy-power').textContent=`ATQ ${state.enemy.attack}`;
-      enemyBox?.classList.toggle('boss', state.enemy.isBoss);
+      enemyBox?.classList.toggle('boss', state.enemy.isBoss || state.enemy.isStrong);
     } else {
       $('enemy-name').textContent=state.phase==='clear'?'Passagem aberta':'Nenhum inimigo';$('enemy-hp-text').textContent='—';
       $('enemy-hp-fill').style.width='0%'; $('enemy-hp-fill').classList.remove('boss');
       $('enemy-type').textContent=state.phase==='clear'?'Desça para continuar':'Aguardando sinal'; $('enemy-power').textContent='ATQ —';
       enemyBox?.classList.remove('boss');
     }
+    // Enemy chips (multi-enemy indicator)
+    const chips = $('enemy-chips');
+    if (chips) {
+      if (state.enemies && state.enemies.length > 1 && state.phase === 'combat'){
+        chips.hidden = false;
+        chips.innerHTML = state.enemies.map((e) => {
+          const isFocused = e === state.enemy;
+          const isDead = e.hp <= 0;
+          const cls = ['enemy-chip'];
+          if (e.isStrong) cls.push('strong');
+          if (e.isWeak) cls.push('weak');
+          if (isFocused) cls.push('focused');
+          if (isDead) cls.push('dead');
+          return `<div class="${cls.join(' ')}">${isDead ? '✕' : Math.ceil(e.hp/e.maxHp*100)+'%'}</div>`;
+        }).join('');
+      } else {
+        chips.hidden = true;
+      }
+    }
     const combat=state.phase==='combat'; const manual=state.mode==='manual';
     $('attack-btn').disabled=!(combat&&manual); $('defend-btn').disabled=!(combat&&manual);$('heal-btn').disabled=!(manual&&(combat||state.phase==='explore')&&state.potions>0&&state.hp<state.maxHp);
-    // Skills
     const hb = $('heavy-btn'), cb = $('cry-btn');
     if (hb) hb.disabled = !(combat && manual) || state.cooldowns.heavy > 0 || state.hp <= Math.ceil(state.maxHp * SKILLS.heavy.hpCost);
     if (cb) { cb.disabled = !(combat && manual) || state.cooldowns.cry > 0; cb.classList.toggle('active-buff', state.warCry > 0); }
@@ -1995,21 +2314,12 @@
     $('buy-potion').disabled=state.ore<12;
     $('attack-up-desc').textContent=`Força atual: ${state.power} · +3 por nível`;
     $('hp-up-desc').textContent=`Vida máxima: ${state.maxHp} · +20 por nível`;
-    // Turbo switch
-    [1,2,3].forEach(i => {
-      const btn = $('turbo-' + i);
-      if (btn) btn.classList.toggle('active', i === state.turbo);
-    });
-    // Combo badge
+    [1,2,3].forEach(i => { const btn = $('turbo-' + i); if (btn) btn.classList.toggle('active', i === state.turbo); });
     const comboBadge = $('combo-badge');
     const comboValue = $('combo-value');
     if (comboBadge && comboValue) {
-      if (state.combo > 0 && state.phase === 'combat') {
-        comboBadge.hidden = false;
-        comboValue.textContent = comboMultiplier().toFixed(2);
-      } else {
-        comboBadge.hidden = true;
-      }
+      if (state.combo > 0 && state.phase === 'combat'){ comboBadge.hidden = false; comboValue.textContent = comboMultiplier().toFixed(2); }
+      else { comboBadge.hidden = true; }
     }
     updateCoinDisplays();
     const nextMilestone=(Math.floor(state.floor/10)+1)*10;
@@ -2024,6 +2334,7 @@
   }
   function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 
+  /* ---------- DESENHO ---------- */
   function drawPet(ctx, playerX, floorY, playerSize, t, anim){
     if(!state.equippedPet) return;
     const pet = PETS[state.equippedPet]; if(!pet) return;
@@ -2032,40 +2343,19 @@
     const petSize = playerSize * 0.58;
     const baseX = playerX - playerSize * 0.95;
     const baseY = floorY - playerSize * 0.62 + Math.sin(t * 2.4 + 1) * 3 + anim.playerLunge * -8;
-
-    ctx.save();
-    ctx.translate(baseX, baseY);
+    ctx.save(); ctx.translate(baseX, baseY);
     ctx.globalAlpha = 0.35 + 0.1 * Math.sin(t * 3);
-    ctx.fillStyle = pet.glow;
-    ctx.beginPath();
-    ctx.arc(0, 0, petSize * 0.95, 0, Math.PI * 2);
-    ctx.fill();
+    ctx.fillStyle = pet.glow; ctx.beginPath(); ctx.arc(0, 0, petSize * 0.95, 0, Math.PI * 2); ctx.fill();
     ctx.globalAlpha = 1;
-    ctx.shadowColor = pet.glow;
-    ctx.shadowBlur = 18;
-    ctx.fillStyle = pet.color + 'dd';
-    ctx.strokeStyle = '#ffffffcc';
-    ctx.lineWidth = 1.4;
-    drawShape(ctx, pet.shape, petSize);
-    ctx.fill();
-    ctx.shadowBlur = 0;
-    ctx.stroke();
-    ctx.fillStyle = '#ffffff';
-    ctx.beginPath();
-    ctx.arc(petSize * 0.1, -petSize * 0.05, petSize * 0.09, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = '#0b0f1c';
-    ctx.beginPath();
-    ctx.arc(petSize * 0.12, -petSize * 0.05, petSize * 0.04, 0, Math.PI * 2);
-    ctx.fill();
+    ctx.shadowColor = pet.glow; ctx.shadowBlur = 18;
+    ctx.fillStyle = pet.color + 'dd'; ctx.strokeStyle = '#ffffffcc'; ctx.lineWidth = 1.4;
+    drawShape(ctx, pet.shape, petSize); ctx.fill(); ctx.shadowBlur = 0; ctx.stroke();
+    ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(petSize * 0.1, -petSize * 0.05, petSize * 0.09, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#0b0f1c'; ctx.beginPath(); ctx.arc(petSize * 0.12, -petSize * 0.05, petSize * 0.04, 0, Math.PI * 2); ctx.fill();
     ctx.restore();
-
     ctx.save();
-    ctx.font = '900 9px ui-sans-serif, system-ui, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillStyle = '#ffd166';
-    ctx.strokeStyle = 'rgba(0,0,0,0.85)';
-    ctx.lineWidth = 3;
+    ctx.font = '900 9px ui-sans-serif, system-ui, sans-serif'; ctx.textAlign = 'center';
+    ctx.fillStyle = '#ffd166'; ctx.strokeStyle = 'rgba(0,0,0,0.85)'; ctx.lineWidth = 3;
     const label = `🐾 ${dodge}%`;
     ctx.strokeText(label, baseX, baseY - petSize * 0.85);
     ctx.fillText(label, baseX, baseY - petSize * 0.85);
@@ -2075,18 +2365,12 @@
   function draw(){
     const canvas=$('scene'); if(!canvas) return;
     const rect=canvas.getBoundingClientRect(); if(rect.width<1||rect.height<1){canvasFrame=requestAnimationFrame(draw);return;}
-
     const now = performance.now();
     const rawDt = lastDrawTime ? (now - lastDrawTime) / 1000 : 0.016;
     lastDrawTime = now;
-    if (rawDt > 0.5){
-      effects = [];
-      for (const k of Object.keys(anim)) anim[k] = 0;
-      shake.duration = 0; shake.x = 0; shake.y = 0;
-    }
+    if (rawDt > 0.5){ effects = []; for (const k of Object.keys(anim)) anim[k] = 0; shake.duration = 0; shake.x = 0; shake.y = 0; }
     const dt = Math.min(0.05, rawDt);
     updateAnimations(dt);
-
     const dpr=Math.min(window.devicePixelRatio||1,2);
     const iw=Math.round(rect.width*dpr), ih=Math.round(rect.height*dpr);
     if(canvas.width!==iw||canvas.height!==ih){canvas.width=iw;canvas.height=ih;}
@@ -2095,22 +2379,16 @@
     const skin=SKINS[state.skin] || SKINS.default;
     const isBossScene = state.enemy && state.enemy.isBoss;
     const isTreasureScene = isTreasureFloor();
-
+    const isMultiScene = state.enemies && state.enemies.length > 1;
     const bg=ctx.createLinearGradient(0,0,0,h);
-    if (isBossScene){
-      bg.addColorStop(0,'#2b0d15'); bg.addColorStop(.62,'#100508'); bg.addColorStop(1,'#05060b');
-    } else if (isTreasureScene){
-      bg.addColorStop(0,'#2b230d'); bg.addColorStop(.62,'#110c04'); bg.addColorStop(1,'#05060b');
-    } else {
-      bg.addColorStop(0,p.sky); bg.addColorStop(.62,p.deep); bg.addColorStop(1,'#05060b');
-    }
+    if (isBossScene){ bg.addColorStop(0,'#2b0d15'); bg.addColorStop(.62,'#100508'); bg.addColorStop(1,'#05060b'); }
+    else if (isTreasureScene){ bg.addColorStop(0,'#2b230d'); bg.addColorStop(.62,'#110c04'); bg.addColorStop(1,'#05060b'); }
+    else if (isMultiScene && state.phase === 'combat'){ bg.addColorStop(0,'#1a0d24'); bg.addColorStop(.62,'#0a0510'); bg.addColorStop(1,'#05060b'); }
+    else { bg.addColorStop(0,p.sky); bg.addColorStop(.62,p.deep); bg.addColorStop(1,'#05060b'); }
     ctx.fillStyle=bg; ctx.fillRect(0,0,w,h);
-
-    ctx.save();
-    ctx.translate(shake.x, shake.y);
-
+    ctx.save(); ctx.translate(shake.x, shake.y);
     ctx.fillStyle='#05071155';ctx.beginPath();ctx.ellipse(w*.52,h*.44,w*.45,h*.51,0,Math.PI,Math.PI*2);ctx.fill();
-    const glowColor = isBossScene ? '#ff4258' : isTreasureScene ? '#ffcb47' : p.glow;
+    const glowColor = isBossScene ? '#ff4258' : isTreasureScene ? '#ffcb47' : (isMultiScene && state.phase === 'combat') ? '#b57bff' : p.glow;
     ctx.strokeStyle=glowColor+'22';ctx.lineWidth=2;
     for(let i=0;i<5;i++){ctx.beginPath();ctx.ellipse(w*.51,h*.46,w*(.23+i*.105),h*(.22+i*.09),0,Math.PI,Math.PI*2);ctx.stroke();}
     particles.forEach((a,i)=>{const x=((a.x*w + t*a.speed*12)%w); const y=(a.y*h+Math.sin(t+a.phase)*5)%h;ctx.globalAlpha=.23+.3*Math.sin(t*1.4+a.phase);ctx.fillStyle=i%4===0?glowColor:'#bac8e9';ctx.beginPath();ctx.arc(x,y,a.r,0,Math.PI*2);ctx.fill();});ctx.globalAlpha=1;
@@ -2122,116 +2400,108 @@
     const crystal=(x,y,scale,flip=false)=>{ctx.save();ctx.translate(x,y);if(flip)ctx.scale(-1,1);ctx.fillStyle=p.crystal+'55';ctx.strokeStyle=p.crystal+'aa';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,-scale*1.7);ctx.lineTo(scale*.55,-scale*.45);ctx.lineTo(scale*.3,scale);ctx.lineTo(-scale*.28,scale*.65);ctx.lineTo(-scale*.58,-scale*.45);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();};
     crystal(w*.12,h*.59,11);crystal(w*.89,h*.56,15,true);crystal(w*.75,h*.27,7);crystal(w*.25,h*.34,8,true);
     for(let i=0;i<8;i++){const x=(i/7)*w + (i%2?8:-3);const base=h*(.84+(i%3)*.015);const size=8+(i%4)*4;ctx.fillStyle=i%2?p.rocks:'#151d30';ctx.beginPath();ctx.moveTo(x-size,base);ctx.lineTo(x,base-size*1.6);ctx.lineTo(x+size*.8,base);ctx.closePath();ctx.fill();}
-
     const floorY=h*.755;
     const playerBaseX=w*.29;
     const playerSize=Math.max(20,Math.min(34,h*.095));
     const playerLungeOffset=anim.playerLunge * 30;
     const playerX = playerBaseX + playerLungeOffset;
-
-    const enemyBaseX=w*.72;
-    const bossScale = state.enemy?.isBoss ? 1.5 : 1;
-    const enemySize=playerSize*(1.05+Math.min(.4,state.floor*.012)) * bossScale;
-    const enemyLungeOffset=anim.enemyLunge * -26;
-    const enemyX = enemyBaseX + enemyLungeOffset;
-
     if (anim.playerHealGlow > 0){
-      ctx.save();
-      ctx.globalAlpha = anim.playerHealGlow * 0.7;
-      ctx.fillStyle = '#3fe094';
-      ctx.shadowColor = '#3fe094';
-      ctx.shadowBlur = 35;
-      ctx.beginPath();
-      ctx.arc(playerX, floorY - playerSize/2, playerSize * (0.7 + anim.playerHealGlow * 0.5), 0, Math.PI * 2);
-      ctx.fill();
+      ctx.save(); ctx.globalAlpha = anim.playerHealGlow * 0.7;
+      ctx.fillStyle = '#3fe094'; ctx.shadowColor = '#3fe094'; ctx.shadowBlur = 35;
+      ctx.beginPath(); ctx.arc(playerX, floorY - playerSize/2, playerSize * (0.7 + anim.playerHealGlow * 0.5), 0, Math.PI * 2); ctx.fill();
       ctx.restore();
     }
-
     if (anim.playerFlash > 0){
-      ctx.save();
-      ctx.globalAlpha = anim.playerFlash * 0.75;
+      ctx.save(); ctx.globalAlpha = anim.playerFlash * 0.75;
       ctx.fillStyle = '#ff4258';
       ctx.fillRect(playerX - playerSize/2 - 6, floorY - playerSize - 6, playerSize + 12, playerSize + 12);
       ctx.restore();
     }
-
     ctx.fillStyle=skin.glow+'22';ctx.beginPath();ctx.ellipse(playerBaseX,floorY+5,playerSize*1.1,playerSize*.29,0,0,Math.PI*2);ctx.fill();
-
     drawPet(ctx, playerX, floorY, playerSize, t, anim);
-
     ctx.save();ctx.translate(playerX,floorY-playerSize/2+Math.sin(t*3)*2);
     ctx.shadowColor=skin.glow;ctx.shadowBlur=18;ctx.fillStyle=skin.color;ctx.fillRect(-playerSize/2,-playerSize/2,playerSize,playerSize);ctx.shadowBlur=0;ctx.strokeStyle=skin.stroke;ctx.lineWidth=1.5;ctx.strokeRect(-playerSize/2,-playerSize/2,playerSize,playerSize);
     ctx.fillStyle='#ffe7eb';ctx.fillRect(playerSize*.07,-playerSize*.18,playerSize*.28,playerSize*.12);
     ctx.restore();
-
     if (anim.playerShield > 0){
       ctx.save();
       const cx = playerX, cy = floorY - playerSize/2;
       const r = playerSize * (1.15 + anim.playerShield * 0.3);
-      ctx.globalAlpha = anim.playerShield;
-      ctx.strokeStyle = '#38f0ff';
-      ctx.lineWidth = 3;
-      ctx.shadowColor = '#38f0ff';
-      ctx.shadowBlur = 28;
+      ctx.globalAlpha = anim.playerShield; ctx.strokeStyle = '#38f0ff'; ctx.lineWidth = 3;
+      ctx.shadowColor = '#38f0ff'; ctx.shadowBlur = 28;
       ctx.beginPath();
       for (let i = 0; i < 6; i++){
         const a = i * Math.PI / 3 - Math.PI / 6 + t * 2.2;
-        const x = cx + Math.cos(a) * r;
-        const y = cy + Math.sin(a) * r;
+        const x = cx + Math.cos(a) * r; const y = cy + Math.sin(a) * r;
         if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
       }
-      ctx.closePath();
-      ctx.stroke();
-      ctx.globalAlpha = anim.playerShield * 0.25;
-      ctx.fillStyle = '#38f0ff';
-      ctx.fill();
+      ctx.closePath(); ctx.stroke();
+      ctx.globalAlpha = anim.playerShield * 0.25; ctx.fillStyle = '#38f0ff'; ctx.fill();
       ctx.restore();
     }
-
-    if(state.enemy){
-      const e=state.enemy;
-      const sizeShrunk = enemySize * (1 - anim.enemyHit * 0.22);
-      const bob=Math.sin(t*2.7+1)*4;
-
-      if (anim.enemyHit > 0){
-        ctx.save();
-        ctx.globalAlpha = anim.enemyHit * 0.65;
-        ctx.fillStyle = '#ffffff';
-        ctx.beginPath();
-        ctx.arc(enemyX, floorY - sizeShrunk*.52 + bob, sizeShrunk * 0.85, 0, Math.PI * 2);
-        ctx.fill();
+    // Draw all enemies
+    if (state.phase === 'combat' && state.enemies.length > 0){
+      const positions = getEnemyScreenPositions();
+      const sizeBoost = floorSizeBoost();
+      state.enemies.forEach((enemy, i) => {
+        if (enemy.hp <= 0) return;
+        const pos = positions[i] || positions[0];
+        const baseSize = pos.size * sizeBoost;
+        const isFocused = enemy === state.enemy;
+        const sizeShrunk = baseSize * (1 - anim.enemyHit * 0.22);
+        const bob = Math.sin(t*2.7 + 1 + i * 0.7) * 4;
+        // Lunge animation
+        const lungeX = (isFocused ? anim.enemyLunge : anim.enemyLunge * 0.6) * -26;
+        const drawX = pos.x + lungeX;
+        // Hit flash
+        if (anim.enemyHit > 0 && isFocused){
+          ctx.save(); ctx.globalAlpha = anim.enemyHit * 0.65; ctx.fillStyle = '#ffffff';
+          ctx.beginPath(); ctx.arc(drawX, pos.y + bob, sizeShrunk * 0.85, 0, Math.PI * 2); ctx.fill();
+          ctx.restore();
+        }
+        // Shadow
+        ctx.fillStyle = enemy.color + '22'; ctx.beginPath(); ctx.ellipse(pos.x, floorY + 4, baseSize * 1.2, baseSize * 0.34, 0, 0, Math.PI*2); ctx.fill();
+        // Enemy shape
+        ctx.save(); ctx.translate(drawX, pos.y + bob); ctx.rotate(Math.sin(t*1.3 + i)*0.035);
+        if (enemy.isBoss || enemy.isStrong){ ctx.shadowColor = enemy.isBoss ? '#ff2a43' : '#ffcb47'; ctx.shadowBlur = 40; }
+        else { ctx.shadowColor = enemy.color; ctx.shadowBlur = 23; }
+        ctx.fillStyle = enemy.color;
+        ctx.strokeStyle = '#ffffffaa';
+        ctx.lineWidth = enemy.isBoss ? 2.5 : (enemy.isStrong ? 2 : 1.5);
+        drawShape(ctx, enemy.shape, sizeShrunk); ctx.fill(); ctx.shadowBlur = 0; ctx.stroke();
+        // Eye
+        ctx.fillStyle='#ffffffbb'; ctx.beginPath(); ctx.arc(0, 0, Math.max(2, sizeShrunk * 0.11), 0, Math.PI*2); ctx.fill();
+        // Focus indicator ring
+        if (isFocused && state.enemies.length > 1){
+          ctx.globalAlpha = 0.6;
+          ctx.strokeStyle = '#ffcb47';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.arc(0, 0, sizeShrunk * 0.9, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.globalAlpha = 1;
+        }
         ctx.restore();
-      }
-
-      ctx.fillStyle=e.color+'22';ctx.beginPath();ctx.ellipse(enemyBaseX,floorY+4,enemySize*1.2,enemySize*.34,0,0,Math.PI*2);ctx.fill();
-      ctx.save();ctx.translate(enemyX,floorY-sizeShrunk*.52+bob);ctx.rotate(Math.sin(t*1.3)*.035);
-      if (e.isBoss){
-        // Aura extra de boss
-        ctx.shadowColor='#ff2a43'; ctx.shadowBlur=40;
-      } else {
-        ctx.shadowColor=e.color; ctx.shadowBlur=23;
-      }
-      ctx.fillStyle=e.color;ctx.strokeStyle='#ffffffaa';ctx.lineWidth=e.isBoss?2.5:1.5;
-      drawShape(ctx,e.shape,sizeShrunk);ctx.fill();ctx.shadowBlur=0;ctx.stroke();
-      ctx.fillStyle='#ffffffbb';ctx.beginPath();ctx.arc(0,0,Math.max(2,sizeShrunk*.11),0,Math.PI*2);ctx.fill();ctx.restore();
-
-      if(state.phase==='combat'){
-        const bw=Math.min(94,w*.22), bh=5, bx=enemyBaseX-bw/2, by=floorY-enemySize*1.5-10;
-        ctx.fillStyle='#060711bb';roundRect(ctx,bx,by,bw,bh,3);ctx.fill();ctx.fillStyle=e.color;roundRect(ctx,bx,by,bw*Math.max(0,e.hp/e.maxHp),bh,3);ctx.fill();
-      }
+        // HP bar above enemy
+        if(state.phase==='combat'){
+          const bw = Math.min(94, w * 0.22) * (state.enemies.length > 1 ? (enemy.isStrong ? 1 : 0.7) : 1);
+          const bh = enemy.isBoss || enemy.isStrong ? 6 : 4;
+          const bx = drawX - bw/2;
+          const by = pos.y - baseSize * 0.85 - 10;
+          ctx.fillStyle='#060711bb';roundRect(ctx,bx,by,bw,bh,3);ctx.fill();
+          ctx.fillStyle=enemy.color;roundRect(ctx,bx,by,bw*Math.max(0,enemy.hp/enemy.maxHp),bh,3);ctx.fill();
+        }
+      });
     } else if(state.phase==='clear'){
       const x=w*.72,y=h*.51,r=Math.min(44,h*.15);ctx.save();ctx.translate(x,y);ctx.rotate(t*.2);ctx.strokeStyle=p.glow;ctx.lineWidth=3;ctx.shadowColor=p.glow;ctx.shadowBlur=19;ctx.beginPath();ctx.ellipse(0,0,r*.72,r*1.2,0,0,Math.PI*2);ctx.stroke();ctx.rotate(-t*.4);ctx.beginPath();ctx.ellipse(0,0,r*.45,r*.87,0,0,Math.PI*2);ctx.stroke();ctx.restore();
       ctx.fillStyle='#ffffffcc';ctx.font='bold 11px ui-sans-serif,system-ui';ctx.textAlign='center';ctx.fillText('PASSAGEM',x,y+r*1.6);
-    } else {
+    } else if(state.phase === 'explore'){
       ctx.fillStyle='#b7c9ee88';ctx.font='12px ui-sans-serif,system-ui';ctx.textAlign='center';ctx.fillText(state.mode==='auto'?'Rastreando presença...':'Pressione "Explorar sala"',w*.71,h*.58);
     }
-
     drawEffects(ctx);
-
     ctx.restore();
-
     ctx.fillStyle='#d8e5ff36';for(let i=0;i<25;i++){const x=12+i*(w-24)/24;ctx.fillRect(x,h-11,1,i%5===0?5:2);}
-    ctx.fillStyle='#a7b5d455';ctx.font='9px ui-monospace,monospace';ctx.textAlign='left';ctx.fillText(`DEPTH ${String(state.floor).padStart(3,'0')} · Z-${(state.floor*13+state.room*7).toString(16).toUpperCase()}${isBossFloor()?' · BOSS':''}`,12,h-17);
+    ctx.fillStyle='#a7b5d455';ctx.font='9px ui-monospace,monospace';ctx.textAlign='left';ctx.fillText(`DEPTH ${String(state.floor).padStart(3,'0')} · Z-${(state.floor*13+state.room*7).toString(16).toUpperCase()}${isBossFloor()?' · BOSS':''}${isMultiEnemyFloor()?' · 3X':''}`,12,h-17);
     canvasFrame=requestAnimationFrame(draw);
   }
   function drawShape(ctx,shape,s){
@@ -2278,53 +2548,357 @@
     else if(e.key.toLowerCase()==='w')playerWarCry();
     else if(e.key.toLowerCase()==='e') {if(state.phase==='explore')startFight();else if(state.phase==='clear')descendFloor();}
   });
-
   document.querySelectorAll('.nav-btn').forEach(btn => btn.addEventListener('click', () => switchView(btn.dataset.view)));
   document.querySelectorAll('[data-turbo]').forEach(btn => btn.addEventListener('click', () => setTurbo(Number(btn.dataset.turbo))));
-
   $('store-buy-potion')?.addEventListener('click', () => buyPotionWithCoins(1, POTION_PRICE));
   $('store-buy-potion5')?.addEventListener('click', () => buyPotionWithCoins(5, POTION5_PRICE));
   $('store-buy-coins')?.addEventListener('click', buyCoinPackOre);
-
-  $('coin-packs-grid')?.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-pack]'); if(!btn) return;
-    buyCoinPack(btn.dataset.pack, btn.dataset.currency || 'ore');
-  });
+  $('coin-packs-grid')?.addEventListener('click', (e) => { const btn = e.target.closest('[data-pack]'); if(!btn) return; buyCoinPack(btn.dataset.pack, btn.dataset.currency || 'ore'); });
   $('market-grid')?.addEventListener('click', (e) => { const btn = e.target.closest('[data-sell]'); if(!btn) return; sellItem(btn.dataset.item, btn.dataset.sell); });
   $('craft-grid')?.addEventListener('click', (e) => { const btn = e.target.closest('[data-craft]'); if(!btn) return; craftPotion(btn.dataset.craft); });
-  $('pet-forge-grid')?.addEventListener('click', (e) => { const btn = e.target.closest('[data-strengthen]'); if(!btn) return; strengthenPet(); });
+  // Pet Forge — now handles all pets
+  $('pet-forge-grid')?.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-strengthen-pet]');
+    if (!btn) return;
+    strengthenSpecificPet(btn.dataset.strengthenPet);
+  });
   $('pet-grid')?.addEventListener('click', (e) => { const card = e.target.closest('[data-pet]'); if(!card) return; equipPet(card.dataset.pet); });
   $('skin-grid')?.addEventListener('click', (e) => { const card = e.target.closest('[data-skin]'); if(!card) return; buySkin(card.dataset.skin); });
   $('premium-grid')?.addEventListener('click', (e) => { const btn = e.target.closest('[data-premium]'); if(!btn) return; buyPremium(btn.dataset.premium); });
 
+  // Expeditions
+  $('expeditions-content')?.addEventListener('click', (e) => {
+    const startBtn = e.target.closest('[data-start-exp]');
+    if (startBtn){ openPetPicker(Number(startBtn.dataset.startExp)); return; }
+    const collectBtn = e.target.closest('[data-collect]');
+    if (collectBtn){ collectExpedition(Number(collectBtn.dataset.collect)); return; }
+  });
+  $('picker-close')?.addEventListener('click', closePetPicker);
+  $('picker-cancel')?.addEventListener('click', closePetPicker);
+  $('picker-confirm')?.addEventListener('click', confirmPetPicker);
+  $('pet-picker-modal')?.addEventListener('click', (e) => { if (e.target === $('pet-picker-modal')) closePetPicker(); });
+  $('picker-body')?.addEventListener('click', (e) => {
+    const card = e.target.closest('[data-picker-pet]'); if (!card) return;
+    togglePetSelection(card.dataset.pickerPet);
+  });
+
   document.querySelectorAll('[data-convert]').forEach(btn => btn.addEventListener('click', () => convertCoinsToPix(Number(btn.dataset.convert))));
   $('convert-all')?.addEventListener('click', convertAllCoins);
-
   document.querySelectorAll('[data-deposit]').forEach(btn => btn.addEventListener('click', () => {
     const amountEl = $('deposit-amount'); if(amountEl) amountEl.value = btn.dataset.deposit;
     const keyEl = $('deposit-key'); if(keyEl && !keyEl.value) keyEl.focus();
   }));
-
   $('deposit-btn')?.addEventListener('click', () => {
     const success = depositPix($('deposit-amount')?.value, $('deposit-key')?.value);
     const amountEl = $('deposit-amount'); if(success && amountEl) amountEl.value = '';
   });
-
   $('withdraw-btn')?.addEventListener('click', () => {
     const success = withdrawPix($('withdraw-amount')?.value, $('withdraw-key')?.value);
     const amountEl = $('withdraw-amount'); if(success && amountEl) amountEl.value = '';
   });
 
+  // Expeditions helpers (kept from previous version)
+  function formatDuration(ms){
+    if (ms <= 0) return 'Pronta';
+    const totalSec = Math.ceil(ms / 1000);
+    const h = Math.floor(totalSec / 3600);
+    const m = Math.floor((totalSec % 3600) / 60);
+    const s = totalSec % 60;
+    if (h > 0) return `${h}h ${m}m`;
+    if (m > 0) return `${m}m ${s}s`;
+    return `${s}s`;
+  }
+  function isExpeditionUnlocked(exp){
+    if (!exp.unlockPrev) return true;
+    return (state.expeditionCounts[exp.unlockPrev] || 0) >= 10;
+  }
+  function getAvailablePetsForExpedition(exp){
+    const busy = busyPetIds();
+    return state.ownedPets.filter(id => {
+      if (id === state.equippedPet) return false;
+      if (busy.has(id)) return false;
+      if ((state.petLevels[id] || 1) < exp.minLevel) return false;
+      return true;
+    });
+  }
+  function canStartExpedition(exp){
+    if (!isExpeditionUnlocked(exp)) return false;
+    return getAvailablePetsForExpedition(exp).length >= exp.petsRequired;
+  }
+  function openPetPicker(expId){
+    const exp = EXPEDITIONS.find(e => e.id === expId);
+    if (!exp) return;
+    if (!canStartExpedition(exp)){ showToast('Requisitos não atendidos.'); return; }
+    pickerState = { expId, selectedPets: [] };
+    renderPetPicker();
+    $('pet-picker-modal').classList.add('show');
+  }
+  function closePetPicker(){
+    pickerState = { expId: null, selectedPets: [] };
+    $('pet-picker-modal').classList.remove('show');
+  }
+  function togglePetSelection(petId){
+    const exp = EXPEDITIONS.find(e => e.id === pickerState.expId);
+    if (!exp) return;
+    const idx = pickerState.selectedPets.indexOf(petId);
+    if (idx >= 0){ pickerState.selectedPets.splice(idx, 1); }
+    else {
+      if (pickerState.selectedPets.length >= exp.petsRequired){
+        if (exp.petsRequired === 1){ pickerState.selectedPets = [petId]; }
+        else { showToast(`Máximo de ${exp.petsRequired} pets.`); return; }
+      } else { pickerState.selectedPets.push(petId); }
+    }
+    renderPetPicker();
+  }
+  function confirmPetPicker(){
+    const exp = EXPEDITIONS.find(e => e.id === pickerState.expId);
+    if (!exp) return;
+    if (pickerState.selectedPets.length !== exp.petsRequired){
+      showToast(`Selecione ${exp.petsRequired} pet(s).`);
+      return;
+    }
+    startExpedition(exp.id, [...pickerState.selectedPets]);
+    closePetPicker();
+  }
+  function startExpedition(expId, petIds){
+    const exp = EXPEDITIONS.find(e => e.id === expId);
+    if (!exp) return;
+    const now = Date.now();
+    state.activeExpeditions.push({
+      id: exp.id, name: exp.name, icon: exp.icon,
+      petIds: [...petIds],
+      startedAt: now, endsAt: now + exp.duration, notified: false
+    });
+    const petNames = petIds.map(id => PETS[id].name).join(', ');
+    log(`🗺 Expedição iniciada: ${exp.name} com ${petNames}.`, 'good');
+    showToast(`🗺 ${exp.name} iniciada!`);
+    beep(800, .15, 'sine');
+    render();
+    if (state.view === 'expeditions') renderExpeditions();
+    updateExpeditionBadge();
+    save();
+  }
+  function collectExpedition(index){
+    const act = state.activeExpeditions[index];
+    if (!act) return;
+    const exp = EXPEDITIONS.find(e => e.id === act.id);
+    if (!exp) return;
+    if (Date.now() < act.endsAt){ showToast('Expedição ainda não terminou.'); return; }
+    const reward = exp.rewards;
+    const fragCount = reward.fragMin + Math.floor(Math.random() * (reward.fragMax - reward.fragMin + 1));
+    const types = Object.keys(itemDefs);
+    let remaining = fragCount;
+    while (remaining > 0){
+      const type = types[Math.floor(Math.random() * types.length)];
+      const amount = Math.min(remaining, 1 + Math.floor(Math.random() * 3));
+      state.inventory[type] = (state.inventory[type] || 0) + amount;
+      remaining -= amount;
+    }
+    if (reward.ore){ state.ore += reward.ore; state.oreEarned += reward.ore; }
+    if (reward.coins){ state.coins += reward.coins; state.coinsEarned += reward.coins; }
+    if (reward.potions){ state.potions += reward.potions; }
+    act.petIds.forEach(petId => addPetXP(petId, reward.xp));
+    state.expeditionCounts[exp.id] = (state.expeditionCounts[exp.id] || 0) + 1;
+    state.activeExpeditions.splice(index, 1);
+    let parts = [`${fragCount} fragmentos`, `${reward.ore} ◆`];
+    if (reward.coins) parts.push(`${reward.coins} ◉`);
+    if (reward.potions) parts.push(`${reward.potions} poção(ões)`);
+    parts.push(`+${reward.xp} XP`);
+    log(`🗺 ${exp.name} coletada: ${parts.join(', ')}.`, 'good');
+    showToast(`🎁 +${fragCount} fragmentos · +${reward.ore} ◆ · +${reward.xp} XP`);
+    beep(700, .2, 'sine');
+    const nextExp = EXPEDITIONS.find(e => e.unlockPrev === exp.id);
+    if (nextExp && state.expeditionCounts[exp.id] === 10){
+      log(`🆕 ${nextExp.name} desbloqueada!`, 'good');
+      showToast(`🆕 Nova expedição: ${nextExp.name}!`);
+      setTimeout(() => beep(950, .2, 'sine'), 200);
+    }
+    render();
+    if (state.view === 'expeditions') renderExpeditions();
+    updateExpeditionBadge();
+    save();
+  }
+  function updateExpeditionBadge(){
+    const badge = $('exp-badge');
+    if (!badge) return;
+    const now = Date.now();
+    const ready = state.activeExpeditions.filter(e => now >= e.endsAt).length;
+    if (ready > 0){ badge.hidden = false; badge.textContent = ready; }
+    else { badge.hidden = true; }
+  }
+  function expeditionTick(){
+    if (!state.activeExpeditions.length){ updateExpeditionBadge(); return; }
+    const now = Date.now();
+    let changed = false;
+    for (const exp of state.activeExpeditions){
+      if (!exp.notified && now >= exp.endsAt){
+        exp.notified = true; changed = true;
+        showToast(`🎒 ${exp.name} concluída! Colete os prêmios.`);
+        beep(900, .2, 'sine');
+      }
+    }
+    if (changed) save();
+    updateExpeditionBadge();
+    if (state.view === 'expeditions' && !$('pet-picker-modal').classList.contains('show')){
+      renderExpeditions();
+    }
+  }
+  function renderExpeditions(){
+    const root = $('expeditions-content');
+    if (!root) return;
+    if (!petUnlocked()){
+      root.innerHTML = `<section class="panel"><div class="pet-locked-screen">
+        <div class="big-lock">🔒</div>
+        <h3>Expedições bloqueadas</h3>
+        <p>Alcance o andar <strong style="color:var(--cyan)">30</strong> para desbloquear as expedições.</p>
+        <div class="progress">Andar atual: <strong>${String(Math.min(state.bestFloor, PET_UNLOCK_FLOOR)).padStart(2,'0')}</strong> / 30</div>
+        <div class="progress-bar"><div class="progress-bar-fill" style="width:${Math.min(100, (state.bestFloor / PET_UNLOCK_FLOOR) * 100)}%"></div></div>
+      </div></section>`;
+      return;
+    }
+    const now = Date.now();
+    let activeHTML = '';
+    if (state.activeExpeditions.length > 0){
+      activeHTML = `
+        <section class="panel">
+          <div class="panel-head"><h2 class="panel-title">Expedições em andamento</h2><span class="eyebrow">${state.activeExpeditions.length} ativa(s)</span></div>
+          <div class="list-rows">
+            ${state.activeExpeditions.map((act, idx) => {
+              const exp = EXPEDITIONS.find(e => e.id === act.id);
+              const totalTime = act.endsAt - act.startedAt;
+              const elapsed = Math.min(now - act.startedAt, totalTime);
+              const pct = Math.min(100, (elapsed / totalTime) * 100);
+              const remaining = Math.max(0, act.endsAt - now);
+              const isDone = remaining === 0;
+              const petNames = act.petIds.map(id => `${petShapeGlyph[PETS[id].shape]} ${PETS[id].name}`).join(' + ');
+              return `
+                <div class="expedition-active">
+                  <div class="exp-head">
+                    <div class="exp-icon">${exp.icon}</div>
+                    <div class="exp-info">
+                      <div class="exp-name">${exp.name}</div>
+                      <div class="exp-pets">${petNames}</div>
+                    </div>
+                    <div class="exp-time ${isDone?'done':''}">${isDone ? '✅ Pronta' : formatDuration(remaining)}</div>
+                  </div>
+                  <div class="exp-progress-bar"><div class="exp-progress-fill ${isDone?'done':'active'}" style="width:${pct}%"></div></div>
+                  ${isDone ? `<button class="buy-btn green wide" data-collect="${idx}" type="button">🎁 Coletar recompensas</button>` : ''}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </section>
+      `;
+    }
+    const cardsHTML = EXPEDITIONS.map(exp => {
+      const unlocked = isExpeditionUnlocked(exp);
+      const count = state.expeditionCounts[exp.id] || 0;
+      const prevCount = exp.unlockPrev ? (state.expeditionCounts[exp.unlockPrev] || 0) : 0;
+      const canStart = canStartExpedition(exp);
+      const available = getAvailablePetsForExpedition(exp);
+      let statusHTML = '';
+      let actionHTML = '';
+      if (!unlocked){
+        const need = 10 - prevCount;
+        statusHTML = `<div class="exp-locked-info">🔒 Desbloqueie completando ${need}× mais a anterior (${prevCount}/10)</div>`;
+        actionHTML = `<button class="buy-btn" disabled type="button">Bloqueada</button>`;
+      } else if (available.length < exp.petsRequired){
+        statusHTML = `<div class="exp-locked-info">Precisa de ${exp.petsRequired} pet(s) nível ${exp.minLevel}+ disponíveis</div>`;
+        actionHTML = `<button class="buy-btn" disabled type="button">Sem pets</button>`;
+      } else {
+        actionHTML = `<button class="buy-btn green" data-start-exp="${exp.id}" type="button">🗺 Iniciar</button>`;
+      }
+      return `
+        <div class="exp-card ${unlocked?'':'locked'}">
+          <div class="exp-icon-lg">${exp.icon}</div>
+          <div class="exp-card-name">${exp.name}</div>
+          <div class="exp-card-duration">⏱ ${formatDuration(exp.duration)}</div>
+          <div class="exp-card-req">🐾 ${exp.petsRequired} pet(s) nível ${exp.minLevel}+</div>
+          <div class="exp-card-rewards">
+            <div>📦 ${exp.rewards.fragMin}-${exp.rewards.fragMax} fragmentos</div>
+            <div>◆ ${exp.rewards.ore} minérios</div>
+            ${exp.rewards.coins ? `<div>◉ ${exp.rewards.coins} moedas</div>` : ''}
+            ${exp.rewards.potions ? `<div>✚ ${exp.rewards.potions} poção(ões)</div>` : ''}
+            <div>⭐ +${exp.rewards.xp} XP por pet</div>
+          </div>
+          <div class="exp-card-progress ${count>=10?'complete':''}">Concluídas: ${count}/10 ${count>=10?'✅':''}</div>
+          ${statusHTML}
+          ${actionHTML}
+        </div>
+      `;
+    }).join('');
+    root.innerHTML = activeHTML + `
+      <section class="panel">
+        <div class="panel-head"><h2 class="panel-title">Escolha uma expedição</h2><span class="eyebrow">ENVIE SEUS PETS</span></div>
+        <div class="expedition-grid">${cardsHTML}</div>
+        <p class="bottom-note">COMPLETE UMA EXPEDIÇÃO 10× PARA DESBLOQUEAR A PRÓXIMA · PETS EM EXPEDIÇÃO NÃO PODEM SER EQUIPADOS</p>
+      </section>
+    `;
+  }
+  function renderPetPicker(){
+    const exp = EXPEDITIONS.find(e => e.id === pickerState.expId);
+    if (!exp) return;
+    const title = $('picker-title');
+    if (title) title.textContent = `${exp.icon} ${exp.name} · escolha ${exp.petsRequired} pet(s)`;
+    const body = $('picker-body');
+    if (!body) return;
+    if (state.ownedPets.length === 0){
+      body.innerHTML = '<div class="empty-note">Você ainda não tem pets. Desbloqueie no menu Pet.</div>';
+      updatePickerConfirm(exp);
+      return;
+    }
+    const busy = busyPetIds();
+    body.innerHTML = state.ownedPets.map(petId => {
+      const pet = PETS[petId];
+      if (!pet) return '';
+      const level = state.petLevels[petId] || 1;
+      const isSelected = pickerState.selectedPets.includes(petId);
+      const isEquipped = state.equippedPet === petId;
+      const isBusy = busy.has(petId);
+      const wrongLevel = level < exp.minLevel;
+      const canSelect = !isEquipped && !isBusy && !wrongLevel;
+      let disabledReason = '';
+      if (isEquipped) disabledReason = 'Equipado';
+      else if (isBusy) disabledReason = 'Em expedição';
+      else if (wrongLevel) disabledReason = `Nível ${exp.minLevel}+ necessário`;
+      const xpCurrent = state.expeditionXP[petId] || 0;
+      const xpNeeded = petXPForNextLevel(level);
+      const xpPct = level >= PET_MAX_LEVEL ? 100 : Math.min(100, (xpCurrent / xpNeeded) * 100);
+      const xpText = level >= PET_MAX_LEVEL ? 'MAX' : `${xpCurrent}/${xpNeeded} XP`;
+      const cls = ['picker-pet'];
+      if (isSelected) cls.push('selected');
+      if (!canSelect) cls.push('disabled');
+      return `<div class="${cls.join(' ')}" ${canSelect ? `data-picker-pet="${petId}"` : ''}>
+        <div class="picker-pet-preview" style="color:${pet.color}">${petShapeGlyph[pet.shape]}</div>
+        <div class="picker-pet-info">
+          <div class="picker-pet-name">${pet.name} <small style="color:var(--muted);font-weight:600">Nv. ${level}</small></div>
+          <div class="picker-pet-stats">${pet.baseDodge + (level-1)}% esquiva · ${pet.passive.label} · ${xpText}</div>
+          <div class="picker-pet-xpbar"><div class="picker-pet-xpfill" style="width:${xpPct}%"></div></div>
+          ${disabledReason ? `<div class="disabled-reason">${disabledReason}</div>` : ''}
+        </div>
+        ${isSelected ? '<span class="picker-pet-badge" style="color:var(--gold)">✓</span>' : ''}
+      </div>`;
+    }).join('');
+    updatePickerConfirm(exp);
+  }
+  function updatePickerConfirm(exp){
+    const btn = $('picker-confirm');
+    if (!btn) return;
+    btn.disabled = pickerState.selectedPets.length !== exp.petsRequired;
+    btn.textContent = `Confirmar (${pickerState.selectedPets.length}/${exp.petsRequired})`;
+  }
+
+  /* ---------- BOOT ---------- */
   load();
-  if(state.hp<=0){state.hp=Math.max(1,Math.ceil(state.maxHp*.7));state.floor=Math.max(1,state.floor-1);state.room=1;state.phase='explore';state.enemy=null;}
+  if(state.hp<=0){state.hp=Math.max(1,Math.ceil(state.maxHp*.7));state.floor=Math.max(1,state.floor-1);state.room=1;state.phase='explore';state.enemies=[];state.enemy=null;}
   if(!state.log.length) log('Expedição iniciada. O quadrado do explorador está pronto para descer.','info');
-  // Restaura modo turbo
   setTurbo(state.turbo);
   setMode(state.mode);
   render();
   switchView(state.view || 'home');
   canvasFrame=requestAnimationFrame(draw);
   document.addEventListener('visibilitychange',()=>{if(!document.hidden){render();save();}});
+  setInterval(expeditionTick, 1000);
 })();
 </script>
 </body>
